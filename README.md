@@ -15,6 +15,6 @@ Coming soon
 * [1.4](http://adf.ly/1ZJ5dh) Major Miner Update
 * [1.3.3](http://adf.ly/1YdroI)  (Warning: Maids may be messed up in this one)
 * [1.3.2](http://adf.ly/1YYyXj)
-* 
+
 ###Add-ons
 * [Previously preinstalled textures](http://adf.ly/1ZrsDX)
