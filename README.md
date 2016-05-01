@@ -10,11 +10,12 @@ Note: If you are moving to this version from another version, make sure to backu
 Coming soon
 
 ###1.7.10
-* [1.4.2](http://adf.ly/1ZrryI) May break Multiplayer (Beta)
+* [1.4.3](http://adf.ly/1Zzo9v) Still may break Multiplayer (Beta)
+* [1.4.2](http://adf.ly/1ZrryI) May break Multiplayer (Beta)  
 * [1.4.1](http://adf.ly/1ZPS9J)
-* [1.4](http://adf.ly/1ZJ5dh) Major Miner Update
+* [1.4](http://adf.ly/1ZJ5dh)
 * [1.3.3](http://adf.ly/1YdroI)  (Warning: Maids may be messed up in this one)
 * [1.3.2](http://adf.ly/1YYyXj)
 
 ###Add-ons
-* [Previously preinstalled textures](http://adf.ly/1ZrsDX)
+* [All Previously preinstalled textures](http://adf.ly/1ZrsDX)
