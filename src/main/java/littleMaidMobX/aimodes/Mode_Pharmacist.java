@@ -1,7 +1,7 @@
 package littleMaidMobX.aimodes;
 
 import littleMaidMobX.entity.EntityLittleMaid;
-import littleMaidMobX.helper.Helper;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.inventory.InventoryLittleMaid;
 import littleMaidMobX.sound.EnumSound;
 import net.minecraft.entity.ai.EntityAITasks;

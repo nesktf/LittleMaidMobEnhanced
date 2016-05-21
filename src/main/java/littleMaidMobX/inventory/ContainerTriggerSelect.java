@@ -7,7 +7,7 @@ import java.util.List;
 
 import littleMaidMobX.aimodes.TriggerSelect;
 import littleMaidMobX.gui.GuiTriggerSelect;
-import littleMaidMobX.helper.Helper;
+import littleMaidMobX.util.helper.Helper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;

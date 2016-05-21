@@ -1,4 +1,4 @@
-package littleMaidMobX.model.loader;
+package littleMaidMobX.util.transform;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +26,7 @@ import com.google.common.collect.Lists;
 
 
 /**
- * 古いマルチモデルのロード用。<br>
+ * Oldマルチモデルのロード用。<br>
  * 使用しているクラスを置換えて新しいものへ対応。
  *
  */
@@ -41,6 +41,7 @@ public class Transformer implements IClassTransformer, Opcodes
 	private static final Map<String, String> targets = new HashMap<String, String>()
 	{
 		{
+			//Model Stuff
 			add("EquippedStabilizer", modelPackage);
 			//add("IModelBaseMMM");
 			add("IModelCaps", capsPackage);
@@ -63,6 +64,19 @@ public class Transformer implements IClassTransformer, Opcodes
 			//add("ModelPlate");
 			add("ModelRenderer", renderPackage);
 			add("ModelStabilizerBase", modelPackage);
+			
+			//AI Mode Compatibility
+			put("littleMaidMobX/LMM_EntityMode_Basic", "littleMaidMobX/aimodes/Mode_Basic");
+			put("littleMaidMobX/LMM_EntityLittleMaid", "littleMaidMobX/entity/EntityLittleMaid");
+			put("littleMaidMobX/LMM_EnumSound", "littleMaidMobX/sound/EnumSound");
+			put("littleMaidMobX/LMM_InventoryLittleMaid", "littleMaidMobX/inventory/InventoryLittleMaid");
+			
+			//ai
+			put("LlittleMaidMobX/LMM_EntityAIWander", "littleMaidMobX/ai/AIWander");
+			put("littleMaidMobX/LMM_EntityAIJumpToMaster", "littleMaidMobX/ai/AIJumpToMaster");
+			put("littleMaidMobX/LMM_EntityAIFollowOwner", "littleMaidMobX/ai/AIFollowOwner");
+			put("littleMaidMobX/LMM_EntityAIAvoidPlayer", "littleMaidMobX/ai/AIAvoidPlayer");
+			
 		}
 		private void add(String pName, String packageString)
 		{
@@ -76,7 +90,7 @@ public class Transformer implements IClassTransformer, Opcodes
 
 
 	public static void Debug(String pText, Object... pData) {
-		if(Config.isDebugMessage)
+		if(Config.isDebugAll||Config.isDebugAddons)
 		{
 			System.out.println(String.format("MMMTransformer-" + pText, pData));
 		}

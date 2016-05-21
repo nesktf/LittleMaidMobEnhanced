@@ -1,9 +1,9 @@
 package littleMaidMobX.gui;
 
-import littleMaidMobX.Statics;
 import littleMaidMobX.network.Net;
 import littleMaidMobX.registry.ModelManager;
 import littleMaidMobX.textures.ITextureEntity;
+import littleMaidMobX.util.Statics;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 

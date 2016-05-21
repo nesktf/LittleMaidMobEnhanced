@@ -1,4 +1,4 @@
-package littleMaidMobX;
+package littleMaidMobX.network;
 
 import littleMaidMobX.registry.ModelManager;
 

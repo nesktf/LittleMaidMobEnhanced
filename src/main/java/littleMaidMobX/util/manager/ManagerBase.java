@@ -1,4 +1,4 @@
-package littleMaidMobX;
+package littleMaidMobX.util.manager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +8,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import cpw.mods.fml.relauncher.FMLInjectionData;
-import littleMaidMobX.helper.PathHelper;
+import littleMaidMobX.LittleMaidMobX;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.helper.PathHelper;
 import littleMaidMobX.io.Config;
 import littleMaidMobX.io.FileManager;
 import net.minecraft.client.Minecraft;
@@ -24,7 +26,7 @@ public abstract class ManagerBase
 
 
 	protected void load() {
-		// ロード
+		// load
 		
 		// 開発用
 		startSearch(FileManager.dirMods, false);
@@ -44,8 +46,8 @@ public abstract class ManagerBase
 		
 		// mods]
 		String mcv = (String) FMLInjectionData.data()[4];
-		LittleMaidMobX.Debug("MC %s", mcv);
-		LittleMaidMobX.Debug("START SEARCH MODS FOLDER");
+		Debug.addon("MC %s", mcv);
+		Debug.addon("START SEARCH MODS FOLDER");
 		decodeDirectory(root, root);
 		for (File lf : root.listFiles()) {
 			if (lf.isFile() && (lf.getName().endsWith(".zip") || lf.getName().endsWith(".jar"))) {
@@ -58,11 +60,11 @@ public abstract class ManagerBase
 					md = md.substring(0, md.length()-1);
 				}
 
-				LittleMaidMobX.Debug("DIR SEARCH %s", md);
+				Debug.addon("DIR SEARCH %s", md);
 				String mf = PathHelper.getFileName(md);
-				LittleMaidMobX.Debug(" SPLICE %s", mf);
+				Debug.addon(" SPLICE %s", mf);
 				if (mf.equals(mcv)) {
-					LittleMaidMobX.Debug("DEBUG START SEARCH DIVIDED FOLDER");
+					Debug.addon("DEBUG START SEARCH DIVIDED FOLDER");
 					startSearch(lf, false);
 				}
 			}
@@ -123,7 +125,7 @@ public abstract class ManagerBase
 			fileinputstream.close();
 		}
 		catch (Exception exception) {
-			LittleMaidMobX.Debug("add%sZip-Exception.", getPreFix());
+			Debug.addon("add%sZip-Exception.", getPreFix());
 		}
 		
 	}
@@ -143,13 +145,14 @@ public abstract class ManagerBase
 			} else {
 				lclass = Class.forName(lclassname);
 			}
-			if (Modifier.isAbstract(lclass.getModifiers())) {
+			if (Modifier.isAbstract(lclass.getModifiers()))
+			{
 				return;
 			}
 			if (append(lclass)) {
-				LittleMaidMobX.Debug("get%sClass-done: %s", getPreFix(), lclassname);
+				Debug.addon("get%sClass-done: %s", getPreFix(), lclassname);
 			} else {
-				LittleMaidMobX.Debug("get%sClass-fail: %s", getPreFix(), lclassname);
+				Debug.addon("get%sClass-fail: %s", getPreFix(), lclassname);
 			}
 			/*
             if (!(MMM_ModelStabilizerBase.class).isAssignableFrom(lclass) || Modifier.isAbstract(lclass.getModifiers())) {
@@ -163,12 +166,12 @@ public abstract class ManagerBase
             */
 		}
 		catch (Exception exception) {
-			LittleMaidMobX.Debug("get%sClass-Exception.(%s)", getPreFix(), lclassname);
-			if(Config.isDebugMessage) exception.printStackTrace();
+			Debug.addon("get%sClass-Exception.(%s)", getPreFix(), lclassname);
+			if(Config.isDebugAll||Config.isDebugAddons) exception.printStackTrace();
 		}
 		catch (Error error) {
-			LittleMaidMobX.Debug("get%sClass-Error: %s", getPreFix(), lclassname);
-			if(Config.isDebugMessage) error.printStackTrace();
+			Debug.addon("get%sClass-Error: %s", getPreFix(), lclassname);
+			if(Config.isDebugAll||Config.isDebugAddons) error.printStackTrace();
 		}
 		
 	}

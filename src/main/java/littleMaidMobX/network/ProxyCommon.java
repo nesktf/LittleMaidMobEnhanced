@@ -1,7 +1,6 @@
-package littleMaidMobX;
+package littleMaidMobX.network;
 
 import littleMaidMobX.entity.EntityLittleMaidAvatar;
-import littleMaidMobX.network.Message;
 import littleMaidMobX.registry.ModelManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

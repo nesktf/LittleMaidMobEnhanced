@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseBeverly;import littleMaidMobX.render.model.ModelBoxPlate;import littleMaidMobX.render.model.ModelRenderer;public class MultiModel_Beverly4 extends ModelModchuBaseBeverly {	public ModelRenderer Headwear;
+package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseBeverly;import littleMaidMobX.render.model.ModelBoxPlate;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.util.helper.Helper;public class MultiModel_Beverly4 extends ModelModchuBaseBeverly {	public ModelRenderer Headwear;
 	public ModelRenderer Body2;
 	public ModelRenderer Bodywear;
 	public ModelRenderer Body3;
@@ -259,8 +259,8 @@ package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps
 			// 腕振り
 			float f15;
 			float f16, f17;
-			f16 = littleMaidMobX.helper.Helper.sin(littleMaidMobX.helper.Helper.sqrt(onGrounds[0]) * (float) Math.PI * 2.0F);
-			f17 = littleMaidMobX.helper.Helper.sin(littleMaidMobX.helper.Helper.sqrt(onGrounds[1]) * (float) Math.PI * 2.0F);
+			f16 = Helper.sin(Helper.sqrt(onGrounds[0]) * (float) Math.PI * 2.0F);
+			f17 = Helper.sin(Helper.sqrt(onGrounds[1]) * (float) Math.PI * 2.0F);
 			bipedBody.rotateAngleY = (f16 - f17) * 0.2F;
 			rightArm.rotateAngleY = bipedBody.rotateAngleY;
 			leftArm.rotateAngleY = bipedBody.rotateAngleY;			// R

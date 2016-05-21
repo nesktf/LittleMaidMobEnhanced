@@ -25,9 +25,11 @@ public class LittleMaidMobGuiConfig extends GuiConfig
     {
         List<IConfigElement> list = new ArrayList<>();
         
-        list.add(categoryElement(Config.CATEGORY_MMMLIB, "MMMLib", "littlemaidmob.configgui.ctgy.mmmlib"));
         list.add(categoryElement(Config.CATEGORY_MAIDS, "Maids", "littlemaidmob.configgui.ctgy.maids"));
+        list.add(categoryElement(Config.CATEGORY_SPAWNING, "Spawning", "littlemaidmob.configgui.ctgy.spawning"));
         list.add(categoryElement(Config.CATEGORY_ITEMS, "Items", "littlemaidmob.configgui.ctgy.items"));
+        list.add(categoryElement(Config.CATEGORY_MMMLIB, "MMMLib", "littlemaidmob.configgui.ctgy.mmmlib"));
+        list.add(categoryElement(Config.CATEGORY_DEBUG, "Debugging", "littlemaidmob.configgui.ctgy.debug"));
         
         return list;
     }

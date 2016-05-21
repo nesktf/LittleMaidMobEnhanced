@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseOkota;import littleMaidMobX.render.model.ModelRenderer;
+package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseOkota;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.util.helper.Helper;
 public class MultiModel_Yukkuri extends ModelModchuBaseOkota {	public ModelRenderer Item1;
 	public ModelRenderer Item2;
 	public ModelRenderer HeadR;
@@ -362,8 +362,8 @@ public class MultiModel_Yukkuri extends ModelModchuBaseOkota {	public ModelRen
 		float basebipedHeadRotationPointY = 12F;
 		bipedHead.rotationPointY = bipedRightLeg.rotateAngleX < 0.0F ? basebipedHeadRotationPointY : basebipedHeadRotationPointY - bipedRightLeg.rotateAngleX * 8F;
 		bipedBody.rotationPointY = -6F;
-		Skirt.setRotationPoint(0.0F, 0.0F, 0.0F);		bipedRightArm.rotateAngleX = littleMaidMobX.helper.Helper.cos(f * 0.6662F + 3.141593F) * 0.5F * f1 * 0.3F;
-		bipedLeftArm.rotateAngleX = littleMaidMobX.helper.Helper.cos(f * 0.6662F) * 0.5F * f1 * 0.3F;
+		Skirt.setRotationPoint(0.0F, 0.0F, 0.0F);		bipedRightArm.rotateAngleX = Helper.cos(f * 0.6662F + 3.141593F) * 0.5F * f1 * 0.3F;
+		bipedLeftArm.rotateAngleX = Helper.cos(f * 0.6662F) * 0.5F * f1 * 0.3F;
 		bipedRightArm.rotationPointX = -7.0F;
 		bipedRightArm.rotationPointZ = -3.0F;
 		bipedLeftArm.rotationPointX = 5.0F;
@@ -516,9 +516,9 @@ public class MultiModel_Yukkuri extends ModelModchuBaseOkota {	public ModelRen
 		HaneL1.rotationPointZ = 6F;
 		HaneL1.rotateAngleX = 0.349F;
 		//h1 翼、自動動き + 移動動き
-		float h1 = (littleMaidMobX.helper.Helper.cos(f2 * 0.2F) * 0.05F) + (bipedLeftLeg.rotateAngleX / 3F);
+		float h1 = (Helper.cos(f2 * 0.2F) * 0.05F) + (bipedLeftLeg.rotateAngleX / 3F);
 		HaneL1.rotateAngleZ = h1 - 0.262F;		HaneL2.rotationPointX = 11F;
-		HaneL2.rotationPointY = (littleMaidMobX.helper.Helper.sin(h1) * 8F) - 6F;
+		HaneL2.rotationPointY = (Helper.sin(h1) * 8F) - 6F;
 		HaneL2.rotationPointZ = 6F;
 		HaneL2.rotateAngleX = 0.349F;
 		HaneL2.rotateAngleY = h1 + 0.262F;		HaneR1.rotationPointX = -2F;
@@ -526,9 +526,9 @@ public class MultiModel_Yukkuri extends ModelModchuBaseOkota {	public ModelRen
 		HaneR1.rotationPointZ = 6F;
 		HaneR1.rotateAngleX = 0.349F;
 		//h2 翼、自動動き + 移動動き 逆側
-		float h2 = (littleMaidMobX.helper.Helper.cos(f2 * 0.2F + 3.141593F) * 0.05F) + (bipedRightLeg.rotateAngleX / 3F);
+		float h2 = (Helper.cos(f2 * 0.2F + 3.141593F) * 0.05F) + (bipedRightLeg.rotateAngleX / 3F);
 		HaneR1.rotateAngleZ = h2 + 0.262F;		HaneR2.rotationPointX = -9F;
-		HaneR2.rotationPointY = (littleMaidMobX.helper.Helper.sin(h2) * -8F) - 6F;
+		HaneR2.rotationPointY = (Helper.sin(h2) * -8F) - 6F;
 		HaneR2.rotationPointZ = 6F;
 		HaneR2.rotateAngleX = 0.349F;
 		HaneR2.rotateAngleY = h2 - 0.262F;		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isRiding)) {
@@ -545,8 +545,8 @@ public class MultiModel_Yukkuri extends ModelModchuBaseOkota {	public ModelRen
 			bipedHead.rotationPointY = bipedRightLeg.rotateAngleX < 0.0F ? basebipedHeadRotationPointY : basebipedHeadRotationPointY - bipedRightLeg.rotateAngleX * 8F;
 		}
 		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
-			float f6 = littleMaidMobX.helper.Helper.sin(onGrounds[dominantArm] * 3.141593F);
-			float f7 = littleMaidMobX.helper.Helper.sin((1.0F - (1.0F - onGrounds[dominantArm]) * (1.0F - onGrounds[dominantArm])) * 3.141593F);
+			float f6 = Helper.sin(onGrounds[dominantArm] * 3.141593F);
+			float f7 = Helper.sin((1.0F - (1.0F - onGrounds[dominantArm]) * (1.0F - onGrounds[dominantArm])) * 3.141593F);
 			bipedRightArm.rotateAngleZ = 0.0F;
 			bipedLeftArm.rotateAngleZ = 0.0F;
 			bipedRightArm.rotateAngleY = -(0.1F - f6 * 0.6F) + bipedHead.rotateAngleY;
@@ -555,10 +555,10 @@ public class MultiModel_Yukkuri extends ModelModchuBaseOkota {	public ModelRen
 			bipedLeftArm.rotateAngleX = -1.470796F;
 			bipedRightArm.rotateAngleX -= f6 * 1.2F - f7 * 0.4F;
 			bipedLeftArm.rotateAngleX -= f6 * 1.2F - f7 * 0.4F;
-			bipedRightArm.rotateAngleZ += littleMaidMobX.helper.Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
-			bipedLeftArm.rotateAngleZ -= littleMaidMobX.helper.Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
-			bipedRightArm.rotateAngleX += littleMaidMobX.helper.Helper.sin(f2 * 0.067F) * 0.05F;
-			bipedLeftArm.rotateAngleX += littleMaidMobX.helper.Helper.sin(f2 * 0.067F) * 0.05F;
+			bipedRightArm.rotateAngleZ += Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
+			bipedLeftArm.rotateAngleZ -= Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
+			bipedRightArm.rotateAngleX += Helper.sin(f2 * 0.067F) * 0.05F;
+			bipedLeftArm.rotateAngleX += Helper.sin(f2 * 0.067F) * 0.05F;
 			bipedRightArm.rotateAngleX += bipedHead.rotateAngleX;
 			bipedLeftArm.rotateAngleX += bipedHead.rotateAngleX;
 			bipedRightArm.rotationPointX = -7F;
@@ -590,8 +590,8 @@ public class MultiModel_Yukkuri extends ModelModchuBaseOkota {	public ModelRen
 		if (armSwingFlag(entityCaps)) {
 			// 腕振り
 			float f6, f7, f8;
-			f6 = littleMaidMobX.helper.Helper.sin(littleMaidMobX.helper.Helper.sqrt(onGrounds[0]) * (float) Math.PI * 2.0F);
-			f7 = littleMaidMobX.helper.Helper.sin(littleMaidMobX.helper.Helper.sqrt(onGrounds[1]) * (float) Math.PI * 2.0F);
+			f6 = Helper.sin(Helper.sqrt(onGrounds[0]) * (float) Math.PI * 2.0F);
+			f7 = Helper.sin(Helper.sqrt(onGrounds[1]) * (float) Math.PI * 2.0F);
 			bipedBody.rotateAngleY = (f6 - f7) * 0.2F;
 			// R
 			if (onGrounds[0] > 0F) {
@@ -599,11 +599,11 @@ public class MultiModel_Yukkuri extends ModelModchuBaseOkota {	public ModelRen
 				f6 *= f6;
 				f6 *= f6;
 				f6 = 1.0F - f6;
-				f7 = littleMaidMobX.helper.Helper.sin(f6 * (float) Math.PI);
-				f8 = littleMaidMobX.helper.Helper.sin(onGrounds[0] * (float) Math.PI) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
+				f7 = Helper.sin(f6 * (float) Math.PI);
+				f8 = Helper.sin(onGrounds[0] * (float) Math.PI) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
 				bipedRightArm.rotateAngleX -= f7 * 1.2D + f8;
 				bipedRightArm.rotateAngleY += bipedBody.rotateAngleY * 2.0F;
-				bipedRightArm.rotateAngleZ = littleMaidMobX.helper.Helper.sin(onGrounds[0] * 3.141593F) * -0.4F;
+				bipedRightArm.rotateAngleZ = Helper.sin(onGrounds[0] * 3.141593F) * -0.4F;
 			} else {
 				bipedRightArm.rotateAngleZ = 0.0F;
 			}
@@ -613,11 +613,11 @@ public class MultiModel_Yukkuri extends ModelModchuBaseOkota {	public ModelRen
 				f6 *= f6;
 				f6 *= f6;
 				f6 = 1.0F - f6;
-				f7 = littleMaidMobX.helper.Helper.sin(f6 * (float) Math.PI);
-				f8 = littleMaidMobX.helper.Helper.sin(onGrounds[1] * (float) Math.PI) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
+				f7 = Helper.sin(f6 * (float) Math.PI);
+				f8 = Helper.sin(onGrounds[1] * (float) Math.PI) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
 				bipedLeftArm.rotateAngleX -= f7 * 1.2D + f8;
 				bipedLeftArm.rotateAngleY += bipedBody.rotateAngleY * 2.0F;
-				bipedLeftArm.rotateAngleZ = littleMaidMobX.helper.Helper.sin(onGrounds[1] * 3.141593F) * 0.4F;
+				bipedLeftArm.rotateAngleZ = Helper.sin(onGrounds[1] * 3.141593F) * 0.4F;
 			} else {
 				bipedLeftArm.rotateAngleZ = 0.0F;
 			}

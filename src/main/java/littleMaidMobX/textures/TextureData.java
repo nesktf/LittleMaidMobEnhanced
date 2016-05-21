@@ -3,7 +3,8 @@ package littleMaidMobX.textures;
 import littleMaidMobX.LittleMaidMobX;
 import littleMaidMobX.entity.EntityLittleMaid;
 import littleMaidMobX.entity.EntitySelect;
-import littleMaidMobX.helper.Helper;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.model.caps.IModelCaps;
 import littleMaidMobX.model.maid.ModelMultiBase;
 import littleMaidMobX.registry.ModelManager;
@@ -326,7 +327,7 @@ public class TextureData {
 
 	
 	public void setTextureInitServer(String pName) {
-		LittleMaidMobX.Debug("request Init Texture: %s", pName);
+		Debug.texture("request Init Texture: %s", pName);
 		textureIndex[0] = textureIndex[1] = ModelManager.instance.getIndexTextureBoxServer((ITextureEntity) owner, pName);
 		textureBox[0] = textureBox[1] = ModelManager.instance.getTextureBoxServer(textureIndex[0]);
 		color = textureBox[0].getRandomWildColor(owner.getRNG());

@@ -1,5 +1,7 @@
 package littleMaidMobX.io;
 
+import java.io.File;
+
 import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
@@ -7,9 +9,11 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 public class Config
 {
 
-    public static final String CATEGORY_MAIDS = "maids";
-	public static final String CATEGORY_MMMLIB = "mmmlib";
-	public static final String CATEGORY_ITEMS = "items";
+    public static final String CATEGORY_MAIDS	 = "maids";
+	public static final String CATEGORY_MMMLIB	 = "mmmlib";
+	public static final String CATEGORY_ITEMS	 = "items";
+	public static final String CATEGORY_DEBUG	 = "debug";
+	public static final String CATEGORY_SPAWNING = "spawning";
 	
 	public static Configuration config;
 	
@@ -20,7 +24,7 @@ public class Config
 	public static boolean canDespawn;
 	public static boolean checkOwnerName;
 	public static boolean antiDoppelganger;
-	public static boolean cfg_enableSpawnEgg;
+	public static boolean enableSpawnEgg;
 	public static boolean VoiceDistortion;
 	public static String defaultTexture;
 	public static boolean DeathMessage;
@@ -29,10 +33,19 @@ public class Config
 	public static String IgnoreItemList;
 	public static boolean makeNoise;
 	
+	public static boolean isDebug;
 	public static boolean isModelAlphaBlend;
 	
-	public static boolean isDebugMessage;
-	public static boolean isDebugModels = true;
+	public static boolean isDebugAll;
+	public static boolean isDebugEntity;
+	public static boolean isDebugSound;
+	public static boolean isDebugTextures;
+	public static boolean isDebugModels;
+	public static boolean isDebugAddons;
+	public static boolean isDebugAI;
+	public static boolean isDebugServer;
+	public static boolean isDebugClient;
+	public static boolean isDebugGui;
 
 	/*public static File configDir;
 	
@@ -148,33 +161,50 @@ public class Config
 		}*/
 		
 		config.load();
+		config.setCategoryRequiresMcRestart(CATEGORY_SPAWNING, true);
+		config.setCategoryComment(CATEGORY_SPAWNING, "Spawning Options (Requires Restart)");
+		config.setCategoryRequiresMcRestart(CATEGORY_ITEMS, true);
 	}
 	
 	public static void syncConfig()
 	{
 		//MMMLib
-		isDebugMessage		= config.getBoolean("Display Debug Messages", CATEGORY_MMMLIB, false, "Whether or not LittleMaid debug messages will appear in the log, set to TRUE if you want to report an error.");
-		isModelAlphaBlend	= config.getBoolean("Is Model Alpha Blend", CATEGORY_MMMLIB, true, "true: AlphaBlend(requires more power), false: AlphaTest(faster)");
+		isModelAlphaBlend = config.getBoolean("Is Model Alpha Blend", CATEGORY_MMMLIB, true, "true: AlphaBlend(requires more power), false: AlphaTest(faster)");
+		//isDebug = config.getBoolean("Show debug settings", CATEGORY_MMMLIB, false, "True enables debug settings to appear in the in-game config menu.");
 		//public static boolean AlphaBlend = true;
 		
+		//Debug
+			isDebugAll = config.getBoolean("Shows all debugging outputs", CATEGORY_DEBUG, false, "Whether or not LittleMaid debug messages will appear in the log, set to TRUE if you want to report an error.");
+			isDebugEntity = config.getBoolean("Shows all entity debugging outputs", CATEGORY_DEBUG, false, "If true debug output will appear in the console.");
+			isDebugGui = config.getBoolean("Shows all GUI debugging outputs", CATEGORY_DEBUG, false, "If true debug output will appear in the console.");
+			isDebugSound = config.getBoolean("Shows all sound debugging outputs", CATEGORY_DEBUG, false, "If true debug output will appear in the console.");
+			isDebugAddons = config.getBoolean("Shows all add-on debugging outputs", CATEGORY_DEBUG, false, "If true debug output will appear in the console.");
+			isDebugTextures = config.getBoolean("Shows all texture debugging outputs", CATEGORY_DEBUG, false, "If true debug output will appear in the console.");
+			isDebugModels = config.getBoolean("Shows all model debugging outputs", CATEGORY_DEBUG, false, "If true debug output will appear in the console.");
+			isDebugAI = config.getBoolean("Shows all AI debugging outputs", CATEGORY_DEBUG, false, "If true debug output will appear in the console.");
+			isDebugClient = config.getBoolean("Shows all client debugging outputs", CATEGORY_DEBUG, false, "If true debug output will appear in the console.");
+			isDebugServer = config.getBoolean("Shows all server debugging outputs", CATEGORY_DEBUG, false, "If true debug output will appear in the console.");			
+		
 		//Maids
-		spawnWeight = config.getInt("Spawn Weight", CATEGORY_MAIDS, 5, 0, 10, "Relative spawn weight. The lower the less common. 10=pigs 0=off (Requires Restart)");
-		spawnLimit = config.getInt("Spawn Limit", CATEGORY_MAIDS, 20, 10, 100, "Maximum spawn count in the World. (Requires Restart)");//Needs more lookup
-		minGroupSize = config.getInt("Minimum Group Size", CATEGORY_MAIDS, 1, 1, 10, "Minimum spawn group count. (Requires Restart)");
-		maxGroupSize = config.getInt("Maximum Group Size", CATEGORY_MAIDS, 3, 1, 10, "Maximum spawn group count. (Requires Restart)");
-		canDespawn = config.getBoolean("Can Despawn", CATEGORY_MAIDS, false, "Whether or not a Maid without a contract can despawn.");
-		checkOwnerName = config.getBoolean("Check Owner Name", CATEGORY_MAIDS, true, "Checks name of owner, if you do multiplayer keep this true.");
+		canDespawn		 = config.getBoolean("Can Despawn", CATEGORY_MAIDS, false, "Whether or not a Maid without a contract can despawn.");
+		checkOwnerName	 = config.getBoolean("Check Owner Name", CATEGORY_MAIDS, true, "Checks name of owner, if you do multiplayer keep this true.");
 		antiDoppelganger = config.getBoolean("Anti Doppelganger", CATEGORY_MAIDS, true, "Not to survive the doppelganger.");//What is this
-		VoiceDistortion = config.getBoolean("Voice Distortion", CATEGORY_MAIDS, true, "Enables Maid voices to distort based of hair color");
-		defaultTexture = config.getString("Default Texture", CATEGORY_MAIDS, "", "Default selected Texture Package. Null is Random");
-		DeathMessage = config.getBoolean("Print Death Message", CATEGORY_MAIDS, true, "Prints message on the death of your maid.");
-		Aggressive = config.getBoolean("Agressive", CATEGORY_MAIDS, true, "true: Will be hostile, false: Is a pacifist");//What is this
-		IgnoreItemList = config.getString("Ignore Item List", CATEGORY_MAIDS, "arsmagica2", "?");//What is this
-		makeNoise = config.getBoolean("Maids Make Sounds", CATEGORY_MAIDS, true, "Determines whether or not maids will make noises");
-		Dominant = config.getBoolean("Maids Spawn Everywhere", CATEGORY_MAIDS, false, "If true maids will spawn in all biomes, if false maids will only spawn in biomes of approved types. (Requires Restart)");
+		VoiceDistortion	 = config.getBoolean("Voice Distortion", CATEGORY_MAIDS, true, "Enables Maid voices to distort based of hair color");
+		defaultTexture	 = config.getString("Default Texture", CATEGORY_MAIDS, "", "Default selected Texture Package. Null is Random");
+		DeathMessage	 = config.getBoolean("Print Death Message", CATEGORY_MAIDS, true, "Prints message on the death of your maid.");
+		Aggressive		 = config.getBoolean("Agressive", CATEGORY_MAIDS, true, "true: Will be hostile, false: Is a pacifist");//What is this
+		IgnoreItemList	 = config.getString("Ignore Item List", CATEGORY_MAIDS, "arsmagica2", "?");//This appears to be a list of items that maids will ignore. Effectiveness has not been tested.
+		makeNoise		 = config.getBoolean("Maids Make Sounds", CATEGORY_MAIDS, true, "Determines whether or not maids will make noises");
+		
+		//Spawning
+		spawnWeight		 = config.getInt("Spawn Weight", CATEGORY_SPAWNING, 5, 0, 10, "Relative spawn weight. The lower the less common. 10=pigs 0=off (Requires Restart)");
+		spawnLimit		 = config.getInt("Spawn Limit", CATEGORY_SPAWNING, 20, 10, 100, "Maximum spawn count in the World. (Requires Restart)");//Needs more lookup
+		minGroupSize	 = config.getInt("Minimum Group Size", CATEGORY_SPAWNING, 1, 1, 10, "Minimum spawn group count. (Requires Restart)");
+		maxGroupSize	 = config.getInt("Maximum Group Size", CATEGORY_SPAWNING, 3, 1, 10, "Maximum spawn group count. (Requires Restart)");
+		Dominant		 = config.getBoolean("Maids Spawn Everywhere", CATEGORY_SPAWNING, false, "If true maids will spawn in all biomes, if false maids will only spawn in biomes of approved types. (Requires Restart)");
 		
 		//Items
-		cfg_enableSpawnEgg = config.getBoolean("Enable Spawn Egg", CATEGORY_ITEMS, true, "Enables Little Maid SpawnEgg Recipe. (Requires Restart)");
+		enableSpawnEgg = config.getBoolean("Enable Spawn Egg", CATEGORY_ITEMS, true, "Enables Little Maid SpawnEgg Recipe. (Requires Restart)");		
 	}
 	
 	public static void checkConfig() //(Class pClass)

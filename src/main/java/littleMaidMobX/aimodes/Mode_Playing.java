@@ -5,6 +5,7 @@ import java.util.List;
 import littleMaidMobX.LittleMaidMobX;
 import littleMaidMobX.entity.EntityLittleMaid;
 import littleMaidMobX.sound.EnumSound;
+import littleMaidMobX.util.Debug;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -102,7 +103,7 @@ public class Mode_Playing extends ModeBase {
 		
 		if (pe != null) {
 			owner.getNavigator().setPath(pe, 1.0F);
-			LittleMaidMobX.Debug("Find Snow Area-%d:%d, %d, %d.", owner.getEntityId(), x, y, z);
+			Debug.ai("Find Snow Area-%d:%d, %d, %d.", owner.getEntityId(), x, y, z);
 			return true;
 		} else {
 			return false;
@@ -306,7 +307,7 @@ public class Mode_Playing extends ModeBase {
 				owner.setPlayingRole(mpr_QuickShooter);
 				owner.setMaidWait(false);
 				owner.setMaidWaitCount(0);
-				LittleMaidMobX.Debug("playingMode Enable.");
+				Debug.ai("playingMode Enable.");
 			}
 		}
 		return 0F;

@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import littleMaidMobX.helper.Helper;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseMulti;import littleMaidMobX.render.model.ModelRenderer;public class MultiModel_Elsie extends ModelModchuBaseMulti {	public ModelRenderer RightSkirt;
+package littleMaidMobX.model.maids;import littleMaidMobX.util.helper.Helper;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseMulti;import littleMaidMobX.render.model.ModelRenderer;public class MultiModel_Elsie extends ModelModchuBaseMulti {	public ModelRenderer RightSkirt;
 	public ModelRenderer LeftSkirt;
 	public ModelRenderer bipedHeadwearB;
 	public ModelRenderer SkirtTopL;

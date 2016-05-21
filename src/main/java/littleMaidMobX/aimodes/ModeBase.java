@@ -5,6 +5,7 @@ import java.util.List;
 import littleMaidMobX.LittleMaidMobX;
 import littleMaidMobX.entity.EntityLittleMaid;
 import littleMaidMobX.render.RenderLittleMaid;
+import littleMaidMobX.util.Debug;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAITasks;
@@ -205,7 +206,7 @@ public abstract class ModeBase {
 		World worldObj = owner.worldObj;
 		Block lblock = worldObj.getBlock(pX, pY, pZ);
 		if (lblock == null) {
-			LittleMaidMobX.Debug("block-null: %d, %d, %d", pX, pY, pZ);
+			Debug.ai("block-null: %d, %d, %d", pX, pY, pZ);
 			return false;
 		}
 		lblock.setBlockBoundsBasedOnState(worldObj, pX, pY, pZ);

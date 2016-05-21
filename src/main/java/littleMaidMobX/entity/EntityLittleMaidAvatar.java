@@ -3,8 +3,9 @@ package littleMaidMobX.entity;
 import java.util.Collection;
 
 import littleMaidMobX.LittleMaidMobX;
-import littleMaidMobX.Statics;
 import littleMaidMobX.sound.EnumSound;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.Statics;
 import littleMaidMobX.wrapper.MinecraftWrapper;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -187,7 +188,7 @@ public class EntityLittleMaidAvatar extends EntityPlayer {
 			((EntityCreature)par1Entity).setTarget(avatar);
 		}
 		if (ll > 0) {
-			LittleMaidMobX.Debug(String.format("ID:%d Given Damege:%f", avatar.getEntityId(), ll - ((EntityLivingBase)par1Entity).getHealth()));
+			Debug.entity(String.format("ID:%d Given Damege:%f", avatar.getEntityId(), ll - ((EntityLivingBase)par1Entity).getHealth()));
 		}
 	}
 

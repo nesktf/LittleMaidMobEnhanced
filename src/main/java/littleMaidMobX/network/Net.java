@@ -1,16 +1,17 @@
 package littleMaidMobX.network;
 
-import static littleMaidMobX.Statics.LMN_Client_SetIFFValue;
-import static littleMaidMobX.Statics.LMN_Server_DecDyePowder;
-import static littleMaidMobX.Statics.LMN_Server_GetIFFValue;
-import static littleMaidMobX.Statics.LMN_Server_SaveIFF;
-import static littleMaidMobX.Statics.LMN_Server_SetIFFValue;
-import static littleMaidMobX.Statics.LMN_Server_UpdateSlots;
+import static littleMaidMobX.util.Statics.LMN_Client_SetIFFValue;
+import static littleMaidMobX.util.Statics.LMN_Server_DecDyePowder;
+import static littleMaidMobX.util.Statics.LMN_Server_GetIFFValue;
+import static littleMaidMobX.util.Statics.LMN_Server_SaveIFF;
+import static littleMaidMobX.util.Statics.LMN_Server_SetIFFValue;
+import static littleMaidMobX.util.Statics.LMN_Server_UpdateSlots;
 import littleMaidMobX.LittleMaidMobX;
 import littleMaidMobX.aimodes.IFF;
 import littleMaidMobX.aimodes.SwingStatus;
 import littleMaidMobX.entity.EntityLittleMaid;
-import littleMaidMobX.helper.Helper;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.helper.Helper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityTracker;
 import net.minecraft.entity.player.EntityPlayer;
@@ -46,13 +47,13 @@ public class Net {
 		Helper.setInt(pData, 1, pEntity.getEntityId());
 		Network.sendPacketToServer(2,pData);
 //		ModLoader.clientSendPacket(new Packet250CustomPayload("LMM|Upd", pData));
-		LittleMaidMobX.Debug(String.format("LMM|Upd:send:%2x:%d", pData[0], pEntity.getEntityId()));
+		Debug.server(String.format("LMM|Upd:send:%2x:%d", pData[0], pEntity.getEntityId()));
 	}
 
 	public static void sendToServer(byte[] pData) {
 		Network.sendPacketToServer(2, pData);
 //		ModLoader.clientSendPacket(new Packet250CustomPayload("LMM|Upd", pData));
-		LittleMaidMobX.Debug(String.format("LMM|Upd:%2x:NOEntity", pData[0]));
+		Debug.server(String.format("LMM|Upd:%2x:NOEntity", pData[0]));
 	}
 
 	
@@ -87,7 +88,7 @@ public class Net {
 			lemaid = getLittleMaid(pPayload.data, 1, playerEntity.worldObj);
 			if (lemaid == null) return;
 		}
-		LittleMaidMobX.Debug(String.format("LMM|Upd Srv Call[%2x:%d].", lmode, leid));
+		Debug.server(String.format("LMM|Upd Srv Call[%2x:%d].", lmode, leid));
 		byte[] ldata;
 		int lindex;
 		int lval;
@@ -124,7 +125,7 @@ public class Net {
 			lval = pPayload.data[1];
 			lindex = Helper.getInt(pPayload.data, 2);
 			lname = Helper.getStr(pPayload.data, 6);
-			LittleMaidMobX.Debug("setIFF-SV user:%s %s(%d)=%d", Helper.getPlayerName(playerEntity), lname, lindex, lval);
+			Debug.server("setIFF-SV user:%s %s(%d)=%d", Helper.getPlayerName(playerEntity), lname, lindex, lval);
 			IFF.setIFFValue(Helper.getPlayerName(playerEntity), lname, lval);
 			sendIFFValue(playerEntity, lval, lindex);
 			break;
@@ -133,7 +134,7 @@ public class Net {
 			lindex = Helper.getInt(pPayload.data, 1);
 			lname = Helper.getStr(pPayload.data, 5);
 			lval = IFF.getIFF(Helper.getPlayerName(playerEntity), lname, playerEntity.worldObj);
-			LittleMaidMobX.Debug("getIFF-SV user:%s %s(%d)=%d", Helper.getPlayerName(playerEntity), lname, lindex, lval);
+			Debug.server("getIFF-SV user:%s %s(%d)=%d", Helper.getPlayerName(playerEntity), lname, lindex, lval);
 			sendIFFValue(playerEntity, lval, lindex);
 			break;
 		case LMN_Server_SaveIFF:

@@ -1,16 +1,16 @@
-package littleMaidMobX;
+package littleMaidMobX.network;
 
-import static littleMaidMobX.Statics.LMN_Client_PlaySound;
-import static littleMaidMobX.Statics.LMN_Client_SetIFFValue;
-import static littleMaidMobX.Statics.LMN_Client_SwingArm;
+import static littleMaidMobX.util.Statics.LMN_Client_PlaySound;
+import static littleMaidMobX.util.Statics.LMN_Client_SetIFFValue;
+import static littleMaidMobX.util.Statics.LMN_Client_SwingArm;
+import littleMaidMobX.LittleMaidMobX;
 import littleMaidMobX.aimodes.IFF;
 import littleMaidMobX.entity.EntityDummy;
 import littleMaidMobX.entity.EntityLittleMaid;
 import littleMaidMobX.entity.EntityLittleMaidAvatar;
 import littleMaidMobX.entity.EntitySelect;
-import littleMaidMobX.helper.Helper;
-import littleMaidMobX.network.Message;
-import littleMaidMobX.network.Net;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.render.RenderDummy;
 import littleMaidMobX.render.RenderLittleMaid;
 import littleMaidMobX.render.RenderModelMulti;
@@ -65,7 +65,7 @@ public class ProxyClient extends ProxyCommon
 			lemaid =Net.getLittleMaid(var2.data, 1, Helper.mc.theWorld);
 			if (lemaid == null) return;
 		}
-		LittleMaidMobX.Debug(String.format("LMM|Upd Clt Call[%2x:%d].", lmode, leid));
+		Debug.client(String.format("LMM|Upd Clt Call[%2x:%d].", lmode, leid));
 		
 		switch (lmode) {
 		case LMN_Client_SwingArm : 
@@ -81,7 +81,7 @@ public class ProxyClient extends ProxyCommon
 			int lval = var2.data[1];
 			int lindex = Helper.getInt(var2.data, 2);
 			String lname = (String)IFF.DefaultIFF.keySet().toArray()[lindex];
-			LittleMaidMobX.Debug("setIFF-CL %s(%d)=%d", lname, lindex, lval);
+			Debug.client("setIFF-CL %s(%d)=%d", lname, lindex, lval);
 			IFF.setIFFValue(null, lname, lval);
 			break;
 			
@@ -89,7 +89,7 @@ public class ProxyClient extends ProxyCommon
 			
 			EnumSound lsound9 = EnumSound.getEnumSound(Helper.getInt(var2.data, 5));
 			lemaid.playLittleMaidSound(lsound9, true);
-			LittleMaidMobX.Debug(String.format("playSound:%s", lsound9.name()));
+			Debug.sound(String.format("playSound:%s", lsound9.name()));
 			break;
 			
 		}

@@ -1,27 +1,27 @@
 package littleMaidMobX.entity;
 
-import static littleMaidMobX.Statics.dataWatch_Absoption;
-import static littleMaidMobX.Statics.dataWatch_Color;
-import static littleMaidMobX.Statics.dataWatch_DominamtArm;
-import static littleMaidMobX.Statics.dataWatch_ExpValue;
-import static littleMaidMobX.Statics.dataWatch_Flags;
-import static littleMaidMobX.Statics.dataWatch_Flags_Aimebow;
-import static littleMaidMobX.Statics.dataWatch_Flags_Bloodsuck;
-import static littleMaidMobX.Statics.dataWatch_Flags_Freedom;
-import static littleMaidMobX.Statics.dataWatch_Flags_LooksSugar;
-import static littleMaidMobX.Statics.dataWatch_Flags_OverDrive;
-import static littleMaidMobX.Statics.dataWatch_Flags_Tracer;
-import static littleMaidMobX.Statics.dataWatch_Flags_Wait;
-import static littleMaidMobX.Statics.dataWatch_Flags_Working;
-import static littleMaidMobX.Statics.dataWatch_Flags_looksWithInterest;
-import static littleMaidMobX.Statics.dataWatch_Flags_looksWithInterestAXIS;
-import static littleMaidMobX.Statics.dataWatch_Flags_remainsContract;
-import static littleMaidMobX.Statics.dataWatch_Free;
-import static littleMaidMobX.Statics.dataWatch_Gotcha;
-import static littleMaidMobX.Statics.dataWatch_ItemUse;
-import static littleMaidMobX.Statics.dataWatch_Mode;
-import static littleMaidMobX.Statics.dataWatch_Parts;
-import static littleMaidMobX.Statics.dataWatch_Texture;
+import static littleMaidMobX.util.Statics.dataWatch_Absoption;
+import static littleMaidMobX.util.Statics.dataWatch_Color;
+import static littleMaidMobX.util.Statics.dataWatch_DominamtArm;
+import static littleMaidMobX.util.Statics.dataWatch_ExpValue;
+import static littleMaidMobX.util.Statics.dataWatch_Flags;
+import static littleMaidMobX.util.Statics.dataWatch_Flags_Aimebow;
+import static littleMaidMobX.util.Statics.dataWatch_Flags_Bloodsuck;
+import static littleMaidMobX.util.Statics.dataWatch_Flags_Freedom;
+import static littleMaidMobX.util.Statics.dataWatch_Flags_LooksSugar;
+import static littleMaidMobX.util.Statics.dataWatch_Flags_OverDrive;
+import static littleMaidMobX.util.Statics.dataWatch_Flags_Tracer;
+import static littleMaidMobX.util.Statics.dataWatch_Flags_Wait;
+import static littleMaidMobX.util.Statics.dataWatch_Flags_Working;
+import static littleMaidMobX.util.Statics.dataWatch_Flags_looksWithInterest;
+import static littleMaidMobX.util.Statics.dataWatch_Flags_looksWithInterestAXIS;
+import static littleMaidMobX.util.Statics.dataWatch_Flags_remainsContract;
+import static littleMaidMobX.util.Statics.dataWatch_Free;
+import static littleMaidMobX.util.Statics.dataWatch_Gotcha;
+import static littleMaidMobX.util.Statics.dataWatch_ItemUse;
+import static littleMaidMobX.util.Statics.dataWatch_Mode;
+import static littleMaidMobX.util.Statics.dataWatch_Parts;
+import static littleMaidMobX.util.Statics.dataWatch_Texture;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -32,9 +32,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
-import littleMaidMobX.Counter;
 import littleMaidMobX.LittleMaidMobX;
-import littleMaidMobX.Statics;
 import littleMaidMobX.ai.AIAttackArrow;
 import littleMaidMobX.ai.AIAttackOnCollide;
 import littleMaidMobX.ai.AIAvoidPlayer;
@@ -56,7 +54,7 @@ import littleMaidMobX.aimodes.ModeManager;
 import littleMaidMobX.aimodes.Mode_Playing;
 import littleMaidMobX.aimodes.SwingStatus;
 import littleMaidMobX.gui.GuiCommonHandler;
-import littleMaidMobX.helper.Helper;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.inventory.InventoryLittleMaid;
 import littleMaidMobX.io.Config;
 import littleMaidMobX.model.caps.EntityCapsMaid;
@@ -69,6 +67,9 @@ import littleMaidMobX.textures.TextureBox;
 import littleMaidMobX.textures.TextureBoxBase;
 import littleMaidMobX.textures.TextureBoxServer;
 import littleMaidMobX.textures.TextureData;
+import littleMaidMobX.util.Counter;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.Statics;
 import littleMaidMobX.wrapper.MinecraftWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
@@ -187,7 +188,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 	public Counter maidOverDriveTime;
 	protected boolean mstatFirstLook;
 	protected boolean mstatLookSuger;
-	protected Counter mstatWorkingCount;
+	public Counter mstatWorkingCount;
 	protected int mstatPlayingRole;
 	protected int mstatWorkingInt;
 	protected String mstatModeName;
@@ -319,7 +320,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 			ls = Config.defaultTexture;
 		}
 		textureData.setTextureInitServer(ls);
-		LittleMaidMobX.Debug("init-ID:%d, %s:%d", getEntityId(), textureData.textureBox[0].textureName, textureData.getColor());
+		Debug.entity("init-ID:%d, %s:%d", getEntityId(), textureData.textureBox[0].textureName, textureData.getColor());
 		setTexturePackIndex(textureData.getColor(), textureData.textureIndex);
 		setMaidMode("Wild");
 		return super.onSpawnWithEgg(par1EntityLivingData);
@@ -568,6 +569,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 		clearTilePosAll();
 		for (int li = 0; li < maidEntityModeList.size(); li++) {
 			ModeBase iem = maidEntityModeList.get(li); 
+			
 			if (iem.setMode(maidMode)) {
 				setActiveModeClass(iem);
 				aiFollow.minDist = iem.getRangeToMaster(0);
@@ -706,7 +708,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 			}
 		}
 		
-		LittleMaidMobX.Debug("id:%d LivingSound:%s", getEntityId(), worldObj == null ? "null" : worldObj.isRemote ? "Client" : "Server");
+		Debug.sound("id:%d LivingSound:%s", getEntityId(), worldObj == null ? "null" : worldObj.isRemote ? "Client" : "Server");
 		playLittleMaidSound(so, false);
 		return null;
 	}
@@ -728,7 +730,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 //			worldObj.playSound(posX, posY, posZ, lsound, getSoundVolume(), lpitch, false);
 		} else {
 			// Server
-			LittleMaidMobX.Debug("id:%d-%s, seps:%04x-%s", getEntityId(), worldObj.isRemote ? "Client" : "Server",  enumsound.index, enumsound.name());
+			Debug.entity("id:%d-%s, seps:%04x-%s", getEntityId(), worldObj.isRemote ? "Client" : "Server",  enumsound.index, enumsound.name());
 			byte[] lbuf = new byte[] {
 					Statics.LMN_Client_PlaySound,
 					0, 0, 0, 0,
@@ -755,7 +757,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 			{
 				s = LittleMaidMobX.DOMAIN + ":" + s;
 			}
-			LittleMaidMobX.Debug(String.format("id:%d, se:%04x-%s (%s)", getEntityId(), enumsound.index, enumsound.name(), s));
+			Debug.entity(String.format("id:%d, se:%04x-%s (%s)", getEntityId(), enumsound.index, enumsound.name(), s));
 			if(!s.isEmpty())
 			{
 				float lpitch = Config.VoiceDistortion ? (rand.nextFloat() * 0.2F) + 0.95F : 1.0F;
@@ -1127,6 +1129,9 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 				break;
 			/*case ??:
 				setMaidMode(0x0023);	//Miner
+				break;
+			case ??:
+				setMaidMode(0x0024);	//Farmer
 				break;*/
 			default :
 				setMaidMode(0x0000);	// Wild
@@ -1151,7 +1156,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 			
 		} else {
 			
-			LittleMaidMobX.Debug("read." + worldObj.isRemote);
+			Debug.entity("read." + worldObj.isRemote);
 			
 			maidInventory.readFromNBT(par1nbtTagCompound.getTagList("Inventory", 10));
 			setMaidWait(par1nbtTagCompound.getBoolean("Wait"));
@@ -1226,10 +1231,10 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 							&& elm.getMaidMaster().equalsIgnoreCase(getMaidMaster())) {
 						
 						if (getEntityId() > elm.getEntityId()) {
-							LittleMaidMobX.Debug(String.format("Load Doppelganger ID:%d, %d" ,elm.getEntityId(), maidAnniversary));
+							Debug.entity(String.format("Load Doppelganger ID:%d, %d" ,elm.getEntityId(), maidAnniversary));
 							elm.setDead();
 						} else {
-							LittleMaidMobX.Debug(String.format("Load Doppelganger ID:%d, %d" ,getEntityId(), maidAnniversary));
+							Debug.entity(String.format("Load Doppelganger ID:%d, %d" ,getEntityId(), maidAnniversary));
 							setDead();
 							break;
 						}
@@ -1238,7 +1243,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 			}
 		} else {
 //			System.out.println(String.format("Load ID:%d, MaidMaster:%s, x:%.1f, y:%.1f, z:%.1f, %d" ,getEntityId(), getMaidMaster(), posX, posY, posZ, maidAnniversary));
-			LittleMaidMobX.Debug(String.format("Load ID:%d, MaidMaster:%s, x:%.1f, y:%.1f, z:%.1f, %d" ,getEntityId(), getMaidMaster(), posX, posY, posZ, maidAnniversary));
+			Debug.entity(String.format("Load ID:%d, MaidMaster:%s, x:%.1f, y:%.1f, z:%.1f, %d" ,getEntityId(), getMaidMaster(), posX, posY, posZ, maidAnniversary));
 		}
 		
 	}
@@ -1452,7 +1457,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 	@Override
 	protected void damageArmor(float pDamage)
 	{
-		LittleMaidMobX.Debug(String.format("Armor Damage being calculated" , this.getEntityId(), pDamage));
+		Debug.entity(String.format("Armor Damage being calculated" , this.getEntityId(), pDamage));
 		maidInventory.damageArmor(pDamage);
 		//maidAvatar.damageArmor(pDamage);
 	}
@@ -1484,7 +1489,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 		if(!par1DamageSource.isUnblockable() && isBlocking())
 		{
 //			par2 = (1.0F + par2) * 0.5F; //What is this for?
-			LittleMaidMobX.Debug(String.format("Blocking success ID:%d, %f -> %f" , this.getEntityId(), par2, (par2 = (1.0F + par2) * 0.5F)));
+			Debug.entity(String.format("Blocking success ID:%d, %f -> %f" , this.getEntityId(), par2, (par2 = (1.0F + par2) * 0.5F)));
 			maidDamageSound = EnumSound.hurt_guard;
 		}
 		
@@ -1500,7 +1505,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 		{
 			maidDamageSound = EnumSound.hurt_nodamage;
 		}
-		LittleMaidMobX.Debug(String.format("GetDamage ID:%d, %s, %f/ %f" , this.getEntityId(), par1DamageSource.damageType, llasthealth - getHealth(), par2));
+		Debug.entity(String.format("GetDamage ID:%d, %s, %f/ %f" , this.getEntityId(), par1DamageSource.damageType, llasthealth - getHealth(), par2));
 		//super.damageEntity(par1DamageSource, par2);
 	}
 
@@ -1516,7 +1521,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 			}
 		}
 		
-		LittleMaidMobX.Debug("LMM_EntityLittleMaid.attackEntityFrom "+this+"("+this.maidAvatar+") <= "+entity);
+		Debug.entity("LMM_EntityLittleMaid.attackEntityFrom "+this+"("+this.maidAvatar+") <= "+entity);
 		
 		
 		maidDamageSound = EnumSound.hurt;
@@ -2064,7 +2069,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 					if (lchange || maidInventory.isChanged(li)) {
 						((WorldServer)worldObj).getEntityTracker().func_151247_a(this, new S04PacketEntityEquipment(this.getEntityId(), (li | lselect << 8) + 5, maidInventory.getStackInSlot(li)));
 						maidInventory.resetChanged(li);
-						LittleMaidMobX.Debug(String.format("ID:%d-%s - Slot(%x:%d-%d,%d) Update.", getEntityId(), worldObj.isRemote ? "Client" : "Server", lselect, li, mstatSwingStatus[0].index, mstatSwingStatus[1].index));
+						Debug.entity(String.format("ID:%d-%s - Slot(%x:%d-%d,%d) Update.", getEntityId(), worldObj.isRemote ? "Client" : "Server", lselect, li, mstatSwingStatus[0].index, mstatSwingStatus[1].index));
 					}
 //				}
 			}
@@ -2360,7 +2365,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 				setTextureNames();
 			}
 			String s = par2ItemStack == null ? null : par2ItemStack.getDisplayName();
-			LittleMaidMobX.Debug(String.format("ID:%d Slot(%2d:%d):%s", getEntityId(), lslotindex, lequip, s == null ? "NoItem" : s));
+			Debug.entity(String.format("ID:%d Slot(%2d:%d):%s", getEntityId(), lslotindex, lequip, s == null ? "NoItem" : s));
 		}
 	}
 
@@ -2471,7 +2476,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 	@Override
 	public boolean interact(EntityPlayer par1EntityPlayer)
 	{
-		LittleMaidMobX.Debug(this.worldObj.isRemote, "LMM_EntityLittleMaid.interact:"+par1EntityPlayer.getGameProfile().getName());
+		Debug.entity(this.worldObj.isRemote, "LMM_EntityLittleMaid.interact:"+par1EntityPlayer.getGameProfile().getName());
 		float lhealth = getHealth();
 		ItemStack itemstack1 = par1EntityPlayer.getCurrentEquippedItem();
 		
@@ -2524,7 +2529,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 								eatSugar(false, true);
 								worldObj.setEntityState(this, (byte)11);
 								
-								LittleMaidMobX.Debug("give suger." + worldObj.isRemote);
+								Debug.entity("give suger." + worldObj.isRemote);
 								if (!worldObj.isRemote) {
 									setFreedom(isFreedom());
 									if (isMaidWait()) {
@@ -2843,6 +2848,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 		setPathToEntity(null);
 		getNavigator().clearPathEntity();
 		velocityChanged = true;
+		setFreedom(false);
 	}
 
 	public void setMaidWaitCount(int count) {
@@ -2954,7 +2960,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 		heal(1);
 		hurtResistantTime = h;
 		playSound("random.pop");
-		LittleMaidMobX.Debug(("eat Suger." + worldObj.isRemote));
+		Debug.entity(("eat Suger." + worldObj.isRemote));
 		
 		if (recontract) {
 			
@@ -3184,7 +3190,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 		}
 		maidDominantArm = pindex;
 		dataWatcher.updateObject(dataWatch_DominamtArm, (byte)maidDominantArm);
-		LittleMaidMobX.Debug("Change Dominant.");
+		Debug.entity("Change Dominant.");
 	}
 
 	@Override
@@ -3198,7 +3204,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 		// Server
 		textureData.setTexturePackIndex(pColor, pIndex);
 		dataWatcher.updateObject(dataWatch_Texture, ((textureData.textureIndex[0] & 0xffff) | (textureData.textureIndex[1] & 0xffff) << 16));
-		LittleMaidMobX.Debug("changeSize-ID:%d: %f, %f, %b", getEntityId(), width, height, worldObj.isRemote);
+		Debug.texture("changeSize-ID:%d: %f, %f, %b", getEntityId(), width, height, worldObj.isRemote);
 		setColor(pColor);
 		setTextureNames();
 	}
@@ -3208,7 +3214,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 		// Client
 		textureData.setTexturePackName(pTextureBox);
 		setTextureNames();
-		LittleMaidMobX.Debug("ID:%d, TextureModel:%s", getEntityId(), textureData.getTextureName(0));
+		Debug.texture("ID:%d, TextureModel:%s", getEntityId(), textureData.getTextureName(0));
 		
 		((TextureBox)textureData.textureBox[0]).models[0].setCapsValue(IModelCaps.caps_changeModel, maidCaps);
 		

@@ -22,9 +22,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import littleMaidMobX.LittleMaidMobX;
-import littleMaidMobX.helper.ClientHelper;
-import littleMaidMobX.helper.Helper;
-import littleMaidMobX.helper.PathHelper;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.helper.ClientHelper;
+import littleMaidMobX.util.helper.Helper;
+import littleMaidMobX.util.helper.PathHelper;
 import littleMaidMobX.io.Config;
 import littleMaidMobX.io.FileManager;
 import littleMaidMobX.io.ZipTexturesLoader;
@@ -259,18 +260,18 @@ public class ModelManager {
 				}
 			}
 		}
-		LittleMaidMobX.Debug("Loaded Texture Lists.(%d)", textures.size());
+		Debug.texture("Loaded Texture Lists.(%d)", textures.size());
 		for (TextureBox lbox: textures) {
-			LittleMaidMobX.Debug("texture: %s(%s) - hasModel:%b", lbox.textureName, lbox.fileName, lbox.models != null);
+			Debug.texture("texture: %s(%s) - hasModel:%b", lbox.textureName, lbox.fileName, lbox.models != null);
 		}
 		for (int li = textures.size() - 1; li >= 0; li--) {
 			if (textures.get(li).models == null) {
 				textures.remove(li);
 			}
 		}
-		LittleMaidMobX.Debug("Rebuild Texture Lists.(%d)", textures.size());
+		Debug.texture("Rebuild Texture Lists.(%d)", textures.size());
 		for (TextureBox lbox: textures) {
-			LittleMaidMobX.Debug("texture: %s(%s) - hasModel:%b", lbox.textureName, lbox.fileName, lbox.models != null);
+			Debug.texture("texture: %s(%s) - hasModel:%b", lbox.textureName, lbox.fileName, lbox.models != null);
 		}
 
 
@@ -280,7 +281,7 @@ public class ModelManager {
 	}
 	
 	private void searchFiles(File ln, String[] lst, boolean server) {
-		LittleMaidMobX.Debug("getTexture[%s:%s].", lst[0], lst[1]);
+		Debug.texture("getTexture[%s:%s].", lst[0], lst[1]);
 		// mods
 		for (File lf : ln.listFiles()) {
 			boolean lflag;
@@ -291,7 +292,7 @@ public class ModelManager {
 				// zip
 				lflag = addTexturesZip(lf, lst, server);
 			}
-			LittleMaidMobX.Debug("getTexture-append-%s-%s.", lf.getName(), lflag ? "done" : "fail");
+			Debug.texture("getTexture-append-%s-%s.", lf.getName(), lflag ? "done" : "fail");
 		}
 	}
 
@@ -356,10 +357,10 @@ public class ModelManager {
 				e.printStackTrace();
 			}
 
-			LittleMaidMobX.Debug("Loaded ServerBoxList.(%d)", textureServer.size());
+			Debug.texture("Loaded ServerBoxList.(%d)", textureServer.size());
 			for (int li = 0; li < textureServer.size(); li++) {
 				TextureBoxServer lbox = textureServer.get(li);
-				LittleMaidMobX.Debug("%04d=%s:%04x:%04x", li, lbox.textureName, lbox.contractColor, lbox.wildColor);
+				Debug.texture("%04d=%s:%04x:%04x", li, lbox.textureName, lbox.contractColor, lbox.wildColor);
 			}
 			return true;
 		} else {}
@@ -395,7 +396,7 @@ public class ModelManager {
 
 	
 	public void initTextureList(boolean pFlag) {
-		LittleMaidMobX.Debug("Clear TextureBoxServer.");
+		Debug.texture("Clear TextureBoxServer.");
 		textureServerIndex.clear();
 		textureServer.clear();
 		if (pFlag) {
@@ -405,7 +406,7 @@ public class ModelManager {
 				textureServer.add(lbs);
 				textureServerIndex.put(lbc, li++);
 			}
-			LittleMaidMobX.Debug("Rebuild TextureBoxServer(%d).", textureServer.size());
+			Debug.texture("Rebuild TextureBoxServer(%d).", textureServer.size());
 		}
 	}
 
@@ -423,7 +424,7 @@ public class ModelManager {
 		mlm[1] = cm.newInstance(lsize[0]);
 		mlm[2] = cm.newInstance(lsize[1]);
 		modelMap.put(modelName, mlm);
-		LittleMaidMobX.Debug("getModelClass-%s:%s", modelName, mlm);
+		Debug.model("getModelClass-%s:%s", modelName, mlm);
 	}
 	
 	protected void addModelClass(String fname, String[] pSearch) throws Throwable {
@@ -446,7 +447,7 @@ public class ModelManager {
 					lclass = Class.forName(cn);
 				}
 				if (!(ModelMultiBase.class).isAssignableFrom(lclass) || Modifier.isAbstract(lclass.getModifiers())) {
-					LittleMaidMobX.Debug("getModelClass-fail.");
+					Debug.model("getModelClass-fail.");
 					return;
 				}
 				//addModelClass(lclass);
@@ -457,14 +458,14 @@ public class ModelManager {
 				mlm[1] = cm.newInstance(lsize[0]);
 				mlm[2] = cm.newInstance(lsize[1]);
 				modelMap.put(pn, mlm);
-				LittleMaidMobX.Debug("getModelClass-%s:%s", pn, cn);
+				Debug.model("getModelClass-%s:%s", pn, cn);
 			}
 			catch (Exception exception) {
-				LittleMaidMobX.Debug("getModelClass-Exception: %s", fname);
+				Debug.model("getModelClass-Exception: %s", fname);
 				if(Config.isDebugModels) exception.printStackTrace();
 			}
 			catch (Error error) {
-				LittleMaidMobX.Debug("getModelClass-Error: %s", fname);
+				Debug.model("getModelClass-Error: %s", fname);
 				if(Config.isDebugModels) error.printStackTrace();
 			}
 		}
@@ -485,7 +486,7 @@ public class ModelManager {
 		mlm[1] = mlm[0];
 		mlm[2] = mlm[0];
 		modelMap.put(modelName, mlm);
-		LittleMaidMobX.Debug("getModelClassServer-%s:%s", modelName, mlm);
+		Debug.model("getModelClassServer-%s:%s", modelName, mlm);
 	}
 	
 	protected void addModelClassServer(String fname, String[] pSearch) throws Throwable {
@@ -508,7 +509,7 @@ public class ModelManager {
 					lclass = Class.forName(cn);
 				}
 				if (!(ModelMultiBase.class).isAssignableFrom(lclass) || Modifier.isAbstract(lclass.getModifiers())) {
-					LittleMaidMobX.Debug("getModelClassServer-fail.");
+					Debug.model("getModelClassServer-fail.");
 					return;
 				}
 				ModelMultiBase mlm[] = new ModelMultiBase[3];
@@ -518,14 +519,14 @@ public class ModelManager {
 				mlm[1] = mlm[0];
 				mlm[2] = mlm[0];
 				modelMap.put(pn, mlm);
-				LittleMaidMobX.Debug("getModelClassServer-%s:%s", pn, mlm);
+				Debug.model("getModelClassServer-%s:%s", pn, mlm);
 			}
 			catch (Exception exception) {
-				LittleMaidMobX.Debug("getModelClassServer-Exception: %s", fname);
+				Debug.model("getModelClassServer-Exception: %s", fname);
 				if(Config.isDebugModels) exception.printStackTrace();
 			}
 			catch (Error error) {
-				LittleMaidMobX.Debug("getModelClass-Error: %s", fname);
+				Debug.model("getModelClass-Error: %s", fname);
 				if(Config.isDebugModels) error.printStackTrace();
 			}
 		}
@@ -545,7 +546,7 @@ public class ModelManager {
 			FileInputStream fileinputstream = new FileInputStream(file);
 			ZipInputStream zipinputstream = new ZipInputStream(fileinputstream);
 			ZipEntry zipentry;
-			LittleMaidMobX.Debug("Start searching %s", file.getName());
+			Debug.addon("Start searching %s", file.getName());
 			do {
 				zipentry = zipinputstream.getNextEntry();
 				if(zipentry == null)
@@ -588,7 +589,7 @@ public class ModelManager {
 			
 			return true;
 		} catch (Exception exception) {
-			LittleMaidMobX.Debug("addTextureZip-Exception.");
+			Debug.addon("addTextureZip-Exception.");
 			return false;
 		}
 	}
@@ -620,7 +621,6 @@ public class ModelManager {
 								try {
 									addModelClassServer(PathHelper.getClassName(tn, rmn), pSearch);
 								} catch (Throwable e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 							}
@@ -629,7 +629,6 @@ public class ModelManager {
 								try {
 									addModelClass(PathHelper.getClassName(tn, rmn), pSearch);
 								} catch (Throwable e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 							}
@@ -638,7 +637,7 @@ public class ModelManager {
 						String s = nfile.getPath().replace('\\', '/');
 						int i = s.indexOf(pSearch[1]);
 						if (i > -1) {
-							// 対象はテクスチャディレクトリ
+							// 対象はTexture Directory
 							addTextureName(s.substring(i), pSearch);
 //							addTextureName(s.substring(i).replace('\\', '/'));
 						}
@@ -650,7 +649,7 @@ public class ModelManager {
 			}
 			return true;
 		} catch (Exception e) {
-			LittleMaidMobX.Debug("addTextureDebug-Exception.");
+			Debug.addon("addTextureDebug-Exception.");
 			return false;
 		}
 	}
@@ -676,7 +675,7 @@ public class ModelManager {
 			{
 				lts = new TextureBox(packageName);
 				textures.add(lts);
-				LittleMaidMobX.Debug("getTextureName-append-texturePack-%s", packageName);
+				Debug.texture("getTextureName-append-texturePack-%s", packageName);
 			}
 			lts.addTexture(lindex, path);
 		}
@@ -722,7 +721,7 @@ public class ModelManager {
 					{
 						lts = new TextureBox(pn/*, pSearch*/);
 						textures.add(lts);
-						LittleMaidMobX.Debug("getTextureName-append-texturePack-%s", pn);
+						Debug.texture("getTextureName-append-texturePack-%s", pn);
 					}
 					lts.addTexture(lindex, fname);
 					return true;
@@ -877,7 +876,7 @@ public class ModelManager {
 	}
 	public void setDefaultTexture(Class pEntityClass, TextureBox pBox) {
 		defaultTextures.put(pEntityClass, pBox);
-		LittleMaidMobX.Debug("appendDefaultTexture:%s(%s)",
+		Debug.texture("appendDefaultTexture:%s(%s)",
 		pEntityClass.getSimpleName(), pBox == null ? "NULL" : pBox.textureName);
 	}
 
@@ -920,7 +919,7 @@ public class ModelManager {
 		if (lblank >= 0) {
 			requestString[lblank] = pVal;
 		} else {
-			LittleMaidMobX.Debug("requestString Overflow!");
+			Debug.addon("requestString Overflow!");
 		}
 		return lblank;
 	}
@@ -945,7 +944,7 @@ public class ModelManager {
 		if (lblank >= 0) {
 			requestIndex[lblank] = pTextureServerBoxIndex;
 		} else {
-			LittleMaidMobX.Debug("requestIndex Overflow!");
+			Debug.addon("requestIndex Overflow!");
 		}
 		return lblank;
 	}
@@ -1046,7 +1045,7 @@ public class ModelManager {
 			for (int li = 0; li < lcount; li++) {
 				lindex[li] = Helper.getShort(pData, 6 + li * 2);
 			}
-			LittleMaidMobX.Debug("reciveFromClientSetTexturePackIndex: %d, %4x", pData[5], lindex[0]);
+			Debug.texture("reciveFromClientSetTexturePackIndex: %d, %4x", pData[5], lindex[0]);
 			((ITextureEntity) pEntity).setTexturePackIndex(pData[5], lindex);
 		}
 	}
@@ -1067,7 +1066,7 @@ public class ModelManager {
 		Helper.setFloat(ldata, 18, pBox.getMountedYOffset(null));
 		Helper.setStr(ldata, 22, pBox.textureName);
 		ClientHelper.sendToServer(ldata);
-		LittleMaidMobX.Debug("Server_GetTextureIndex: %s", pBox.textureName);
+		Debug.texture("Server_GetTextureIndex: %s", pBox.textureName);
 	}
 
 	public void reciveFromClientGetTexturePackIndex(EntityPlayer player, byte[] pData) {
@@ -1089,7 +1088,7 @@ public class ModelManager {
 		ldata[0] = NetConstants.Client_SetTextureIndex;
 		ldata[1] = pData[1];
 		Helper.setShort(ldata, 2, li);
-		LittleMaidMobX.Debug("reciveFromClientGetTexturePackIndex: %s, %04x", lpackname, li);
+		Debug.client("reciveFromClientGetTexturePackIndex: %s, %04x", lpackname, li);
 		LittleMaidMobX.sendToClient(player, ldata);
 	}
 
@@ -1098,7 +1097,7 @@ public class ModelManager {
 		
 		TextureBox lbox = getTextureBox(getRequestString(pData[1]));
 		textureServerIndex.put(lbox, (int) Helper.getShort(pData, 2));
-		LittleMaidMobX.Debug("reciveFormServerSetTexturePackIndex: %s, %04x", lbox.textureName, (int) Helper.getShort(pData, 2));
+		Debug.server("reciveFormServerSetTexturePackIndex: %s, %04x", lbox.textureName, (int) Helper.getShort(pData, 2));
 
 		
 		Map < ITextureEntity, Object[] > lmap = new HashMap < ITextureEntity, Object[] > (stackSetTexturePack);
@@ -1147,7 +1146,7 @@ public class ModelManager {
 		// Client
 		
 		if (pIndex < 0) {
-			LittleMaidMobX.Debug("request range out.");
+			Debug.server("request range out.");
 			return;
 		}
 		byte ldata[] = new byte[3];
@@ -1174,7 +1173,7 @@ public class ModelManager {
 		Helper.setFloat(ldata, 19, lboxserver.getMountedYOffset(null));
 		Helper.setStr(ldata, 23, lboxserver.textureName);
 		LittleMaidMobX.sendToClient(player, ldata);
-		LittleMaidMobX.Debug("SetTexturePackName:%04x - %s", lindex, lboxserver.textureName);
+		Debug.client("SetTexturePackName:%04x - %s", lindex, lboxserver.textureName);
 	}
 
 	public void reciveFromServerSetTexturePackName(byte[] pData) {

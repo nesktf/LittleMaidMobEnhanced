@@ -1,12 +1,13 @@
 package littleMaidMobX.gui;
 
 import littleMaidMobX.LittleMaidMobX;
-import littleMaidMobX.Statics;
 import littleMaidMobX.aimodes.IFF;
 import littleMaidMobX.entity.EntityLittleMaid;
-import littleMaidMobX.helper.ClientHelper;
-import littleMaidMobX.helper.Helper;
+import littleMaidMobX.util.helper.ClientHelper;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.network.Net;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.Statics;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
@@ -39,7 +40,7 @@ public class GuiIFF extends GuiMobSelect {
 				ldata[0] = Statics.LMN_Server_GetIFFValue;
 				Helper.setInt(ldata, 1, li);
 				Helper.setStr(ldata, 5, ls);
-				LittleMaidMobX.Debug("RequestIFF %s(%d)", ls, li);
+				Debug.gui("RequestIFF %s(%d)", ls, li);
 				Net.sendToServer(ldata);
 				li++;
 			}
@@ -127,7 +128,7 @@ public class GuiIFF extends GuiMobSelect {
 						ldata[1] = (byte) tt;
 						Helper.setInt(ldata, 2, li);
 						Helper.setStr(ldata, 6, pName);
-						LittleMaidMobX.Debug("SendIFF %s(%d) = %d", pName, li, tt);
+						Debug.gui("SendIFF %s(%d) = %d", pName, li, tt);
 						Net.sendToServer(ldata);
 					}
 					li++;

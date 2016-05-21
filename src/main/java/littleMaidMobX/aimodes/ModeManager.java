@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import littleMaidMobX.LittleMaidMobX;
-import littleMaidMobX.ManagerBase;
 import littleMaidMobX.entity.EntityLittleMaid;
 import littleMaidMobX.io.FileManager;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.manager.ManagerBase;
 
 public class ModeManager extends ManagerBase
 {
@@ -29,6 +30,7 @@ public class ModeManager extends ManagerBase
 		append(Mode_Pharmacist.class);
 		append(Mode_Miner.class);
 		append(Mode_Basic.class);
+		append(Mode_Farmer.class);
 	}
 	
 	public static void init()
@@ -49,8 +51,8 @@ public class ModeManager extends ManagerBase
 	}
 	
 	protected boolean append(Class pclass) {
-		// プライオリティー順に追加
-		// ソーター使う？
+		// Priority 順に追加
+		// uses sort？
 		if (!ModeBase.class.isAssignableFrom(pclass)) {
 			return false;
 		}
@@ -101,9 +103,9 @@ public class ModeManager extends ManagerBase
 	 * ロードされているモードリストを表示する。
 	 */
 	public static void showLoadedModes() {
-		LittleMaidMobX.Debug("Loaded Mode lists(%d)", maidModeList.size());
+		Debug.addon("Loaded Mode lists(%d)", maidModeList.size());
 		for (ModeBase lem : maidModeList) {
-			LittleMaidMobX.Debug("%04d : %s", lem.priority(), lem.getClass().getSimpleName());
+			Debug.addon("%04d : %s", lem.priority(), lem.getClass().getSimpleName());
 		}
 	}
 }

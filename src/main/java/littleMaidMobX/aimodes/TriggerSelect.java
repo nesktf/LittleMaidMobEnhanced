@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import littleMaidMobX.helper.Helper;
+import littleMaidMobX.util.helper.Helper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 

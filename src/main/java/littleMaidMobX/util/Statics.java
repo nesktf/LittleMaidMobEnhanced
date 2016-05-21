@@ -1,4 +1,4 @@
-package littleMaidMobX;
+package littleMaidMobX.util;
 
 public class Statics
 {

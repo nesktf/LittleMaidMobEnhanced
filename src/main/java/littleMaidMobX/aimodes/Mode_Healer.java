@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import littleMaidMobX.entity.EntityLittleMaid;
-import littleMaidMobX.helper.Helper;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.sound.EnumSound;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAITasks;

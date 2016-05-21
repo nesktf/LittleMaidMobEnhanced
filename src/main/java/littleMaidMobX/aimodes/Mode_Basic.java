@@ -6,7 +6,8 @@ import java.util.List;
 import littleMaidMobX.LittleMaidMobX;
 import littleMaidMobX.ai.AIHurtByTarget;
 import littleMaidMobX.entity.EntityLittleMaid;
-import littleMaidMobX.helper.Helper;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.sound.EnumSound;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
@@ -283,7 +284,7 @@ public class Mode_Basic extends ModeBlockBase {
 				if (distance == lastdistance) {
 					
 					
-					LittleMaidMobX.Debug("Assert.");
+					Debug.ai("Assert.");
 					owner.updateWanderPath();
 					lf = true;
 				} else {
@@ -342,7 +343,7 @@ public class Mode_Basic extends ModeBlockBase {
 		if (owner.getSwingStatusDominant().canAttack() && myChest != null) {
 			
 			ItemStack is;
-			LittleMaidMobX.Debug(String.format("getChest:%d", maidSearchCount));
+			Debug.ai(String.format("getChest:%d", maidSearchCount));
 			while ((is = owner.maidInventory.getStackInSlot(maidSearchCount)) == null && maidSearchCount < owner.maidInventory.mainInventory.length) {
 				maidSearchCount++;
 			}
@@ -395,10 +396,10 @@ public class Mode_Basic extends ModeBlockBase {
 //				serchedChest.add(myChest);
 				clearMy();
 				lastdistance = 0D;
-				LittleMaidMobX.Debug("endChest.");
+				Debug.ai("endChest.");
 				
 				if (owner.maidInventory.getFirstEmptyStack() > -1) {
-					LittleMaidMobX.Debug("Search clear.");
+					Debug.ai("Search clear.");
 					fusedTiles.clear();
 				}
 			}
@@ -429,7 +430,7 @@ public class Mode_Basic extends ModeBlockBase {
 						double distance = owner.getDistanceSqToEntity(lentity);
 						if (distance == lastdistance) {
 							
-							LittleMaidMobX.Debug("Assert.");
+							Debug.ai("Assert.");
 							owner.updateWanderPath();
 						} else {
 							owner.getNavigator().tryMoveToXYZ(lentity.posX, lentity.posY, lentity.posZ, 1.0F);

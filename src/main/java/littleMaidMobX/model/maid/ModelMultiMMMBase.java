@@ -3,7 +3,7 @@ package littleMaidMobX.model.maid;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import littleMaidMobX.helper.ClientHelper;
+import littleMaidMobX.util.helper.ClientHelper;
 import littleMaidMobX.model.EquippedStabilizer;
 import littleMaidMobX.model.ModelStabilizerBase;
 import littleMaidMobX.model.caps.IModelCaps;

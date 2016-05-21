@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import littleMaidMobX.LittleMaidMobX;
+import littleMaidMobX.util.Debug;
 import cpw.mods.fml.relauncher.FMLInjectionData;
 
 public class FileManager
@@ -64,7 +65,7 @@ public class FileManager
 		
 		//開発モード
 		dirModsVersion = new File(dirMods, (String)lo[4]);
-		LittleMaidMobX.Debug("FileManager initialized.");
+		Debug.addon("FileManager initialized.");
 	}
 	
 	/**
@@ -83,30 +84,30 @@ public class FileManager
 			fileList.put(pname, llist);
 		}
 		
-		LittleMaidMobX.Debug("getModFile:[%s]:%s", pname, dirMods.getAbsolutePath());
+		Debug.addon("getModFile:[%s]:%s", pname, dirMods.getAbsolutePath());
 		// File Directory を検索
 		try {
 			if (dirMods.isDirectory()) {
-				LittleMaidMobX.Debug("getModFile-get:%d.", dirMods.list().length);
+				Debug.addon("getModFile-get:%d.", dirMods.list().length);
 				for (File t : dirMods.listFiles()) {
 					if (t.getName().indexOf(pprefix) != -1) {
 						if (t.getName().endsWith(".zip") || t.getName().endsWith(".jar")) {
 							llist.add(t);
-							LittleMaidMobX.Debug("getModFile-file:%s", t.getName());
+							Debug.addon("getModFile-file:%s", t.getName());
 						} else if (t.isDirectory()) {
 							llist.add(t);
-							LittleMaidMobX.Debug("getModFile-file:%s", t.getName());
+							Debug.addon("getModFile-file:%s", t.getName());
 						}
 					}
 				}
-				LittleMaidMobX.Debug("getModFile-files:%d", llist.size());
+				Debug.addon("getModFile-files:%d", llist.size());
 			} else {
 				// まずありえない
-				LittleMaidMobX.Debug("getModFile-fail.");
+				Debug.addon("getModFile-fail.");
 			}
 		}
 		catch (Exception exception) {
-			LittleMaidMobX.Debug("getModFile-Exception.");
+			Debug.addon("getModFile-Exception.");
 		}
 		return llist;
 

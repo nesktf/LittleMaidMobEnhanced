@@ -4,8 +4,8 @@ import java.util.List;
 
 import littleMaidMobX.LittleMaidMobX;
 import littleMaidMobX.aimodes.TriggerSelect;
-import littleMaidMobX.helper.ClientHelper;
-import littleMaidMobX.helper.Helper;
+import littleMaidMobX.util.helper.ClientHelper;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.inventory.ContainerTriggerSelect;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;

@@ -7,16 +7,18 @@ import littleMaidMobX.aimodes.IFF;
 import littleMaidMobX.aimodes.ModeManager;
 import littleMaidMobX.entity.EntityLittleMaid;
 import littleMaidMobX.gui.GuiCommonHandler;
-import littleMaidMobX.helper.Helper;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.io.Config;
 import littleMaidMobX.io.FileManager;
 import littleMaidMobX.io.ZipTexturesLoader;
 import littleMaidMobX.item.ItemSpawnEgg;
-import littleMaidMobX.model.loader.Transformer;
 import littleMaidMobX.network.Message;
 import littleMaidMobX.network.NetConstants;
 import littleMaidMobX.network.Network;
+import littleMaidMobX.network.ProxyCommon;
 import littleMaidMobX.registry.ModelManager;
+import littleMaidMobX.util.transform.Transformer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.entity.Entity;
@@ -49,45 +51,20 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 
 @Mod(	modid = LittleMaidMobX.DOMAIN,
 		name  = LittleMaidMobX.DOMAIN,
-		version = "9",
+		version = "10",
 		guiFactory = "littleMaidMobX.gui.LittleMaidMobGuiFactory")
 		
 public class LittleMaidMobX {
 	
 	public static final String DOMAIN = "lmmx";
-	public static final String VERSION = "1.4.3";
+	public static final String VERSION = "1.4.4";
 
 	public static Achievement ac_Contract;
 	
-	public static void Debug(String pText, Object... pData)
-	{
-		if (Config.isDebugMessage)
-		{
-			// TODO: use Logger class instead with proper names and a way to enable/disable (one logger for sound, one for AI, one for models, etc)
-//			if (pText.contains("Sound")) { 
-//				return;
-//			}			
-//			if (pText.contains("daytime")) { 
-//				return;
-//			}
-			System.out.println(String.format("MMMLib-" + pText, pData));
-		}
-	}
-	public static void DebugModel(String string)
-	{
-		System.out.println("LMM Models: " + string);
-	}
-	public static void Debug(boolean isRemote, String pText, Object... pData)
-	{
-		if (Config.isDebugMessage)
-		{
-			System.out.println(String.format("["+(isRemote? "Client":"Server")+"]MMMLib-" + pText, pData));
-		}
-	}
 	
 	@SidedProxy(
-			clientSide = "littleMaidMobX.ProxyClient",
-			serverSide = "littleMaidMobX.ProxyServer")
+			clientSide = "littleMaidMobX.network.ProxyClient",
+			serverSide = "littleMaidMobX.network.ProxyServer")
 	public static ProxyCommon proxy;
 
 	@Instance(DOMAIN)
@@ -130,7 +107,7 @@ public class LittleMaidMobX {
 		if (Helper.isClient)
 		{
 //			MMM_TextureManager.loadTextures();
-			Debug("Localmode: InitTextureList.");
+			Debug.texture("Localmode: InitTextureList.");
 			ModelManager.instance.initTextureList(true);
 		}
 		else
@@ -151,7 +128,7 @@ public class LittleMaidMobX {
 		spawnEgg.setUnlocalizedName(DOMAIN + ":spawn_lmmx_egg");
 		spawnEgg.setTextureName(DOMAIN + ":spawn_lmmx_egg");
 		GameRegistry.registerItem(spawnEgg, "spawn_lmmx_egg");
-		if (Config.cfg_enableSpawnEgg)
+		if (Config.enableSpawnEgg)
 		{
 			
 			GameRegistry.addRecipe(new ItemStack(spawnEgg, 1), new Object[] {
@@ -222,7 +199,7 @@ public class LittleMaidMobX {
 					if(biome!=null)
 					{
 						EntityRegistry.addSpawn(EntityLittleMaid.class, Config.spawnWeight, Config.minGroupSize, Config.maxGroupSize, EnumCreatureType.creature, biome);
-						Debug("Registering spawn in " + biome.biomeName);
+						Debug.entity("Registering spawn in ", biome.biomeName);
 					}
 				}
 			}
@@ -260,8 +237,8 @@ public class LittleMaidMobX {
 								BiomeDictionary.isBiomeOfType(biome, Type.BEACH));
 							{
 								EntityRegistry.addSpawn(EntityLittleMaid.class, Config.spawnWeight, Config.minGroupSize, Config.maxGroupSize, EnumCreatureType.creature, biome);
-								System.out.println("Registering spawn in " + biome.biomeName);
-								Debug("Registering maids to spawn in " + biome.biomeName);
+								//System.out.println("Registering spawn in " + biome.biomeName);
+								Debug.entity("Registering maids to spawn in ", biome.biomeName);
 					}
 				}
 			}
@@ -298,13 +275,13 @@ public class LittleMaidMobX {
 		// TODO test
 		List<File> llist = FileManager.getAllmodsFiles(FileManager.COMMON_CLASS_LOADER, true);
 		for (File lf : llist) {
-			Debug("targetFiles: %s", lf.getAbsolutePath());
+			Debug.addon("targetFiles: %s", lf.getAbsolutePath());
 		}
 		
 		
 		try {
 			Class<?> lc = ReflectionHelper.getClass(FileManager.COMMON_CLASS_LOADER, "net.minecraft.entity.EntityLivingBase");
-			Debug("test-getClass: %s", lc.toString());
+			Debug.addon("test-getClass: %s", lc.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -356,7 +333,7 @@ public class LittleMaidMobX {
 				return;
 			}
 		}
-		Debug("MMM|Upd Srv Call[%2x:%d].", lmode, leid);
+		Debug.server("MMM|Upd Srv Call[%2x:%d].", lmode, leid);
 //		byte[] ldata;
 		
 		switch (lmode) {

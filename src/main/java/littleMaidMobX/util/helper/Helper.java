@@ -1,4 +1,4 @@
-package littleMaidMobX.helper;
+package littleMaidMobX.util.helper;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import littleMaidMobX.LittleMaidMobX;
+import littleMaidMobX.util.Debug;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFlower;
@@ -131,7 +132,7 @@ public class Helper {
 		try {
 			lclass = Class.forName(pName);
 		} catch (Exception e) {
-			LittleMaidMobX.Debug("Class:%s is not found.", pName);
+			Debug.addon("Class:%s is not found.", pName);
 		}
 		
 		return lclass;
@@ -380,7 +381,7 @@ public class Helper {
 				lmap.put(pDestClass, lint);
 			}
 			replaceEntitys.put(pSrcClass, pDestClass);
-			LittleMaidMobX.Debug("Replace %s -> %s(EntityListID: %d, EntityListString: %s)", pSrcClass.getSimpleName(), pDestClass.getSimpleName(), lint, ls);
+			Debug.entity("Replace %s -> %s(EntityListID: %d, EntityListString: %s)", pSrcClass.getSimpleName(), pDestClass.getSimpleName(), lint, ls);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -392,7 +393,7 @@ public class Helper {
 			for (int j = 0; j < pMobs.size(); j++) {
 				if (pMobs.get(j).entityClass == le.getKey()) {
 					pMobs.get(j).entityClass = le.getValue();
-					LittleMaidMobX.Debug("ReplaceCreatureList: %s -> %s", le.getKey().getSimpleName(), le.getValue().getSimpleName());
+					Debug.entity("ReplaceCreatureList: %s -> %s", le.getKey().getSimpleName(), le.getValue().getSimpleName());
 				}
 			}
 		}
@@ -406,14 +407,14 @@ public class Helper {
 		for (int i = 0; i < biomeList.length; i++) {
 			if (biomeList[i] == null) continue;
 			List<SpawnListEntry> mobs;
-			LittleMaidMobX.Debug("ReplaceBaiomeSpawn:%s", biomeList[i].biomeName);
-			LittleMaidMobX.Debug("[Creature]");
+			Debug.entity("ReplaceBaiomeSpawn:%s", biomeList[i].biomeName);
+			Debug.entity("[Creature]");
 			replaceCreatureList(biomeList[i].getSpawnableList(EnumCreatureType.creature));//.spawnableCreatureList);
-			LittleMaidMobX.Debug("[WaterCreature]");
+			Debug.entity("[WaterCreature]");
 			replaceCreatureList(biomeList[i].getSpawnableList(EnumCreatureType.waterCreature));//.spawnableWaterCreatureList);
-			LittleMaidMobX.Debug("[CaveCreature]");
+			Debug.entity("[CaveCreature]");
 			replaceCreatureList(biomeList[i].getSpawnableList(EnumCreatureType.ambient));//.spawnableCaveCreatureList);
-			LittleMaidMobX.Debug("[Monster]");
+			Debug.entity("[Monster]");
 			replaceCreatureList(biomeList[i].getSpawnableList(EnumCreatureType.monster));//.spawnableMonsterList);
 		}
 	}

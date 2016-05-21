@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;import littleMaidMobX.render.model.ModelRenderer;public class MultiModel_DogAngel extends ModelModchuBaseSR2 {	public ModelRenderer EarL1;
+package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.util.helper.Helper;public class MultiModel_DogAngel extends ModelModchuBaseSR2 {	public ModelRenderer EarL1;
 	public ModelRenderer EarL2;
 	public ModelRenderer EarR1;
 	public ModelRenderer EarR2;
@@ -290,9 +290,9 @@ package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps
 		super.setRotationAnglesLM(f, f1, f2, f3, f4, f5, entityCaps);
 		WingLroot.rotateAngleX=1.570796313F;
 		WingRroot.rotateAngleX=1.570796313F;
-		WingLroot.rotateAngleY=littleMaidMobX.helper.Helper.cos(f2 * 0.5F) * 0.22F + 0.35F;
+		WingLroot.rotateAngleY = Helper.cos(f2 * 0.5F) * 0.22F + 0.35F;
 		WingRroot.rotateAngleY=-WingLroot.rotateAngleY;
-		Ahoge.rotateAngleY=littleMaidMobX.helper.Helper.cos(f2 * 0.2F + littleMaidMobX.helper.Helper.cos(f2*0.05F) * 1.0F) * 0.2F;
+		Ahoge.rotateAngleY = Helper.cos(f2 * 0.2F + Helper.cos(f2*0.05F) * 1.0F) * 0.2F;
 		Ahoge.rotateAngleX=2.9F;		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isRiding)) {
 			Skirt.rotateAngleX -= 0.8F;
 		}

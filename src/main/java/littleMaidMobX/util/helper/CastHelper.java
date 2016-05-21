@@ -1,4 +1,4 @@
-package littleMaidMobX.helper;
+package littleMaidMobX.util.helper;
 
 import java.io.File;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package littleMaidMobX.helper;
+package littleMaidMobX.util.helper;
 
 import java.util.Random;
 
@@ -10,6 +10,7 @@ import littleMaidMobX.network.Network;
 import littleMaidMobX.registry.ModelManager;
 import littleMaidMobX.render.model.ModelBoxBase;
 import littleMaidMobX.render.model.ModelRenderer;
+import littleMaidMobX.util.Debug;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
@@ -27,9 +28,7 @@ import org.lwjgl.opengl.GL11;
 public class ClientHelper {
 
 //	public static ItemRenderer itemRenderer;
-
 	
-
 	public static void clientCustomPayload(Message var2) {
 		
 		byte lmode = var2.data[0];
@@ -40,7 +39,7 @@ public class ClientHelper {
 			lentity = Helper.getEntity(var2.data, 1, Helper.mc.theWorld);
 			if (lentity == null) return;
 		}
-		LittleMaidMobX.Debug("MMM|Upd Clt Call[%2x:%d].", lmode, leid);
+		Debug.client("MMM|Upd Clt Call[%2x:%d].", lmode, leid);
 		
 		switch (lmode) {
 		case NetConstants.Client_SetTextureIndex:

@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseBeverly;import littleMaidMobX.render.model.ModelRenderer;
+package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseBeverly;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.util.helper.Helper;
 public class MultiModel_Beverly5 extends ModelModchuBaseBeverly {	//added fields
 	public ModelRenderer Ponytail;
 	public ModelRenderer BunchR;
@@ -225,7 +225,7 @@ public class MultiModel_Beverly5 extends ModelModchuBaseBeverly {	//added fiel
 					bipedBody.rotationPointY += 1.0F;
 					rightLeg.rotationPointY -= 1.0F;
 					leftLeg.rotationPointY -= 1.0F;
-					hipBody.rotateAngleX -= 0.1F + littleMaidMobX.helper.Helper.sin(f2 * 0.057F) * 0.03F;
+					hipBody.rotateAngleX -= 0.1F + Helper.sin(f2 * 0.057F) * 0.03F;
 					rightArm.rotateAngleX += ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait) ? -0.3F : 0.1F;
 					leftArm.rotateAngleX += ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait) ? -0.3F : 0.1F;
 					rightLeg.rotateAngleY -= 0.07F;
@@ -239,8 +239,8 @@ public class MultiModel_Beverly5 extends ModelModchuBaseBeverly {	//added fiel
 					leftLeg.rotateAngleX += 0.5F;
 				}
 				//しゃがみ歩行
-				float f15 = littleMaidMobX.helper.Helper.sin(f * 0.6565F); //wave1
-				float f16 = littleMaidMobX.helper.Helper.cos(f * 0.6565F); //wave2
+				float f15 = Helper.sin(f * 0.6565F); //wave1
+				float f16 = Helper.cos(f * 0.6565F); //wave2
 				float f22 = f15 > f16 ? f15 : f16; //upper wave
 				float f35 = f15 < f16 ? f15 : f16; //lower wave				rightArm.rotateAngleX -= f15 * 0.2F * f1;
 				leftArm.rotateAngleX += f15 * 0.2F * f1;
@@ -250,15 +250,15 @@ public class MultiModel_Beverly5 extends ModelModchuBaseBeverly {	//added fiel
 				rightLeg2.rotateAngleX += f22 * 0.7F * f1;
 				leftLeg2.rotateAngleX -= f35 * 0.7F * f1;				bipedBody.rotateAngleY -= f15 * 0.1F * f1;
 				hipBody.rotateAngleY += f15 * 0.1F * f1 - bipedBody.rotateAngleY;
-				breastR.rotateAngleX -= f16 * f16 * 0.18F * f1 - littleMaidMobX.helper.Helper.sin(f2 * 0.057F) * 0.05F;
-				breastL.rotateAngleX -= f16 * f16 * 0.18F * f1 - littleMaidMobX.helper.Helper.sin(f2 * 0.057F) * 0.05F;
+				breastR.rotateAngleX -= f16 * f16 * 0.18F * f1 - Helper.sin(f2 * 0.057F) * 0.05F;
+				breastL.rotateAngleX -= f16 * f16 * 0.18F * f1 - Helper.sin(f2 * 0.057F) * 0.05F;
 				mainFrame.rotationPointY += f16 * f16 * 0.5F;
 			} else {
 				//通常歩行
 				upperBody.rotateAngleX = 0.0F;
 				rightLeg.rotationPointZ = leftLeg.rotationPointZ = 0.0F;
-				float f15 = littleMaidMobX.helper.Helper.sin(f * 0.4444F); //wave1
-				float f16 = littleMaidMobX.helper.Helper.cos(f * 0.4444F); //wave2
+				float f15 = Helper.sin(f * 0.4444F); //wave1
+				float f16 = Helper.cos(f * 0.4444F); //wave2
 				float f22 = f15 > f16 ? f15 : f16; //upper wave
 				float f35 = f15 < f16 ? f15 : f16; //lower wave				rightArm.rotateAngleX -= f15 * 0.7F * f1;
 				leftArm.rotateAngleX += f15 * 0.7F * f1;
@@ -268,8 +268,8 @@ public class MultiModel_Beverly5 extends ModelModchuBaseBeverly {	//added fiel
 				rightLeg2.rotateAngleX += f22 * 0.9F * f1;
 				leftLeg2.rotateAngleX -= f35 * 0.9F * f1;				bipedBody.rotateAngleY -= f15 * 0.2F * f1;
 				hipBody.rotateAngleY += f15 * 0.3F * f1 - bipedBody.rotateAngleY;
-				breastR.rotateAngleX -= f16 * f16 * 0.18F * f1 - littleMaidMobX.helper.Helper.sin(f2 * 0.057F) * 0.05F;
-				breastL.rotateAngleX -= f16 * f16 * 0.18F * f1 - littleMaidMobX.helper.Helper.sin(f2 * 0.057F) * 0.05F;
+				breastR.rotateAngleX -= f16 * f16 * 0.18F * f1 - Helper.sin(f2 * 0.057F) * 0.05F;
+				breastL.rotateAngleX -= f16 * f16 * 0.18F * f1 - Helper.sin(f2 * 0.057F) * 0.05F;
 				mainFrame.rotationPointY += f16 * f16 * 0.1F;
 			}
 		}		// アイテム持ってるときの腕振りを抑える+表示角オフセット
@@ -280,12 +280,12 @@ public class MultiModel_Beverly5 extends ModelModchuBaseBeverly {	//added fiel
 			rightArm.rotateAngleX = rightArm.rotateAngleX * 0.5F - (float) Math.PI * 0.1F * heldItem[0];
 		}
 		armSwing(f, f1, f2, f3, f4, f5, entityCaps);		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)) {// 待機状態 腕
-			rightArm.rotateAngleX += littleMaidMobX.helper.Helper.sin(f2 * 0.057F) * 0.05F - 0.5F;
+			rightArm.rotateAngleX += Helper.sin(f2 * 0.057F) * 0.05F - 0.5F;
 			rightArm.rotateAngleZ -= 0.3F;
 			Arms[0].rotateAngleZ -= 1.5F;
 			Arms[0].rotateAngleX -= 0.5F;
 			Arms[0].rotateAngleY += 1.5F;
-			leftArm.rotateAngleX += littleMaidMobX.helper.Helper.sin(f2 * 0.057F) * 0.05F - 0.5F;
+			leftArm.rotateAngleX += Helper.sin(f2 * 0.057F) * 0.05F - 0.5F;
 			leftArm.rotateAngleZ += 0.3F;
 			Arms[1].rotateAngleZ += 1.5F;
 			Arms[1].rotateAngleX -= 0.5F;
@@ -294,10 +294,10 @@ public class MultiModel_Beverly5 extends ModelModchuBaseBeverly {	//added fiel
 			breastL.rotationPointX -= 0.1F;
 		} else {
 			if (aimedBow) {// 弓構え 腕
-				float fr6 = littleMaidMobX.helper.Helper.sin(onGrounds[0] * 3.141593F);
-				float fl6 = littleMaidMobX.helper.Helper.sin(onGrounds[1] * 3.141593F);
-				float fr7 = littleMaidMobX.helper.Helper.sin((1.0F - (1.0F - onGrounds[0]) * (1.0F - onGrounds[0])) * 3.141593F);
-				float fl7 = littleMaidMobX.helper.Helper.sin((1.0F - (1.0F - onGrounds[1]) * (1.0F - onGrounds[1])) * 3.141593F);
+				float fr6 = Helper.sin(onGrounds[0] * 3.141593F);
+				float fl6 = Helper.sin(onGrounds[1] * 3.141593F);
+				float fr7 = Helper.sin((1.0F - (1.0F - onGrounds[0]) * (1.0F - onGrounds[0])) * 3.141593F);
+				float fl7 = Helper.sin((1.0F - (1.0F - onGrounds[1]) * (1.0F - onGrounds[1])) * 3.141593F);
 				rightArm.rotateAngleZ = 0.0F;
 				leftArm.rotateAngleZ = 0.0F;
 				rightArm.rotateAngleY = -(0.1F - fr6 * 0.6F);
@@ -306,10 +306,10 @@ public class MultiModel_Beverly5 extends ModelModchuBaseBeverly {	//added fiel
 				leftArm.rotateAngleX = -1.470796F;
 				rightArm.rotateAngleX -= fr6 * 1.2F - fr7 * 0.4F;
 				leftArm.rotateAngleX -= fl6 * 1.2F - fl7 * 0.4F;
-				rightArm.rotateAngleZ += littleMaidMobX.helper.Helper.cos(f2 * 0.08F) * 0.03F + 0.05F;
-				leftArm.rotateAngleZ -= littleMaidMobX.helper.Helper.cos(f2 * 0.08F) * 0.03F + 0.05F;
-				rightArm.rotateAngleX += littleMaidMobX.helper.Helper.sin(f2 * 0.057F) * 0.05F;
-				leftArm.rotateAngleX -= littleMaidMobX.helper.Helper.sin(f2 * 0.057F) * 0.05F;
+				rightArm.rotateAngleZ += Helper.cos(f2 * 0.08F) * 0.03F + 0.05F;
+				leftArm.rotateAngleZ -= Helper.cos(f2 * 0.08F) * 0.03F + 0.05F;
+				rightArm.rotateAngleX += Helper.sin(f2 * 0.057F) * 0.05F;
+				leftArm.rotateAngleX -= Helper.sin(f2 * 0.057F) * 0.05F;
 				rightArm.rotateAngleX += bipedHead.rotateAngleX;
 				leftArm.rotateAngleX += bipedHead.rotateAngleX;
 				rightArm.rotateAngleY += bipedHead.rotateAngleY;
@@ -319,14 +319,14 @@ public class MultiModel_Beverly5 extends ModelModchuBaseBeverly {	//added fiel
 				leftArm.rotateAngleZ -= 0.2F;
 				rightArm2.rotateAngleZ += 0.05F;
 				leftArm2.rotateAngleZ -= 0.05F;
-				rightArm.rotateAngleZ += littleMaidMobX.helper.Helper.cos(f2 * 0.08F) * 0.03F + 0.05F;
-				leftArm.rotateAngleZ -= littleMaidMobX.helper.Helper.cos(f2 * 0.08F) * 0.03F + 0.05F;
-				rightArm.rotateAngleX += littleMaidMobX.helper.Helper.sin(f2 * 0.057F) * 0.05F;
-				leftArm.rotateAngleX -= littleMaidMobX.helper.Helper.sin(f2 * 0.057F) * 0.05F;
+				rightArm.rotateAngleZ += Helper.cos(f2 * 0.08F) * 0.03F + 0.05F;
+				leftArm.rotateAngleZ -= Helper.cos(f2 * 0.08F) * 0.03F + 0.05F;
+				rightArm.rotateAngleX += Helper.sin(f2 * 0.057F) * 0.05F;
+				leftArm.rotateAngleX -= Helper.sin(f2 * 0.057F) * 0.05F;
 			}
 		}		//脚部追従
-		float sinBody1X = littleMaidMobX.helper.Helper.sin(bipedBody.rotateAngleX);
-		float cosBody1X = 1F - littleMaidMobX.helper.Helper.cos(bipedBody.rotateAngleX);		bipedHead.rotationPointZ -= -headPosY * sinBody1X;
+		float sinBody1X = Helper.sin(bipedBody.rotateAngleX);
+		float cosBody1X = 1F - Helper.cos(bipedBody.rotateAngleX);		bipedHead.rotationPointZ -= -headPosY * sinBody1X;
 		bipedHead.rotationPointY += -headPosY * cosBody1X;
 		breastFloats(f, f1, f2, f3, f4, f5, entityCaps);//		setRotationAnglesGulliverAfter(f, f1, f2, f3, f4, f5, entityCaps);
 	}	@Override
@@ -425,8 +425,8 @@ public class MultiModel_Beverly5 extends ModelModchuBaseBeverly {	//added fiel
 		if (armSwingFlag(entityCaps)) {
 			// 腕振り
 			float f6, f7, f8;
-			f6 = littleMaidMobX.helper.Helper.sin(littleMaidMobX.helper.Helper.sqrt(onGrounds[0]) * (float) Math.PI * 2.0F);
-			f7 = littleMaidMobX.helper.Helper.sin(littleMaidMobX.helper.Helper.sqrt(onGrounds[1]) * (float) Math.PI * 2.0F);
+			f6 = Helper.sin(Helper.sqrt(onGrounds[0]) * (float) Math.PI * 2.0F);
+			f7 = Helper.sin(Helper.sqrt(onGrounds[1]) * (float) Math.PI * 2.0F);
 			bipedBody.rotateAngleY = (f6 - f7) * 0.2F;
 			// R
 			if (onGrounds[0] > 0F) {
@@ -434,11 +434,11 @@ public class MultiModel_Beverly5 extends ModelModchuBaseBeverly {	//added fiel
 				f6 *= f6;
 				f6 *= f6;
 				f6 = 1.0F - f6;
-				f7 = littleMaidMobX.helper.Helper.sin(f6 * (float) Math.PI);
-				f8 = littleMaidMobX.helper.Helper.sin(onGrounds[0] * (float) Math.PI) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
+				f7 = Helper.sin(f6 * (float) Math.PI);
+				f8 = Helper.sin(onGrounds[0] * (float) Math.PI) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
 				rightArm.rotateAngleX -= f7 * 1.2D + f8;
 				rightArm.rotateAngleY += bipedBody.rotateAngleY * 2.0F;
-				rightArm.rotateAngleZ = littleMaidMobX.helper.Helper.sin(onGrounds[0] * 3.141593F) * -0.4F;
+				rightArm.rotateAngleZ = Helper.sin(onGrounds[0] * 3.141593F) * -0.4F;
 			}
 			// L
 			if (onGrounds[1] > 0F) {
@@ -446,11 +446,11 @@ public class MultiModel_Beverly5 extends ModelModchuBaseBeverly {	//added fiel
 				f6 *= f6;
 				f6 *= f6;
 				f6 = 1.0F - f6;
-				f7 = littleMaidMobX.helper.Helper.sin(f6 * (float) Math.PI);
-				f8 = littleMaidMobX.helper.Helper.sin(onGrounds[1] * (float) Math.PI) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
+				f7 = Helper.sin(f6 * (float) Math.PI);
+				f8 = Helper.sin(onGrounds[1] * (float) Math.PI) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
 				leftArm.rotateAngleX -= f7 * 1.2D + f8;
 				leftArm.rotateAngleY += bipedBody.rotateAngleY * 2.0F;
-				leftArm.rotateAngleZ = littleMaidMobX.helper.Helper.sin(onGrounds[1] * 3.141593F) * 0.4F;
+				leftArm.rotateAngleZ = Helper.sin(onGrounds[1] * 3.141593F) * 0.4F;
 			}
 		}
 	}	@Override

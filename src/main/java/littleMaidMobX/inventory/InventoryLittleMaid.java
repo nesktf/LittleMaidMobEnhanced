@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import littleMaidMobX.entity.EntityLittleMaid;
-import littleMaidMobX.helper.Helper;
+import littleMaidMobX.util.helper.Helper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTNT;
 import net.minecraft.block.material.Material;

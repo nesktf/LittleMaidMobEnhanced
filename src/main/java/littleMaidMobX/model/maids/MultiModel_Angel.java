@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;import littleMaidMobX.render.model.ModelRenderer;public class MultiModel_Angel extends ModelModchuBaseSR2 {	public ModelRenderer Prim;
+package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.util.helper.Helper;public class MultiModel_Angel extends ModelModchuBaseSR2 {	public ModelRenderer Prim;
 	public ModelRenderer WingLroot;
 	public ModelRenderer WingL2;
 	public ModelRenderer WingL3;
@@ -499,8 +499,8 @@ package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps
 		HeadTop.setRotationPoint(0.0F, -7.0F, 0.0F);
 		Ribon0.setRotationPoint(0F, 0.8F, 1.5F);		WingLroot.rotateAngleX=1.570796313F;
 		WingRroot.rotateAngleX=1.570796313F;
-		WingLroot.rotateAngleY=littleMaidMobX.helper.Helper.cos(f2 * 0.5F) * 0.22F + 0.35F;
-		WingRroot.rotateAngleY=-WingLroot.rotateAngleY;		Ahoge.rotateAngleY = littleMaidMobX.helper.Helper.cos(f2 * 0.2F + littleMaidMobX.helper.Helper.cos(f2 * 0.05F + IdOffset) * 1.0F) * 0.2F;
+		WingLroot.rotateAngleY=Helper.cos(f2 * 0.5F) * 0.22F + 0.35F;
+		WingRroot.rotateAngleY=-WingLroot.rotateAngleY;		Ahoge.rotateAngleY = Helper.cos(f2 * 0.2F + Helper.cos(f2 * 0.05F + IdOffset) * 1.0F) * 0.2F;
 		Ahoge.rotateAngleX=2.9F;		Tail3.rotateAngleX=-bipedHead.rotateAngleX;
 		Tail4.rotateAngleX=-bipedHead.rotateAngleX;
 		Tail5.rotateAngleX=-bipedHead.rotateAngleX;

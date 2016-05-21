@@ -7,7 +7,7 @@ import java.util.Random;
 import littleMaidMobX.LittleMaidMobX;
 import littleMaidMobX.entity.EntityLittleMaid;
 import littleMaidMobX.gui.button.GuiButtonNextPage;
-import littleMaidMobX.helper.ClientHelper;
+import littleMaidMobX.util.helper.ClientHelper;
 import littleMaidMobX.inventory.ContainerInventory;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.gui.GuiButton;

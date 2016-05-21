@@ -4,7 +4,8 @@ import littleMaidMobX.LittleMaidMobX;
 import littleMaidMobX.aimodes.SwingStatus;
 import littleMaidMobX.entity.EntityLittleMaid;
 import littleMaidMobX.entity.EntityLittleMaidAvatar;
-import littleMaidMobX.helper.Helper;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.inventory.InventoryLittleMaid;
 import littleMaidMobX.sound.EnumSound;
 import net.minecraft.entity.Entity;
@@ -189,7 +190,7 @@ public class AIAttackArrow extends EntityAIBase implements IEntityAI {
 					if (((fMaid.weaponFullAuto && !lcanattack) || (lcanattack && fMaid.getSwingStatusDominant().canAttack())) && fAvatar.isItemTrigger) {
 						
 						
-						LittleMaidMobX.Debug("id:%d shoot.", fMaid.getEntityId());
+						Debug.entity("id:%d shoot.", fMaid.getEntityId());
 						fAvatar.stopUsingItem();
 						fMaid.setSwing(30, EnumSound.shoot);
 					} else {
@@ -205,10 +206,10 @@ public class AIAttackArrow extends EntityAIBase implements IEntityAI {
 									if (swingState.attackTime < at) {
 										fMaid.setSwing(at, EnumSound.sighting);
 										litemstack = litemstack.useItemRightClick(worldObj, fAvatar);
-										LittleMaidMobX.Debug("id:%d redygun.", fMaid.getEntityId());
+										Debug.entity("id:%d redygun.", fMaid.getEntityId());
 									}
 								} else {
-									LittleMaidMobX.Debug(String.format("ID:%d-friendly fire FullAuto.", fMaid.getEntityId()));
+									Debug.ai(String.format("ID:%d-friendly fire FullAuto.", fMaid.getEntityId()));
 								}
 							}
 						} 
@@ -220,16 +221,16 @@ public class AIAttackArrow extends EntityAIBase implements IEntityAI {
 									
 									fMaid.mstatAimeBow = false;
 									fMaid.setSwing(10, (litemstack.stackSize == itemcount) ? EnumSound.shoot_burst : EnumSound.Null);
-									LittleMaidMobX.Debug(String.format("id:%d throw weapon.(%d:%f:%f)", fMaid.getEntityId(), swingState.attackTime, fMaid.rotationYaw, fMaid.rotationYawHead));
+									Debug.ai(String.format("id:%d throw weapon.(%d:%f:%f)", fMaid.getEntityId(), swingState.attackTime, fMaid.rotationYaw, fMaid.rotationYawHead));
 								} else {
-									LittleMaidMobX.Debug(String.format("ID:%d-friendly fire throw weapon.", fMaid.getEntityId()));
+									Debug.ai(String.format("ID:%d-friendly fire throw weapon.", fMaid.getEntityId()));
 								}
 							}
 						} else {
 							
 							if (!fAvatar.isUsingItemLittleMaid()) {
 								litemstack = litemstack.useItemRightClick(worldObj, fAvatar);
-								LittleMaidMobX.Debug(String.format("%d reload.", fMaid.getEntityId()));
+								Debug.ai(String.format("%d reload.", fMaid.getEntityId()));
 							}
 							
 							swingState.attackTime = 5;
@@ -252,7 +253,7 @@ public class AIAttackArrow extends EntityAIBase implements IEntityAI {
 				fMaid.getNavigator().tryMoveToEntityLiving(fTarget, 1.0);
 			}
 			if (fMaid.getNavigator().noPath()) {
-				LittleMaidMobX.Debug("id:%d Target renge out.", fMaid.getEntityId());
+				Debug.ai("id:%d Target renge out.", fMaid.getEntityId());
 				fMaid.setAttackTarget(null);
 			}
 			if (fMaid.weaponFullAuto && fAvatar.isItemTrigger) {
