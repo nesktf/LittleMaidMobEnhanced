@@ -160,7 +160,7 @@ public class Mode_Archer extends ModeBase {
 //			owner.getWeaponStatus();
 			updateGuns();
 			
-			World lworld = owner.worldObj;
+			/*World lworld = owner.worldObj;
 			List<Entity> llist = lworld.getEntitiesWithinAABB(Entity.class, owner.boundingBox.expand(16D, 16D, 16D));
 			for (int li = 0; li < llist.size(); li++) {
 				Entity lentity = llist.get(li); 
@@ -174,7 +174,7 @@ public class Mode_Archer extends ModeBase {
 						lworld.setBlock(lx, ly, lz, Blocks.fire);
 					}
 				}
-			}
+			}*/
 			break;
 		}
 	}
