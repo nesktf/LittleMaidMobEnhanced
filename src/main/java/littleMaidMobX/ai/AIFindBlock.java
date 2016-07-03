@@ -87,7 +87,7 @@ public class AIFindBlock extends EntityAIBase implements IEntityAI {
 							if (fmodeBase.outrangeBlock(theMaid.maidMode, xx, yy, zz))
 							{
 								theMaid.setTilePos(xx, yy, zz);
-								// TODO:Dummay
+								// TODO:Dummy
 								EntityDummy.setDummyEntity(theMaid, 0x004fff4f, xx, yy, zz);
 								flagdammy = true;
 								return true;
@@ -99,7 +99,7 @@ public class AIFindBlock extends EntityAIBase implements IEntityAI {
 						EntityDummy.setDummyEntity(theMaid, 0x00ffffcf, xx, ly, zz);
 						flagdammy = true;
 					}
-					// TODO:dammy
+					// TODO:Dummy
 					flagdammy = false;
 					
 					if (vt == 0) {

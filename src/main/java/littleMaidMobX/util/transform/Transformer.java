@@ -21,6 +21,7 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.MultiANewArrayInsnNode;
 import org.objectweb.asm.tree.TypeInsnNode;
+import org.objectweb.asm.tree.VarInsnNode;
 
 import com.google.common.collect.Lists;
 
@@ -72,7 +73,7 @@ public class Transformer implements IClassTransformer, Opcodes
 			put("littleMaidMobX/LMM_InventoryLittleMaid", "littleMaidMobX/inventory/InventoryLittleMaid");
 			
 			//ai
-			put("LlittleMaidMobX/LMM_EntityAIWander", "littleMaidMobX/ai/AIWander");
+			put("littleMaidMobX/LMM_EntityAIWander", "littleMaidMobX/ai/AIWander");
 			put("littleMaidMobX/LMM_EntityAIJumpToMaster", "littleMaidMobX/ai/AIJumpToMaster");
 			put("littleMaidMobX/LMM_EntityAIFollowOwner", "littleMaidMobX/ai/AIFollowOwner");
 			put("littleMaidMobX/LMM_EntityAIAvoidPlayer", "littleMaidMobX/ai/AIAvoidPlayer");
@@ -163,16 +164,20 @@ public class Transformer implements IClassTransformer, Opcodes
 					((FieldInsnNode)lin).desc = checkMMM(((FieldInsnNode)lin).desc);
 					((FieldInsnNode)lin).name = checkMMM(((FieldInsnNode)lin).name);
 					((FieldInsnNode)lin).owner = checkMMM(((FieldInsnNode)lin).owner);
-				} else if (lin instanceof InvokeDynamicInsnNode) {	//6
+				}
+				else if (lin instanceof InvokeDynamicInsnNode) {	//6
 					((InvokeDynamicInsnNode)lin).desc = checkMMM(((InvokeDynamicInsnNode)lin).desc);
 					((InvokeDynamicInsnNode)lin).name = checkMMM(((InvokeDynamicInsnNode)lin).name);
-				} else if (lin instanceof MethodInsnNode) {	//5
+				}
+				else if (lin instanceof MethodInsnNode) {	//5
 					((MethodInsnNode)lin).desc = checkMMM(((MethodInsnNode)lin).desc);
 					((MethodInsnNode)lin).name = checkMMM(((MethodInsnNode)lin).name);
 					((MethodInsnNode)lin).owner = checkMMM(((MethodInsnNode)lin).owner);
-				} else if (lin instanceof MultiANewArrayInsnNode) {	//13
+				}
+				else if (lin instanceof MultiANewArrayInsnNode) {	//13
 					((MultiANewArrayInsnNode)lin).desc = checkMMM(((MultiANewArrayInsnNode)lin).desc);
-				} else if (lin instanceof TypeInsnNode) {	//3
+				}
+				else if (lin instanceof TypeInsnNode) {	//3
 					((TypeInsnNode)lin).desc = checkMMM(((TypeInsnNode)lin).desc);
 				}
 				lin = lin.getNext();
@@ -190,10 +195,12 @@ public class Transformer implements IClassTransformer, Opcodes
 	}
 
 	private String checkMMM(String pText) {
-		for (Entry<String, String> le : targets.entrySet()) {
-			if (pText.indexOf(le.getKey()) > -1) {
+		for (Entry<String, String> le : targets.entrySet())
+		{
+			if (pText.indexOf(le.getKey()) > -1)
+			{
 				String result = pText.replace(le.getKey(), le.getValue());
-//				Debug("%d Hit and Replace: %s -> %s", debugOut, pText, result);
+				Debug("Hit and Replace: %s -> %s", pText, result);
 				isChange = true;
 				return result;
 			}

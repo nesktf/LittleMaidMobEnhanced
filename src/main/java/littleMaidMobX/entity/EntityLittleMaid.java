@@ -149,7 +149,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 	
 
 	public int maidContractLimit;		
-	protected long maidAnniversary;			
+	protected long maidAnniversary;
 	public int maidDominantArm;			
 	
 	public TextureData textureData;
@@ -2848,15 +2848,12 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 		setPathToEntity(null);
 		getNavigator().clearPathEntity();
 		velocityChanged = true;
-		setFreedom(false);
+		//setFreedom(false);
 	}
 
 	public void setMaidWaitCount(int count) {
 		mstatWaitCount = count;
 	}
-
-	
-	
 	
 	public void setOpenInventory(boolean flag) {
 		mstatOpenInventory = flag;

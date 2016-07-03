@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
@@ -117,7 +118,7 @@ public class Mode_Farmer extends ModeBase {
 	@Override
 	public boolean checkItemStack(ItemStack pItemStack) {
 		if(pItemStack==null) return false;
-		return true;//UtilModeFarmer.isHoe(owner, pItemStack)||UtilModeFarmer.isSeed(pItemStack.getItem())||UtilModeFarmer.isCrop(pItemStack.getItem());
+		return (pItemStack.getItem() instanceof ItemSeeds || TriggerSelect.checkItem(owner.getMaidMaster(), "Seeds", pItemStack));//UtilModeFarmer.isHoe(owner, pItemStack)||UtilModeFarmer.isSeed(pItemStack.getItem())||UtilModeFarmer.isCrop(pItemStack.getItem());
 	}
 	
 	@Override
@@ -151,14 +152,14 @@ public class Mode_Farmer extends ModeBase {
 			 * ①周りに未耕作の地域がある場合はtrueを返さない
 			 * ②種を持っていない場合もfalse
 			 */
-/*
+
 			int p=WATER_RADIUS*3;
 			for(int az=-p;az<=p;az++){
 				for(int ax=-p;ax<=p;ax++){
 					if(isUnfarmedLand(px+ax,py,pz+az)) return false;
 				}
 			}
-*/
+
 			if(getHadSeedIndex()==-1)
 				return false;
 			return true;
@@ -207,7 +208,8 @@ public class Mode_Farmer extends ModeBase {
 				}
 			}
 		}
-		if(isCropGrown(px,py,pz)){
+		if(isCropGrown(px,py,pz))
+		{
 			// 収穫
 			/*BlockPos pos = new BlockPos(px,py,pz);
 			owner.worldObj.destroyBlock(pos, true);*/
@@ -244,7 +246,8 @@ public class Mode_Farmer extends ModeBase {
 	public void updateAITick(int pMode) {
 		if (pMode == mmode_Farmer && owner.getNextEquipItem()) {
 			if(owner.getAIMoveSpeed()>0.5F) owner.setAIMoveSpeed(0.5F);
-			if(owner.maidInventory.getFirstEmptyStack()==-1){
+			if(owner.maidInventory.getFirstEmptyStack()==-1)
+			{
 				owner.setMaidMode("FarmPorter");
 			}
 		}
@@ -284,7 +287,7 @@ public class Mode_Farmer extends ModeBase {
 	protected boolean isCropGrown(int x, int y, int z){
 		Block b = owner.worldObj.getBlock(x,y,z);
 		if(b instanceof BlockCrops){
-			int age = (Integer) owner.worldObj.getBlockMetadata(x, y, z) + MathHelper.getRandomIntegerInRange(owner.worldObj.rand, 2, 5);
+			int age = (Integer) owner.worldObj.getBlockMetadata(x, y, z)/* + MathHelper.getRandomIntegerInRange(owner.worldObj.rand, 2, 5)*/;
 			if(age==7) return true;
 		}
 		return false;

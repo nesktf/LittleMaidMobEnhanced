@@ -83,7 +83,7 @@ public class Mode_Miner extends ModeBase
 		ItemStack litemstack = owner.maidInventory.getStackInSlot(0);
 		if (litemstack != null)
 		{
-			if (litemstack.getItem() instanceof ItemPickaxe)
+			if (litemstack.getItem() instanceof ItemPickaxe || TriggerSelect.checkItem(owner.getMaidMaster(), "Pickaxe", litemstack))
 			{
 				owner.setMaidMode("Miner");
 				return true;

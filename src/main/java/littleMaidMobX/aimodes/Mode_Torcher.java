@@ -107,7 +107,8 @@ public class Mode_Torcher extends ModeBase {
 	}
 
 	@Override
-	public boolean isSearchBlock() {
+	public boolean isSearchBlock()
+	{
 		return true;
 	}
 
