@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseMulti;import littleMaidMobX.render.model.ModelRenderer;public class MultiModel_ExtraArms extends ModelModchuBaseMulti {	public ModelRenderer Backpack;
+package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseMulti;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.util.helper.Helper;public class MultiModel_ExtraArms extends ModelModchuBaseMulti {	public ModelRenderer Backpack;
 	public ModelRenderer Antena;
 	public ModelRenderer Cwave;
 	public ModelRenderer FirstAidSet;
@@ -95,10 +95,10 @@ package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps
 		super.setLivingAnimationsLM(entityCaps, f, f1, f2);
 		Object entityliving = entityCaps.getCapsValue(entityCaps.caps_Entity);
 		if (entityliving != null); else return;
-		int ticksExisted = littleMaidMobX.Helper.getEntityTicksExisted(entityliving);
+		int ticksExisted = Helper.getEntityTicksExisted(entityliving);
 		float f3 = (float)ticksExisted + f2 + ModelCapsHelper.getCapsValueFloat(this, entityCaps, caps_entityIdFactor);
 		// 目パチ
-		if (0 > littleMaidMobX.Helper.sin(f3 * 0.05F) + littleMaidMobX.Helper.sin(f3 * 0.13F) + littleMaidMobX.Helper.sin(f3 * 0.7F) + 2.55F) {
+		if (0 > Helper.sin(f3 * 0.05F) + Helper.sin(f3 * 0.13F) + Helper.sin(f3 * 0.7F) + 2.55F) {
 			setCapsValue(entityCaps, caps_visible, eyeR, false);
 			setCapsValue(entityCaps, caps_visible, eyeL, false);
 		} else {

@@ -3,9 +3,12 @@ package littleMaidMobX.registry;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,11 +18,18 @@ import java.util.Random;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
-import littleMaidMobX.ClientHelper;
-import littleMaidMobX.Helper;
 import littleMaidMobX.LittleMaidMobX;
-import littleMaidMobX.model.ModelMultiBase;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.helper.ClientHelper;
+import littleMaidMobX.util.helper.Helper;
+import littleMaidMobX.util.helper.PathHelper;
+import littleMaidMobX.io.Config;
+import littleMaidMobX.io.FileManager;
+import littleMaidMobX.io.ZipTexturesLoader;
+import littleMaidMobX.model.maid.ModelMultiBase;
 import littleMaidMobX.network.NetConstants;
 import littleMaidMobX.textures.ITextureEntity;
 import littleMaidMobX.textures.TextureBox;
@@ -31,13 +41,15 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 
 public class ModelManager {
 
 	
 	public static ModelManager instance = new ModelManager();
 
-	public static String nameTextureIndex = "config/mod_MMM_textureList.cfg";
+	public static String nameTextureIndex = "config/mod_LMM_textureList.cfg";
 	public static String defaultModelName = "Orign";
 
 	public static final int tx_oldwild = 0x10; //16;
@@ -57,15 +69,15 @@ public class ModelManager {
 	
 	protected static String defNames[] = {
 		"mob_littlemaid0.png", "mob_littlemaid1.png",
-			"mob_littlemaid2.png", "mob_littlemaid3.png",
-			"mob_littlemaid4.png", "mob_littlemaid5.png",
-			"mob_littlemaid6.png", "mob_littlemaid7.png",
-			"mob_littlemaid8.png", "mob_littlemaid9.png",
-			"mob_littlemaida.png", "mob_littlemaidb.png",
-			"mob_littlemaidc.png", "mob_littlemaidd.png",
-			"mob_littlemaide.png", "mob_littlemaidf.png",
-			"mob_littlemaidw.png",
-			"mob_littlemaid_a00.png", "mob_littlemaid_a01.png"
+		"mob_littlemaid2.png", "mob_littlemaid3.png",
+		"mob_littlemaid4.png", "mob_littlemaid5.png",
+		"mob_littlemaid6.png", "mob_littlemaid7.png",
+		"mob_littlemaid8.png", "mob_littlemaid9.png",
+		"mob_littlemaida.png", "mob_littlemaidb.png",
+		"mob_littlemaidc.png", "mob_littlemaidd.png",
+		"mob_littlemaide.png", "mob_littlemaidf.png",
+		"mob_littlemaidw.png",
+		"mob_littlemaid_a00.png", "mob_littlemaid_a01.png"
 	};
 
 	
@@ -97,11 +109,40 @@ public class ModelManager {
 	};
 	protected Map < ITextureEntity, int[] > stackGetTexturePack = new HashMap < ITextureEntity, int[] > ();
 	protected Map < ITextureEntity, Object[] > stackSetTexturePack = new HashMap < ITextureEntity, Object[] > ();
+	
+	protected List<String[]> searchPrefix = new ArrayList<String[]>();
+	
+	public static final String[] searchFileNamePrefix = new String[]{"littleMaidMob","mmmlibx","ModelMulti","LittleMaidMob","MultiModel"};
 
-
-	public TextureBox getTextureBox(String pName) {
-		for (TextureBox ltb: getTextureList()) {
-			if (ltb.textureName.equals(pName)) {
+	public void init() {
+		// 検索対象ファイル名を登録します。
+		// パターンを登録しない場合、独自名称のMODファイル、テクスチャディレクトリ、クラスが読み込まれません。
+		FileManager.getModFile("mmmlibx", "littleMaidMob");
+		FileManager.getModFile("mmmlibx", "mmmlibx");
+		FileManager.getModFile("mmmlibx", "ModelMulti");
+		FileManager.getModFile("mmmlibx", "LittleMaidMob");
+		
+		addSearch("mmmlibx", "/assets/minecraft/textures/entity/ModelMulti/", "ModelMulti_");
+		addSearch("mmmlibx", "/assets/minecraft/textures/entity/littleMaid/", "ModelMulti_");
+		addSearch("mmmlibx", "/assets/minecraft/textures/entity/littleMaid/", "ModelLittleMaid_");
+		addSearch("mmmlibx", "/mob/ModelMulti/", "ModelMulti_");
+		addSearch("mmmlibx", "/mob/littleMaid/", "ModelLittleMaid_");
+	}
+	
+	/**
+	 * 追加対象となる検索対象ファイル群とそれぞれの検索文字列を設定する。
+	 */
+	public void addSearch(String pName, String pTextureDir, String pClassPrefix)
+	{
+		searchPrefix.add(new String[] {pName, pTextureDir, pClassPrefix});
+	}
+	
+	public TextureBox getTextureBox(String pName)
+	{
+		for (TextureBox ltb: getTextureList())
+		{
+			if (ltb.textureName.equals(pName))
+			{
 				return ltb;
 			}
 		}
@@ -145,9 +186,10 @@ public class ModelManager {
 	}
 
 	boolean init = false;
-	public boolean loadTextures(boolean server) {
-		
-		if (Helper.isClient) {
+	public boolean loadTextures(boolean server)
+	{
+		if (Helper.isClient)
+		{
 			getArmorPrefix();
 		}
 		
@@ -157,7 +199,8 @@ public class ModelManager {
 		StringBuilder hack = new StringBuilder();
 		for (Class c : ModelRegistry.list) {
 			try {
-				if(server) {
+				if(server)
+				{
 					addModelClassServer(c, hack);
 				} else {
 					addModelClass(c);
@@ -166,19 +209,25 @@ public class ModelManager {
 				e.printStackTrace();
 			}
 		}
-		for (String texturePath : TextureRegistry.list) {
-			try {
+		for (String texturePath : TextureRegistry.list)
+		{
+			try
+			{
 				addTexture(texturePath);
-			} catch (Throwable e) {
+			}
+			catch (Throwable e)
+			{
 				e.printStackTrace();
 			}
 		}
 		
-		
-		
-		buildCrafterTexture();
+		for (String[] lst : searchPrefix) {
+			// mods
+			searchFiles(FileManager.dirMods, lst, server);
+		}
 
-		
+		buildCrafterTexture();
+	
 		ModelMultiBase[] ldm = modelMap.get(defaultModelName);
 		if (ldm == null && !modelMap.isEmpty()) {
 			ldm = (ModelMultiBase[]) modelMap.values().toArray()[0];
@@ -198,7 +247,7 @@ public class ModelManager {
 				if (getTextureBox(ls + "_" + le.getKey()) == null) {
 					TextureBox lbox = null;
 					for (TextureBox ltb: textures) {
-						if (ltb.packegeName.equals(ls)) {
+						if (ltb.packageName.equals(ls)) {
 							lbox = ltb;
 							break;
 						}
@@ -211,24 +260,40 @@ public class ModelManager {
 				}
 			}
 		}
-		LittleMaidMobX.Debug("Loaded Texture Lists.(%d)", textures.size());
+		Debug.texture("Loaded Texture Lists.(%d)", textures.size());
 		for (TextureBox lbox: textures) {
-			LittleMaidMobX.Debug("texture: %s(%s) - hasModel:%b", lbox.textureName, lbox.fileName, lbox.models != null);
+			Debug.texture("texture: %s(%s) - hasModel:%b", lbox.textureName, lbox.fileName, lbox.models != null);
 		}
 		for (int li = textures.size() - 1; li >= 0; li--) {
 			if (textures.get(li).models == null) {
 				textures.remove(li);
 			}
 		}
-		LittleMaidMobX.Debug("Rebuild Texture Lists.(%d)", textures.size());
+		Debug.texture("Rebuild Texture Lists.(%d)", textures.size());
 		for (TextureBox lbox: textures) {
-			LittleMaidMobX.Debug("texture: %s(%s) - hasModel:%b", lbox.textureName, lbox.fileName, lbox.models != null);
+			Debug.texture("texture: %s(%s) - hasModel:%b", lbox.textureName, lbox.fileName, lbox.models != null);
 		}
 
 
 		setDefaultTexture(EntityLivingBase.class, getTextureBox("default_" + defaultModelName));
 
 		return false;
+	}
+	
+	private void searchFiles(File ln, String[] lst, boolean server) {
+		Debug.texture("getTexture[%s:%s].", lst[0], lst[1]);
+		// mods
+		for (File lf : ln.listFiles()) {
+			boolean lflag;
+			if (lf.isDirectory()) {
+				// ディレクトリ
+				lflag = addTexturesDir(lf, lst, server);
+			} else {
+				// zip
+				lflag = addTexturesZip(lf, lst, server);
+			}
+			Debug.texture("getTexture-append-%s-%s.", lf.getName(), lflag ? "done" : "fail");
+		}
 	}
 
 	public void buildCrafterTexture() {
@@ -252,9 +317,8 @@ public class ModelManager {
 	}
 
 
-	public boolean loadTextureServer() {
-		
-		
+	public boolean loadTextureServer()
+	{
 		textureServer.clear();
 		for (TextureBox lbox: getTextureList()) {
 			textureServer.add(new TextureBoxServer(lbox));
@@ -293,10 +357,10 @@ public class ModelManager {
 				e.printStackTrace();
 			}
 
-			LittleMaidMobX.Debug("Loaded ServerBoxList.(%d)", textureServer.size());
+			Debug.texture("Loaded ServerBoxList.(%d)", textureServer.size());
 			for (int li = 0; li < textureServer.size(); li++) {
 				TextureBoxServer lbox = textureServer.get(li);
-				LittleMaidMobX.Debug("%04d=%s:%04x:%04x", li, lbox.textureName, lbox.contractColor, lbox.wildColor);
+				Debug.texture("%04d=%s:%04x:%04x", li, lbox.textureName, lbox.contractColor, lbox.wildColor);
 			}
 			return true;
 		} else {}
@@ -332,7 +396,7 @@ public class ModelManager {
 
 	
 	public void initTextureList(boolean pFlag) {
-		LittleMaidMobX.Debug("Clear TextureBoxServer.");
+		Debug.texture("Clear TextureBoxServer.");
 		textureServerIndex.clear();
 		textureServer.clear();
 		if (pFlag) {
@@ -342,11 +406,12 @@ public class ModelManager {
 				textureServer.add(lbs);
 				textureServerIndex.put(lbc, li++);
 			}
-			LittleMaidMobX.Debug("Rebuild TextureBoxServer(%d).", textureServer.size());
+			Debug.texture("Rebuild TextureBoxServer(%d).", textureServer.size());
 		}
 	}
 
-	private void addModelClass(Class lclass) throws Throwable {
+	private void addModelClass(Class lclass) throws Throwable
+	{
 		String modelName = lclass.getSimpleName();
 		int n = modelName.indexOf("_");
 		if (n > 0 && n < modelName.length()-1) {
@@ -359,6 +424,51 @@ public class ModelManager {
 		mlm[1] = cm.newInstance(lsize[0]);
 		mlm[2] = cm.newInstance(lsize[1]);
 		modelMap.put(modelName, mlm);
+		Debug.model("getModelClass-%s:%s", modelName, mlm);
+	}
+	
+	protected void addModelClass(String fname, String[] pSearch) throws Throwable {
+		// モデルを追加
+		int lfindprefix = fname.indexOf(pSearch[2]);
+		if (lfindprefix > -1/* && fname.endsWith(".class")*/) {
+			String cn = fname.endsWith(".class") ? fname.substring(0,fname.lastIndexOf(".class")) : fname;
+			String pn = cn.substring(pSearch[2].length() + lfindprefix);
+			
+			if (modelMap.containsKey(pn)) return;
+			try {
+				Package lpackage = LittleMaidMobX.class.getPackage();
+				Class lclass;
+				if (lpackage != null) {
+//					cn = (new StringBuilder("")).append(".").append(cn).toString();
+					cn = cn.replace("/", ".");
+					System.out.println("ModelManager.addModelClass : "+cn);
+					lclass = FileManager.COMMON_CLASS_LOADER.loadClass(cn);
+				} else {
+					lclass = Class.forName(cn);
+				}
+				if (!(ModelMultiBase.class).isAssignableFrom(lclass) || Modifier.isAbstract(lclass.getModifiers())) {
+					Debug.model("getModelClass-fail.");
+					return;
+				}
+				//addModelClass(lclass);
+				ModelMultiBase mlm[] = new ModelMultiBase[3];
+				Constructor<ModelMultiBase> cm = lclass.getConstructor(float.class);
+				mlm[0] = cm.newInstance(0.0F);
+				float[] lsize = mlm[0].getArmorModelsSize();
+				mlm[1] = cm.newInstance(lsize[0]);
+				mlm[2] = cm.newInstance(lsize[1]);
+				modelMap.put(pn, mlm);
+				Debug.model("getModelClass-%s:%s", pn, cn);
+			}
+			catch (Exception exception) {
+				Debug.model("getModelClass-Exception: %s", fname);
+				if(Config.isDebugModels) exception.printStackTrace();
+			}
+			catch (Error error) {
+				Debug.model("getModelClass-Error: %s", fname);
+				if(Config.isDebugModels) error.printStackTrace();
+			}
+		}
 	}
 	
 	private void addModelClassServer(Class lclass, StringBuilder hack) throws Throwable {
@@ -376,10 +486,176 @@ public class ModelManager {
 		mlm[1] = mlm[0];
 		mlm[2] = mlm[0];
 		modelMap.put(modelName, mlm);
+		Debug.model("getModelClassServer-%s:%s", modelName, mlm);
 	}
 	
-	protected void addTexture(String path) {
+	protected void addModelClassServer(String fname, String[] pSearch) throws Throwable {
+		// モデルを追加
+		int lfindprefix = fname.indexOf(pSearch[2]);
+		if (lfindprefix > -1/* && fname.endsWith(".class")*/) {
+			String cn = fname.endsWith(".class") ? fname.substring(0,fname.lastIndexOf(".class")) : fname;
+			String pn = cn.substring(pSearch[2].length() + lfindprefix);
+			
+			if (modelMap.containsKey(pn)) return;
+			try {
+				Package lpackage = LittleMaidMobX.class.getPackage();
+				Class lclass;
+				if (lpackage != null) {
+//					cn = (new StringBuilder("")).append(".").append(cn).toString();
+					cn = cn.replace("/", ".");
+					System.out.println("MMM_TextureManager.addModelClass : "+cn);
+					lclass = FileManager.COMMON_CLASS_LOADER.loadClass(cn);
+				} else {
+					lclass = Class.forName(cn);
+				}
+				if (!(ModelMultiBase.class).isAssignableFrom(lclass) || Modifier.isAbstract(lclass.getModifiers())) {
+					Debug.model("getModelClassServer-fail.");
+					return;
+				}
+				ModelMultiBase mlm[] = new ModelMultiBase[3];
+				Constructor<ModelMultiBase> cm = lclass.getConstructor(float.class);
+				mlm[0] = cm.newInstance(0.0F);
+				//float[] lsize = mlm[0].getArmorModelsSize();
+				mlm[1] = mlm[0];
+				mlm[2] = mlm[0];
+				modelMap.put(pn, mlm);
+				Debug.model("getModelClassServer-%s:%s", pn, mlm);
+			}
+			catch (Exception exception) {
+				Debug.model("getModelClassServer-Exception: %s", fname);
+				if(Config.isDebugModels) exception.printStackTrace();
+			}
+			catch (Error error) {
+				Debug.model("getModelClass-Error: %s", fname);
+				if(Config.isDebugModels) error.printStackTrace();
+			}
+		}
+	}
+	
+	protected boolean addTexturesZip(File file, String[] pSearch, boolean server) {
+		//
+		if (file == null || file.isDirectory()) {
+			return false;
+		}
+		try {
+			FileManager.COMMON_CLASS_LOADER.addURL(file.toURI().toURL());
+		} catch (MalformedURLException e) {
+		}
+		try {
+			StringBuilder hack = new StringBuilder();
+			FileInputStream fileinputstream = new FileInputStream(file);
+			ZipInputStream zipinputstream = new ZipInputStream(fileinputstream);
+			ZipEntry zipentry;
+			Debug.addon("Start searching %s", file.getName());
+			do {
+				zipentry = zipinputstream.getNextEntry();
+				if(zipentry == null)
+				{
+					break;
+				}
+				if (!zipentry.isDirectory()) {
+					if (zipentry.getName().endsWith(".class"))
+					{
+						if (server)
+						{
+							try {
+								addModelClassServer(zipentry.getName(), pSearch);
+							} catch (Throwable e) {
+								e.printStackTrace();
+							}
+						}
+						else
+						{
+							try {
+								addModelClass(zipentry.getName(), pSearch);
+							} catch (Throwable e) {
+								e.printStackTrace();
+							}
+						}
+					}
+					else if(zipentry.getName().endsWith(".png")){
+						String lt1 = "mob/littleMaid";
+						String lt2 = "mob/ModelMulti";
+						addTextureName(zipentry.getName(), pSearch);
+						if(FMLCommonHandler.instance().getSide()==Side.CLIENT&&
+								(zipentry.getName().startsWith(lt1)||zipentry.getName().startsWith(lt2)))
+							ZipTexturesLoader.keys.add(zipentry.getName());
+					}
+				}
+			} while(true);
+			
+			zipinputstream.close();
+			fileinputstream.close();
+			
+			return true;
+		} catch (Exception exception) {
+			Debug.addon("addTextureZip-Exception.");
+			return false;
+		}
+	}
 
+	protected boolean addTexturesDir(File file, String[] pSearch, boolean server) {
+		// modsフォルダに突っ込んであるものも検索、再帰で。
+		if (file == null) {
+			return false;
+		}
+		
+		try {
+			FileManager.COMMON_CLASS_LOADER.addURL(file.toURI().toURL());
+		} catch (MalformedURLException e1) {
+		}
+		
+		try {
+			StringBuilder hack = new StringBuilder();
+			for (File nfile : file.listFiles()) {
+				if(nfile.isDirectory()) {
+					addTexturesDir(nfile, pSearch, server);
+				} else {
+					String tn = PathHelper.getLinuxAntiDotName(nfile.getAbsolutePath());
+					String rmn = PathHelper.getLinuxAntiDotName(FileManager.dirMods.getAbsolutePath());
+					if (nfile.getName().endsWith(".class")) {
+						if(tn.startsWith(rmn))
+						{
+							if (server)
+							{
+								try {
+									addModelClassServer(PathHelper.getClassName(tn, rmn), pSearch);
+								} catch (Throwable e) {
+									e.printStackTrace();
+								}
+							}
+							else
+							{
+								try {
+									addModelClass(PathHelper.getClassName(tn, rmn), pSearch);
+								} catch (Throwable e) {
+									e.printStackTrace();
+								}
+							}
+						}
+					} else if(nfile.getName().endsWith(".png")) {
+						String s = nfile.getPath().replace('\\', '/');
+						int i = s.indexOf(pSearch[1]);
+						if (i > -1) {
+							// 対象はTexture Directory
+							addTextureName(s.substring(i), pSearch);
+//							addTextureName(s.substring(i).replace('\\', '/'));
+						}
+					} else {
+						// サブフォルダ分のアーカイブを検索
+						addTexturesZip(nfile, pSearch, server);
+					}
+				}
+			}
+			return true;
+		} catch (Exception e) {
+			Debug.addon("addTextureDebug-Exception.");
+			return false;
+		}
+	}
+	
+	protected void addTexture(String path)
+	{
 		String packageName3 = path.substring(0, path.lastIndexOf("/"));
 		String packageName = packageName3.substring(packageName3.lastIndexOf("/")+1);
 		String fn = path.substring(path.lastIndexOf("/")+1);
@@ -395,17 +671,65 @@ public class ModelManager {
 				lindex = tx_wild + 12;
 			}
 			TextureBox lts = getTextureBox(packageName);
-			if (lts == null) {
+			if (lts == null)
+			{
 				lts = new TextureBox(packageName);
 				textures.add(lts);
-				LittleMaidMobX.Debug("getTextureName-append-texturePack-%s", packageName);
+				Debug.texture("getTextureName-append-texturePack-%s", packageName);
 			}
 			lts.addTexture(lindex, path);
-		} else {
+		}
+		else
+		{
 			System.err.println("Texture does not have index assigned: "+path);
 		}
 	}
 
+	protected boolean addTextureName(String fname, String[] pSearch)
+	{
+		// パッケージにテクスチャを登録
+		if (!fname.startsWith("/"))
+		{
+			fname = (new StringBuilder()).append("/").append(fname).toString();
+		}
+//		MMMLib.Debug("MMM_TextureManager.addTextureName : %s # %s # %s # %s", fname, pSearch[0], pSearch[1], pSearch[2]);
+		if (fname.startsWith(pSearch[1]))
+		{
+			int i = fname.lastIndexOf("/");
+			if (pSearch[1].length() < i)
+			{
+				String pn = fname.substring(pSearch[1].length(), i);
+				pn = pn.replace('/', '.');
+				String fn = fname.substring(i);
+				int lindex = getIndex(fn);
+				if (lindex > -1)
+				{
+					if (lindex == tx_oldarmor1)
+					{
+						lindex = tx_armor1;
+					}
+					if (lindex == tx_oldarmor2)
+					{
+						lindex = tx_armor2;
+					}
+					if (lindex == tx_oldwild)
+					{
+						lindex = tx_wild + 12;
+					}
+					TextureBox lts = getTextureBox(pn);
+					if (lts == null)
+					{
+						lts = new TextureBox(pn/*, pSearch*/);
+						textures.add(lts);
+						Debug.texture("getTextureName-append-texturePack-%s", pn);
+					}
+					lts.addTexture(lindex, fname);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	protected int getIndex(String name) {
 		
@@ -552,7 +876,7 @@ public class ModelManager {
 	}
 	public void setDefaultTexture(Class pEntityClass, TextureBox pBox) {
 		defaultTextures.put(pEntityClass, pBox);
-		LittleMaidMobX.Debug("appendDefaultTexture:%s(%s)",
+		Debug.texture("appendDefaultTexture:%s(%s)",
 		pEntityClass.getSimpleName(), pBox == null ? "NULL" : pBox.textureName);
 	}
 
@@ -595,7 +919,7 @@ public class ModelManager {
 		if (lblank >= 0) {
 			requestString[lblank] = pVal;
 		} else {
-			LittleMaidMobX.Debug("requestString Overflow!");
+			Debug.addon("requestString Overflow!");
 		}
 		return lblank;
 	}
@@ -620,7 +944,7 @@ public class ModelManager {
 		if (lblank >= 0) {
 			requestIndex[lblank] = pTextureServerBoxIndex;
 		} else {
-			LittleMaidMobX.Debug("requestIndex Overflow!");
+			Debug.addon("requestIndex Overflow!");
 		}
 		return lblank;
 	}
@@ -721,7 +1045,7 @@ public class ModelManager {
 			for (int li = 0; li < lcount; li++) {
 				lindex[li] = Helper.getShort(pData, 6 + li * 2);
 			}
-			LittleMaidMobX.Debug("reciveFromClientSetTexturePackIndex: %d, %4x", pData[5], lindex[0]);
+			Debug.texture("reciveFromClientSetTexturePackIndex: %d, %4x", pData[5], lindex[0]);
 			((ITextureEntity) pEntity).setTexturePackIndex(pData[5], lindex);
 		}
 	}
@@ -742,7 +1066,7 @@ public class ModelManager {
 		Helper.setFloat(ldata, 18, pBox.getMountedYOffset(null));
 		Helper.setStr(ldata, 22, pBox.textureName);
 		ClientHelper.sendToServer(ldata);
-		LittleMaidMobX.Debug("Server_GetTextureIndex: %s", pBox.textureName);
+		Debug.texture("Server_GetTextureIndex: %s", pBox.textureName);
 	}
 
 	public void reciveFromClientGetTexturePackIndex(EntityPlayer player, byte[] pData) {
@@ -764,7 +1088,7 @@ public class ModelManager {
 		ldata[0] = NetConstants.Client_SetTextureIndex;
 		ldata[1] = pData[1];
 		Helper.setShort(ldata, 2, li);
-		LittleMaidMobX.Debug("reciveFromClientGetTexturePackIndex: %s, %04x", lpackname, li);
+		Debug.client("reciveFromClientGetTexturePackIndex: %s, %04x", lpackname, li);
 		LittleMaidMobX.sendToClient(player, ldata);
 	}
 
@@ -773,7 +1097,7 @@ public class ModelManager {
 		
 		TextureBox lbox = getTextureBox(getRequestString(pData[1]));
 		textureServerIndex.put(lbox, (int) Helper.getShort(pData, 2));
-		LittleMaidMobX.Debug("reciveFormServerSetTexturePackIndex: %s, %04x", lbox.textureName, (int) Helper.getShort(pData, 2));
+		Debug.server("reciveFormServerSetTexturePackIndex: %s, %04x", lbox.textureName, (int) Helper.getShort(pData, 2));
 
 		
 		Map < ITextureEntity, Object[] > lmap = new HashMap < ITextureEntity, Object[] > (stackSetTexturePack);
@@ -822,7 +1146,7 @@ public class ModelManager {
 		// Client
 		
 		if (pIndex < 0) {
-			LittleMaidMobX.Debug("request range out.");
+			Debug.server("request range out.");
 			return;
 		}
 		byte ldata[] = new byte[3];
@@ -849,7 +1173,7 @@ public class ModelManager {
 		Helper.setFloat(ldata, 19, lboxserver.getMountedYOffset(null));
 		Helper.setStr(ldata, 23, lboxserver.textureName);
 		LittleMaidMobX.sendToClient(player, ldata);
-		LittleMaidMobX.Debug("SetTexturePackName:%04x - %s", lindex, lboxserver.textureName);
+		Debug.client("SetTexturePackName:%04x - %s", lindex, lboxserver.textureName);
 	}
 
 	public void reciveFromServerSetTexturePackName(byte[] pData) {

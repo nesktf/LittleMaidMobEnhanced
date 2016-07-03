@@ -3,9 +3,10 @@ package littleMaidMobX.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import littleMaidMobX.ClientHelper;
-import littleMaidMobX.Helper;
 import littleMaidMobX.LittleMaidMobX;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.helper.ClientHelper;
+import littleMaidMobX.util.helper.Helper;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -92,7 +93,7 @@ public class EntityDummy extends Entity {
 		
 		
 		if (owner.worldObj.isRemote) {
-			LittleMaidMobX.Debug("L");
+			Debug.entity("L");
 		}
 		
 		EntityDummy ed = new EntityDummy(ClientHelper.getMCtheWorld(), color, owner);

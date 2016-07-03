@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import java.util.ArrayList;import java.util.List;import net.minecraft.entity.Entity;import net.minecraft.entity.EntityLiving;import net.minecraft.entity.EntityLivingBase;import littleMaidMobX.Helper;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;public class MultiModel_Yomu extends ModelModchuBaseSR2 {	public ModelRenderer Prim;
+package littleMaidMobX.model.maids;import java.util.ArrayList;import java.util.List;import littleMaidMobX.util.helper.Helper;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;import littleMaidMobX.render.model.ModelRenderer;import net.minecraft.entity.Entity;import net.minecraft.entity.EntityLivingBase;public class MultiModel_Yomu extends ModelModchuBaseSR2 {	public ModelRenderer Prim;
 	public ModelRenderer Tail2;
 	public ModelRenderer Skirt1;
 	public ModelRenderer Skirt2;
@@ -552,8 +552,8 @@ package littleMaidMobX.model.maids;import java.util.ArrayList;import java.uti
 		super.setLivingAnimationsLM(entityCaps, f, f1, f2);
 		Object entityliving = entityCaps.getCapsValue(entityCaps.caps_Entity);
 		if (entityliving != null); else return;
-		float f4;		Object ridingEntity = littleMaidMobX.Helper.getRidingEntity(entityliving);
-		int ticksExisted = littleMaidMobX.Helper.getEntityTicksExisted(entityliving);
+		float f4;		Object ridingEntity = Helper.getRidingEntity(entityliving);
+		int ticksExisted = Helper.getEntityTicksExisted(entityliving);
 		if (isRiding
 				&& ridingEntity != null) {
 			f4 = (float)ticksExisted;
@@ -616,9 +616,9 @@ package littleMaidMobX.model.maids;import java.util.ArrayList;import java.uti
 		Hanrei4.rotationPointY = pastY[4] + 1.0F;
 		Hanrei4.rotationPointZ = pastZ[4] + 2.5F;		Hanrei5.rotationPointX = pastX[9];
 		Hanrei5.rotationPointY = pastY[9] + 1.5F;
-		Hanrei5.rotationPointZ = pastZ[9] + 3.5F;		HanreiC.rotationPointX = x1 + littleMaidMobX.Helper.cos((f2 + entityId + 0.01F * f4) * 0.11F) * 0.5F;
-		HanreiC.rotationPointZ = z1 + littleMaidMobX.Helper.cos((f2 + entityId + 0.01F * f4) * 0.07F) * 0.5F;
-		HanreiC.rotationPointY = y1 + littleMaidMobX.Helper.cos((f2 + entityId + 0.01F * f4) * 0.13F) * 0.5F;		Skirt.rotateAngleX = 0.0F;
+		Hanrei5.rotationPointZ = pastZ[9] + 3.5F;		HanreiC.rotationPointX = x1 + Helper.cos((f2 + entityId + 0.01F * f4) * 0.11F) * 0.5F;
+		HanreiC.rotationPointZ = z1 + Helper.cos((f2 + entityId + 0.01F * f4) * 0.07F) * 0.5F;
+		HanreiC.rotationPointY = y1 + Helper.cos((f2 + entityId + 0.01F * f4) * 0.13F) * 0.5F;		Skirt.rotateAngleX = 0.0F;
 		Skirt.rotationPointZ = 0.0F;		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isRiding)) {
 			Skirt.rotationPointZ -= 0.8F;
 			Skirt.rotateAngleX = Helper.degToRad(-25.0F);

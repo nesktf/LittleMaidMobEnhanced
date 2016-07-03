@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import java.util.Map;import littleMaidMobX.Helper;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;public class MultiModel_ChibiNeko extends ModelModchuBaseSR2 {	public ModelRenderer Prim;
+package littleMaidMobX.model.maids;import java.util.Map;import littleMaidMobX.util.helper.Helper;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;import littleMaidMobX.render.model.ModelRenderer;public class MultiModel_ChibiNeko extends ModelModchuBaseSR2 {	public ModelRenderer Prim;
 	public ModelRenderer Tail2;
 	public ModelRenderer Tail3;
 	public ModelRenderer Tail4;
@@ -364,7 +364,7 @@ package littleMaidMobX.model.maids;import java.util.Map;import littleMaidMob
 		super.setLivingAnimationsLM(entityCaps, f, f1, f2);
 		Object entityliving = ModelCapsHelper.getCapsValue(entityCaps, entityCaps.caps_Entity);
 		if (entityliving != null); else return;		setCapsValue(entityCaps, caps_visible, pink, (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isLookSuger)));
-		int ticksExisted = littleMaidMobX.Helper.getEntityTicksExisted(entityliving);
+		int ticksExisted = Helper.getEntityTicksExisted(entityliving);
 		float f3 = (float)ticksExisted + f2 + ModelCapsHelper.getCapsValueFloat(this, entityCaps, caps_entityIdFactor);
 		if (0.0F > mh_sin(f3 * 0.17F) + mh_sin(f3 * 0.17F + 0.02F) + mh_sin(f3 * 0.11F) + mh_sin(f3 * 0.7F) + 3.1F) {
 			EarL1.rotateAngleZ = EarR1.rotateAngleZ = EarLi1.rotateAngleZ = EarRi1.rotateAngleZ = -0.5235988F;
@@ -398,8 +398,8 @@ package littleMaidMobX.model.maids;import java.util.Map;import littleMaidMob
 		super.setRotationAnglesLM(f, f1, f2, f3, f4, f5, entityCaps);		float t = f2;
 		float idFactor = ModelCapsHelper.getCapsValueFloat(this, entityCaps, caps_entityIdFactor);
 		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isLookSuger)) t *= 2F;
-		Ahoge.rotateAngleY = littleMaidMobX.Helper.cos(t * 0.2F + littleMaidMobX.Helper.cos(t * 0.05F + idFactor) * 1.0F) * 0.2F;
-		Ahoge.rotateAngleX = littleMaidMobX.Helper.cos(t * 0.02F + littleMaidMobX.Helper.cos(t * 0.05F + idFactor) * 1.0F) * 0.0015F;
+		Ahoge.rotateAngleY = Helper.cos(t * 0.2F + Helper.cos(t * 0.05F + idFactor) * 1.0F) * 0.2F;
+		Ahoge.rotateAngleX = Helper.cos(t * 0.02F + Helper.cos(t * 0.05F + idFactor) * 1.0F) * 0.0015F;
 		Ahoge.rotateAngleZ = 0.02F;
 		bipedHead.rotationPointZ = 0.0F;
 		bipedRightArm.rotationPointY = -4.5F + 4 * Scale;
@@ -409,26 +409,26 @@ package littleMaidMobX.model.maids;import java.util.Map;import littleMaidMob
 		DrowaL2.rotationPointY = -2.0F;
 		DrowaL2.rotationPointZ = 0.0F;		if (bipedHead.rotateAngleX > Helper.degToRad(10F)) Tail2.rotateAngleX = Tail3.rotateAngleX = Tail4.rotateAngleX = Tail5.rotateAngleX = Tail6.rotateAngleX = -Helper.degToRad(10F);
 		else Tail2.rotateAngleX = Tail3.rotateAngleX = Tail4.rotateAngleX = Tail5.rotateAngleX = Tail6.rotateAngleX = -bipedHead.rotateAngleX;//+bipedBody.rotateAngleX);
-		Shippo1.rotateAngleX = 125F / 180F * (float) Math.PI + 0.025F * littleMaidMobX.Helper.sin(-t * 0.6F + idFactor);
+		Shippo1.rotateAngleX = 125F / 180F * (float) Math.PI + 0.025F * Helper.sin(-t * 0.6F + idFactor);
 		Shippo2.rotateAngleX = 20F / 180F * (float) Math.PI;
 		Shippo3.rotateAngleX = 10F / 180F * (float) Math.PI;
 		Shippo4.rotateAngleX = 5F / 180F * (float) Math.PI;
 		Shippo5.rotateAngleX = -5F / 180F * (float) Math.PI;
 		Shippo6.rotateAngleX = -15F / 180F * (float) Math.PI;
-		Shippo1.rotateAngleY = 0.2F * littleMaidMobX.Helper.sin(t * 0.3F + idFactor);
-		Shippo2.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.3F + 0.000005F + idFactor);
-		Shippo3.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.3F + 0.00001F + idFactor);
-		Shippo4.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.3F + 0.000015F + idFactor);
-		Shippo5.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.3F + 0.00002F + idFactor);
-		Shippo6.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.3F + 0.000025F + idFactor);		Skirt.rotationPointX = 0.0F;
+		Shippo1.rotateAngleY = 0.2F * Helper.sin(t * 0.3F + idFactor);
+		Shippo2.rotateAngleZ = 0.2F * Helper.sin(-t * 0.3F + 0.000005F + idFactor);
+		Shippo3.rotateAngleZ = 0.2F * Helper.sin(-t * 0.3F + 0.00001F + idFactor);
+		Shippo4.rotateAngleZ = 0.2F * Helper.sin(-t * 0.3F + 0.000015F + idFactor);
+		Shippo5.rotateAngleZ = 0.2F * Helper.sin(-t * 0.3F + 0.00002F + idFactor);
+		Shippo6.rotateAngleZ = 0.2F * Helper.sin(-t * 0.3F + 0.000025F + idFactor);		Skirt.rotationPointX = 0.0F;
 		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isRiding)) {
-			Shippo1.rotateAngleX = 125F / 180F * (float) Math.PI + 0.025F * littleMaidMobX.Helper.sin(-t * 0.4F + idFactor);
-			Shippo1.rotateAngleY = 0.2F * littleMaidMobX.Helper.sin(t * 0.2F + idFactor);
-			Shippo2.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.2F + 0.0002F + idFactor);
-			Shippo3.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.2F + 0.0004F + idFactor);
-			Shippo4.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.2F + 0.0006F + idFactor);
-			Shippo5.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.2F + 0.0008F + idFactor);
-			Shippo6.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.2F + 0.001F + idFactor);
+			Shippo1.rotateAngleX = 125F / 180F * (float) Math.PI + 0.025F * Helper.sin(-t * 0.4F + idFactor);
+			Shippo1.rotateAngleY = 0.2F * Helper.sin(t * 0.2F + idFactor);
+			Shippo2.rotateAngleZ = 0.2F * Helper.sin(-t * 0.2F + 0.0002F + idFactor);
+			Shippo3.rotateAngleZ = 0.2F * Helper.sin(-t * 0.2F + 0.0004F + idFactor);
+			Shippo4.rotateAngleZ = 0.2F * Helper.sin(-t * 0.2F + 0.0006F + idFactor);
+			Shippo5.rotateAngleZ = 0.2F * Helper.sin(-t * 0.2F + 0.0008F + idFactor);
+			Shippo6.rotateAngleZ = 0.2F * Helper.sin(-t * 0.2F + 0.001F + idFactor);
 			Skirt.rotateAngleX -= 0.8F;
 		} else {
 //			setRotationAnglesGulliverBefore(f, f1, f2, f3, f4, f5, entityCaps);
@@ -445,13 +445,13 @@ package littleMaidMobX.model.maids;import java.util.Map;import littleMaidMob
 		Skirt.rotationPointY = 3.0F + 2.0F * Scale;
 		Skirt.rotationPointZ = 0.0F;
 		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isSneak)) {
-			Shippo1.rotateAngleX = 125F / 180F * (float) Math.PI + 0.025F * littleMaidMobX.Helper.sin(-t * 0.4F + idFactor);
-			Shippo1.rotateAngleY = 0.2F * littleMaidMobX.Helper.sin(t * 0.2F + idFactor);
-			Shippo2.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.2F + 0.0002F + idFactor);
-			Shippo3.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.2F + 0.0004F + idFactor);
-			Shippo4.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.2F + 0.0006F + idFactor);
-			Shippo5.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.2F + 0.0008F + idFactor);
-			Shippo6.rotateAngleZ = 0.2F * littleMaidMobX.Helper.sin(-t * 0.2F + 0.001F + idFactor);
+			Shippo1.rotateAngleX = 125F / 180F * (float) Math.PI + 0.025F * Helper.sin(-t * 0.4F + idFactor);
+			Shippo1.rotateAngleY = 0.2F * Helper.sin(t * 0.2F + idFactor);
+			Shippo2.rotateAngleZ = 0.2F * Helper.sin(-t * 0.2F + 0.0002F + idFactor);
+			Shippo3.rotateAngleZ = 0.2F * Helper.sin(-t * 0.2F + 0.0004F + idFactor);
+			Shippo4.rotateAngleZ = 0.2F * Helper.sin(-t * 0.2F + 0.0006F + idFactor);
+			Shippo5.rotateAngleZ = 0.2F * Helper.sin(-t * 0.2F + 0.0008F + idFactor);
+			Shippo6.rotateAngleZ = 0.2F * Helper.sin(-t * 0.2F + 0.001F + idFactor);
 			//Skirt.rotateAngleX += 0.3F;
 			//Skirt.rotationPointZ = 3.0F;
 			//bipedRightLeg.rotationPointZ = bipedLeftLeg.rotationPointZ = 3.0F;

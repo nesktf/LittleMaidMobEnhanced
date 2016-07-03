@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.10-1.4.1"
+version = "1.7.10-1.4.4"
 group= "com.legojer.lmme"
 archivesBaseName = "LittleMaidMobEnhanced"
 
@@ -60,7 +60,17 @@ processResources
     }
         
     // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
+    from(sourceSets.main.resources.srcDirs)
+	{
         exclude 'mcmod.info'
+    }
+}
+
+jar 
+{
+        manifest
+		{
+        attributes 'FMLCorePlugin': 'littleMaidMobX.util.transform.CoreMod',
+                        'FMLCorePluginContainsFMLMod': 'true'
     }
 }

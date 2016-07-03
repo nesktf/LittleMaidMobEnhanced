@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import littleMaidMobX.Statics;
 import littleMaidMobX.entity.EntityLittleMaid;
 import littleMaidMobX.registry.ModelManager;
 import littleMaidMobX.render.RenderLittleMaid;
 import littleMaidMobX.textures.TextureBox;
 import littleMaidMobX.textures.TextureBoxServer;
+import littleMaidMobX.util.Statics;
 import littleMaidMobX.wrapper.MinecraftWrapper;
 import net.minecraft.command.CommandTime;
 import net.minecraft.command.ICommand;

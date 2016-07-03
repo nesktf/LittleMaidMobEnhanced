@@ -1,11 +1,11 @@
 package littleMaidMobX.model.modchu;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.MathHelper;
 import littleMaidMobX.model.caps.IModelCaps;
 import littleMaidMobX.model.caps.ModelCapsHelper;
 import littleMaidMobX.render.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.MathHelper;
 
 public abstract class ModelModchuBaseBeverly extends ModelModchuBaseSR2 {
 

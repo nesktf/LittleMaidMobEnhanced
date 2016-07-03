@@ -1,4 +1,4 @@
-package littleMaidMobX.model.modchu;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.render.model.ModelRenderer;public class ModelModchuBaseAug extends ModelModchuBaseSR2 {	public ModelRenderer sidetailUpperR;
+package littleMaidMobX.model.modchu;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.util.helper.Helper;public class ModelModchuBaseAug extends ModelModchuBaseSR2 {	public ModelRenderer sidetailUpperR;
 	public ModelRenderer sidetailUpperL;	public ModelRenderer shaggyB;
 	public ModelRenderer shaggyR;
 	public ModelRenderer shaggyL;	public ModelRenderer sensor1;
@@ -86,7 +86,7 @@ package littleMaidMobX.model.modchu;import littleMaidMobX.model.caps.IModelCap
 	public void setLivingAnimationsLM(IModelCaps entityCaps, float f, float f1, float renderPartialTicks) {
 		super.setLivingAnimationsLM(entityCaps, f, f1, renderPartialTicks);
 		Object entityliving = entityCaps.getCapsValue(entityCaps.caps_Entity);
-		if (entityliving != null); else return;		int ticksExisted = littleMaidMobX.Helper.getEntityTicksExisted(entityliving);
+		if (entityliving != null); else return;		int ticksExisted = Helper.getEntityTicksExisted(entityliving);
 		float f3 = ticksExisted + renderPartialTicks + ModelCapsHelper.getCapsValueFloat(this, entityCaps, caps_entityIdFactor);
 		float f4 = 0.0F;
 		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isLookSuger)) {
@@ -95,12 +95,12 @@ package littleMaidMobX.model.modchu;import littleMaidMobX.model.caps.IModelCap
 		} else {
 			f4 = (1F - ModelCapsHelper.getCapsValueInt(this, entityCaps, caps_health ) / 20F) * 0.5F;
 		}
-		float f5 = littleMaidMobX.Helper.sin(f3 * 0.067F) * 0.05F - f4;
+		float f5 = Helper.sin(f3 * 0.067F) * 0.05F - f4;
 		float f6 = 40.0F / 57.29578F;
 		sensor1.setRotateAngle(f5, -f6, f5);
 		sensor2.setRotateAngle(-f5, f6, -f5);
-		sensor3.setRotateAngle(littleMaidMobX.Helper.sin(f3 * 0.067F) * 0.05F - 1.2F - f4, littleMaidMobX.Helper.sin(f3 * 0.09F) * 0.4F, littleMaidMobX.Helper.cos(f3 * 0.09F) * 0.2F);
-		sensor4.setRotateAngle(littleMaidMobX.Helper.sin(f3 * 0.067F) * 0.05F + f4, littleMaidMobX.Helper.cos(f3 * 0.09F) * 0.5F, littleMaidMobX.Helper.sin(f3 * 0.09F) * 0.2F);
+		sensor3.setRotateAngle(Helper.sin(f3 * 0.067F) * 0.05F - 1.2F - f4, Helper.sin(f3 * 0.09F) * 0.4F, Helper.cos(f3 * 0.09F) * 0.2F);
+		sensor4.setRotateAngle(Helper.sin(f3 * 0.067F) * 0.05F + f4, Helper.cos(f3 * 0.09F) * 0.5F, Helper.sin(f3 * 0.09F) * 0.2F);
 	}	@Override
 	public void setRotationAnglesLM(float f, float f1, float f2, float f3, float f4, float f5, IModelCaps entityCaps) {
 		super.setRotationAnglesLM(f, f1, f2, f3, f4, f5, entityCaps);

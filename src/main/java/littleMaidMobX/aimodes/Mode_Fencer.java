@@ -1,9 +1,9 @@
 package littleMaidMobX.aimodes;
 
-import littleMaidMobX.Helper;
 import littleMaidMobX.ai.AIHurtByTarget;
 import littleMaidMobX.ai.AINearestAttackableTarget;
 import littleMaidMobX.entity.EntityLittleMaid;
+import littleMaidMobX.util.helper.Helper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.player.EntityPlayer;

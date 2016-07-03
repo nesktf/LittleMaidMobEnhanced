@@ -1,6 +1,6 @@
 package littleMaidMobX.textures;
 
-import littleMaidMobX.Helper;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.model.caps.IModelCaps;
 import littleMaidMobX.model.caps.ModelCapsHelper;
 

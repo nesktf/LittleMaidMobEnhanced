@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import littleMaidMobX.Helper;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseMulti;import littleMaidMobX.render.model.ModelRenderer;public class MultiModel_Shion extends ModelModchuBaseMulti {	public ModelRenderer longtail;
+package littleMaidMobX.model.maids;import littleMaidMobX.util.helper.Helper;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseMulti;import littleMaidMobX.render.model.ModelRenderer;public class MultiModel_Shion extends ModelModchuBaseMulti{	public ModelRenderer longtail;
 	public ModelRenderer Headwear;
 	public ModelRenderer HeadwearR;
 	public ModelRenderer HeadwearL;
@@ -120,8 +120,8 @@ package littleMaidMobX.model.maids;import littleMaidMobX.Helper;import little
 		SkirtR.rotationPointY = SkirtL.rotationPointY = 0.0F;
 	}	@Override
 	public void setRotationAnglesLM(float f, float f1, float f2, float f3, float f4, float f5, IModelCaps entityCaps) {
-		super.setRotationAnglesLM(f, f1, f2, f3, f4, f5, entityCaps);		bipedRightLeg.rotateAngleX = (littleMaidMobX.Helper.cos(f * 0.6662F) * 1.4F * f1) / 1.5F;
-		bipedLeftLeg.rotateAngleX = (littleMaidMobX.Helper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1) / 1.5F;
+		super.setRotationAnglesLM(f, f1, f2, f3, f4, f5, entityCaps);		bipedRightLeg.rotateAngleX = (Helper.cos(f * 0.6662F) * 1.4F * f1) / 1.5F;
+		bipedLeftLeg.rotateAngleX = (Helper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1) / 1.5F;
 		setCapsValue(entityCaps, caps_visible, sodeL, true);
 		setCapsValue(entityCaps, caps_visible, sodeR, true);
 		setCapsValue(entityCaps, caps_visible, WsodeL, false);
@@ -188,10 +188,10 @@ package littleMaidMobX.model.maids;import littleMaidMobX.Helper;import little
 				bipedRightLeg.rotationPointZ =
 				bipedLeftLeg.rotationPointZ = 0.0F;
 				if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
-					bipedRightArm.rotateAngleX = littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F - 0.7F;
+					bipedRightArm.rotateAngleX = Helper.sin(f2 * 0.067F) * 0.05F - 0.7F;
 					bipedRightArm.rotateAngleY = 0.0F;
 					bipedRightArm.rotateAngleZ = -0.4F;
-					bipedLeftArm.rotateAngleX = littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F - 0.7F;
+					bipedLeftArm.rotateAngleX = Helper.sin(f2 * 0.067F) * 0.05F - 0.7F;
 					bipedLeftArm.rotateAngleY = 0.0F;
 					bipedLeftArm.rotateAngleZ = 0.4F;
 					bipedRightArm.rotationPointZ = 0.0F;

@@ -1,10 +1,11 @@
 package littleMaidMobX.aimodes;
 
 import littleMaidMobX.LittleMaidMobX;
-import littleMaidMobX.Statics;
 import littleMaidMobX.ai.AINearestAttackableTarget;
 import littleMaidMobX.entity.EntityLittleMaid;
 import littleMaidMobX.sound.EnumSound;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.Statics;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -15,10 +16,9 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemCloth;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemCloth;
 import net.minecraft.util.DamageSource;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 
@@ -141,7 +141,7 @@ public class Mode_Ripper extends ModeBase {
 				if (owner.isMovementCeased() || timeSinceIgnited > 22) {
 					owner.getLookHelper().setLookPositionWithEntity(owner.getMaidMasterEntity(), 40F, 40F);
 				}
-				LittleMaidMobX.Debug(String.format("ID:%d(%s)-dom:%d(%d)", owner.getEntityId(), owner.worldObj.isRemote ? "C" : "W", owner.maidDominantArm, owner.maidInventory.currentItem));
+				Debug.ai(String.format("ID:%d(%s)-dom:%d(%d)", owner.getEntityId(), owner.worldObj.isRemote ? "C" : "W", owner.maidDominantArm, owner.maidInventory.currentItem));
 				
 				if (owner.maidInventory.isItemExplosive(owner.maidInventory.currentItem) && timeSinceIgnited++ > 30) {
 					
@@ -326,7 +326,7 @@ public class Mode_Ripper extends ModeBase {
 		{
 			i = 255;
 		}
-		LittleMaidMobX.Debug(String.format("%2x", i));
+		Debug.ai(String.format("%2x", i));
 		char c = '\377';
 		char c1 = '\377';
 		char c2 = '\377';

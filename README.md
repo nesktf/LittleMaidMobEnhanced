@@ -15,6 +15,10 @@ Probably very far off.
 Coming when enough people want it.
 
 ###1.7.10
+<<<<<<< HEAD
+* [1.4.4](http://adf.ly/1bnnhc)
+=======
+>>>>>>> refs/remotes/origin/master
 * [1.4.3](http://adf.ly/1Zzo9v) Still may break Multiplayer (Beta)
 * [1.4.2](http://adf.ly/1ZrryI) May break Multiplayer (Beta)  
 * [1.4.1](http://adf.ly/1ZPS9J)
@@ -23,4 +27,8 @@ Coming when enough people want it.
 * [1.3.2](http://adf.ly/1YYyXj)
 
 ###Add-ons
+<<<<<<< HEAD
 * [All Previously preinstalled textures](http://adf.ly/1ZrsDX)
+=======
+* [All Previously preinstalled textures](http://adf.ly/1ZrsDX)
+>>>>>>> refs/remotes/origin/master

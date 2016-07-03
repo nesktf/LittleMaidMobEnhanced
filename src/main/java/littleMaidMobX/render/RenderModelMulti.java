@@ -1,7 +1,6 @@
 package littleMaidMobX.render;
 
-import littleMaidMobX.ClientHelper;
-import littleMaidMobX.LittleMaidMobX;
+import littleMaidMobX.util.helper.ClientHelper;
 import littleMaidMobX.io.Config;
 import littleMaidMobX.model.caps.IModelCaps;
 import littleMaidMobX.render.model.ModelMCArmor;

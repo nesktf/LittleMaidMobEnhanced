@@ -26,7 +26,7 @@ public class ModelMulti_Stef extends ModelMulti_Steve {
 	}
 
 	@Override
-	public void initModel(float psize, float pyoffset, boolean isAfterInit) {
+	public void initModel(float psize, float pyoffset) {
 		bipedCloak = new ModelRenderer(this, 0, 0);
 		bipedCloak.addBox(-5.0F, 0.0F, -1.0F, 10, 16, 1, psize);
 		bipedEars = new ModelRenderer(this, 24, 0);

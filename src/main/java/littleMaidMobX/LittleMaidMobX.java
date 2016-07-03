@@ -4,14 +4,23 @@ import java.io.File;
 import java.util.List;
 
 import littleMaidMobX.aimodes.IFF;
+import littleMaidMobX.aimodes.ModeManager;
 import littleMaidMobX.entity.EntityLittleMaid;
 import littleMaidMobX.gui.GuiCommonHandler;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.io.Config;
+import littleMaidMobX.io.FileManager;
+import littleMaidMobX.io.ZipTexturesLoader;
 import littleMaidMobX.item.ItemSpawnEgg;
 import littleMaidMobX.network.Message;
 import littleMaidMobX.network.NetConstants;
 import littleMaidMobX.network.Network;
+import littleMaidMobX.network.ProxyCommon;
 import littleMaidMobX.registry.ModelManager;
+import littleMaidMobX.util.transform.Transformer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,16 +29,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraftforge.common.AchievementPage;
-import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -38,49 +47,24 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraftforge.common.BiomeDictionary;
-import static net.minecraftforge.common.BiomeDictionary.Type;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 
 @Mod(	modid = LittleMaidMobX.DOMAIN,
 		name  = LittleMaidMobX.DOMAIN,
-		version = "8",
+		version = "10",
 		guiFactory = "littleMaidMobX.gui.LittleMaidMobGuiFactory")
 		
 public class LittleMaidMobX {
 	
 	public static final String DOMAIN = "lmmx";
+	public static final String VERSION = "1.4.4";
 
 	public static Achievement ac_Contract;
 	
-	public static void Debug(String pText, Object... pData)
-	{
-		if (Config.isDebugMessage)
-		{
-			// TODO: use Logger class instead with proper names and a way to enable/disable (one logger for sound, one for AI, one for models, etc)
-//			if (pText.contains("Sound")) { 
-//				return;
-//			}			
-//			if (pText.contains("daytime")) { 
-//				return;
-//			}
-			System.out.println(String.format("MMMLib-" + pText, pData));
-		}
-	}
-	public static void DebugModel(String string)
-	{
-		System.out.println("LMM Models: " + string);
-	}
-	public static void Debug(boolean isRemote, String pText, Object... pData)
-	{
-		if (Config.isDebugMessage)
-		{
-			System.out.println(String.format("["+(isRemote? "Client":"Server")+"]MMMLib-" + pText, pData));
-		}
-	}
 	
 	@SidedProxy(
-			clientSide = "littleMaidMobX.ProxyClient",
-			serverSide = "littleMaidMobX.ProxyServer")
+			clientSide = "littleMaidMobX.network.ProxyClient",
+			serverSide = "littleMaidMobX.network.ProxyServer")
 	public static ProxyCommon proxy;
 
 	@Instance(DOMAIN)
@@ -111,20 +95,25 @@ public class LittleMaidMobX {
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event)
 	{
+		FileManager.init();
+		Transformer.isEnable = true;
 		Config.init(event);
 		Config.checkConfig();
-			proxy.loadTextures();
-//			ModelManager.instance.loadTextures();
-			if (Helper.isClient)
-			{
-//				MMM_TextureManager.loadTextures();
-				Debug("Localmode: InitTextureList.");
-				ModelManager.instance.initTextureList(true);
-			}
-			else
-			{
-				ModelManager.instance.loadTextureServer();
-			}
+		
+		//ZipTextureLoader.run();
+		ModelManager.instance.init();
+		proxy.loadTextures();
+		
+		if (Helper.isClient)
+		{
+//			MMM_TextureManager.loadTextures();
+			Debug.texture("Localmode: InitTextureList.");
+			ModelManager.instance.initTextureList(true);
+		}
+		else
+		{
+			ModelManager.instance.loadTextureServer();
+		}
 		
 //		MMM_Helper.checkRevision("6");
 		//Config.checkConfig(this.getClass());
@@ -139,7 +128,7 @@ public class LittleMaidMobX {
 		spawnEgg.setUnlocalizedName(DOMAIN + ":spawn_lmmx_egg");
 		spawnEgg.setTextureName(DOMAIN + ":spawn_lmmx_egg");
 		GameRegistry.registerItem(spawnEgg, "spawn_lmmx_egg");
-		if (Config.cfg_enableSpawnEgg)
+		if (Config.enableSpawnEgg)
 		{
 			
 			GameRegistry.addRecipe(new ItemStack(spawnEgg, 1), new Object[] {
@@ -158,10 +147,12 @@ public class LittleMaidMobX {
 		Achievement[] achievements = new Achievement[] { ac_Contract };
 		AchievementPage.registerAchievementPage(new AchievementPage("LittleMaidMob", achievements));
 
-		if (Helper.isClient)
+		ModeManager.init();
+		
+		/*if (Helper.isClient)
 		{
 			proxy.init();
-		}
+		}*/
 		
 		Network.init(DOMAIN);
 
@@ -174,6 +165,13 @@ public class LittleMaidMobX {
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event)
 	{
+		if (Helper.isClient)
+		{
+			List<IResourcePack> defaultResourcePacks = ObfuscationReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "defaultResourcePacks", "field_110449_ao");
+			defaultResourcePacks.add(new ZipTexturesLoader());
+			
+			proxy.init();
+		}
 		FMLCommonHandler.instance().bus().register(instance);
 	}
 	
@@ -201,7 +199,7 @@ public class LittleMaidMobX {
 					if(biome!=null)
 					{
 						EntityRegistry.addSpawn(EntityLittleMaid.class, Config.spawnWeight, Config.minGroupSize, Config.maxGroupSize, EnumCreatureType.creature, biome);
-						Debug("Registering spawn in " + biome.biomeName);
+						Debug.entity("Registering spawn in ", biome.biomeName);
 					}
 				}
 			}
@@ -239,8 +237,8 @@ public class LittleMaidMobX {
 								BiomeDictionary.isBiomeOfType(biome, Type.BEACH));
 							{
 								EntityRegistry.addSpawn(EntityLittleMaid.class, Config.spawnWeight, Config.minGroupSize, Config.maxGroupSize, EnumCreatureType.creature, biome);
-								System.out.println("Registering spawn in " + biome.biomeName);
-								Debug("Registering maids to spawn in " + biome.biomeName);
+								//System.out.println("Registering spawn in " + biome.biomeName);
+								Debug.entity("Registering maids to spawn in ", biome.biomeName);
 					}
 				}
 			}
@@ -259,7 +257,35 @@ public class LittleMaidMobX {
 			 */
 			}
 		}
+		ModeManager.loadEntityMode();
+		ModeManager.showLoadedModes();
+		
 		IFF.loadIFFs();
+	}
+	
+	@Mod.EventHandler
+	public void loaded(FMLPostInitializationEvent pEvent) {
+//		EzRecipes.init();
+		// 
+//		GunsBase.initAppend();
+		
+		Transformer.isEnable = true;
+//		MultiModelManager.instance.execute();
+		
+		// TODO test
+		List<File> llist = FileManager.getAllmodsFiles(FileManager.COMMON_CLASS_LOADER, true);
+		for (File lf : llist) {
+			Debug.addon("targetFiles: %s", lf.getAbsolutePath());
+		}
+		
+		
+		try {
+			Class<?> lc = ReflectionHelper.getClass(FileManager.COMMON_CLASS_LOADER, "net.minecraft.entity.EntityLivingBase");
+			Debug.addon("test-getClass: %s", lc.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	@SubscribeEvent
@@ -307,7 +333,7 @@ public class LittleMaidMobX {
 				return;
 			}
 		}
-		Debug("MMM|Upd Srv Call[%2x:%d].", lmode, leid);
+		Debug.server("MMM|Upd Srv Call[%2x:%d].", lmode, leid);
 //		byte[] ldata;
 		
 		switch (lmode) {

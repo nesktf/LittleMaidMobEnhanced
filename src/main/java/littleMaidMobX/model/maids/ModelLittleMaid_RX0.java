@@ -2,7 +2,7 @@ package littleMaidMobX.model.maids;
 
 import littleMaidMobX.model.caps.IModelCaps;
 import littleMaidMobX.model.caps.ModelCapsHelper;
-import littleMaidMobX.model.lmm.ModelLittleMaidBase;
+import littleMaidMobX.model.maid.ModelLittleMaidBase;
 import littleMaidMobX.render.model.ModelRenderer;
 
 
@@ -58,7 +58,7 @@ public class ModelLittleMaid_RX0 extends ModelLittleMaidBase {
 
 
 	@Override
-	public void initModel(float psize, float pyoffset, boolean isAfterInit) {
+	public void initModel(float psize, float pyoffset) {
 		bipedHead = new ModelRenderer(this);
 		bipedHead.setTextureOffset(0, 0).addBox(-4F, -8F, -4F, 8, 8, 8, psize - 0.2F);
 		bipedForelock = new ModelRenderer(this);

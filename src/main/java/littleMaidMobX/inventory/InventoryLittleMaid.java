@@ -3,8 +3,8 @@ package littleMaidMobX.inventory;
 import java.util.Iterator;
 import java.util.List;
 
-import littleMaidMobX.Helper;
 import littleMaidMobX.entity.EntityLittleMaid;
+import littleMaidMobX.util.helper.Helper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTNT;
 import net.minecraft.block.material.Material;
@@ -22,7 +22,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.tileentity.TileEntityBrewingStand;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.Explosion;
 

@@ -1,13 +1,12 @@
 package littleMaidMobX.aimodes;
 
-import littleMaidMobX.Helper;
 import littleMaidMobX.entity.EntityLittleMaid;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.inventory.InventoryLittleMaid;
 import littleMaidMobX.sound.EnumSound;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemGlassBottle;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;

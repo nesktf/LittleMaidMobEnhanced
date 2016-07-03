@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import littleMaidMobX.model.ModelMultiBase;
 import littleMaidMobX.model.caps.IModelCaps;
 import littleMaidMobX.model.caps.ModelCapsHelper;
+import littleMaidMobX.model.maid.ModelMultiBase;
 import littleMaidMobX.registry.ModelManager;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 public class TextureBox extends TextureBoxBase {
 
 	
-	public String packegeName;
+	public String packageName;
 	
 	public Map<Integer, ResourceLocation> textures;
 	
@@ -27,8 +27,10 @@ public class TextureBox extends TextureBoxBase {
 	/**
 	 * pName, pTextureDir, pClassPrefix
 	 */
-	public String[] textureDir;
-	
+	//public String[] textureDir;
+	/**
+	 * テクスチャの格納されているパックの名前（モデルに関係なし）
+	 */
 	public String fileName;
 
 
@@ -47,10 +49,10 @@ public class TextureBox extends TextureBoxBase {
 		fileName = pTextureName;
 		int li = pTextureName.lastIndexOf("_");
 		if (li > -1) {
-			packegeName = pTextureName.substring(0, li);
+			packageName = pTextureName.substring(0, li);
 			modelName = pTextureName.substring(li + 1);
 		} else {
-			packegeName = pTextureName;
+			packageName = pTextureName;
 			modelName = "";
 		}
 	}
@@ -58,7 +60,7 @@ public class TextureBox extends TextureBoxBase {
 	public void setModels(String pModelName, ModelMultiBase[] pModels, ModelMultiBase[] pDefModels) {
 		modelName = pModelName;
 		models = pModels == null ? pDefModels : pModels;
-		textureName = (new StringBuilder()).append(packegeName).append("_").append(modelName).toString();
+		textureName = (new StringBuilder()).append(packageName).append("_").append(modelName).toString();
 		isUpdateSize = (models != null && models[0] != null) ? ModelCapsHelper.getCapsValueBoolean(models[0], IModelCaps.caps_isUpdateSize) : false;
 	}
 
@@ -181,7 +183,7 @@ public class TextureBox extends TextureBoxBase {
 	public TextureBox duplicate() {
 		TextureBox lbox = new TextureBox();
 		lbox.textureName = textureName;
-		lbox.packegeName = packegeName;
+		lbox.packageName = packageName;
 		lbox.fileName = fileName;
 		lbox.modelName = modelName;
 		lbox.textures = textures;

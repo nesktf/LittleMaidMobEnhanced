@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.render.model.ModelBoxPlate;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;/**
+package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;import littleMaidMobX.render.model.ModelBoxPlate;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.util.helper.Helper;/**
  * 標準意匠
  * 身長1.75ブロック級
  */
@@ -183,10 +183,10 @@ public class MultiModel_Elsa3 extends ModelModchuBaseSR2 {	public ModelRendere
 			BunchL.rotateAngleZ -= bipedHead.rotateAngleZ * 0.2F;
 		}		bipedRightArm.rotateAngleZ = 0F;
 		//歩行
-		bipedRightArm.rotateAngleX = -littleMaidMobX.Helper.cos(f * 0.5656F) * 0.8F * f1;
-		bipedLeftArm.rotateAngleX = littleMaidMobX.Helper.cos(f * 0.5656F) * 0.8F * f1;
-		bipedRightLeg.rotateAngleX += littleMaidMobX.Helper.cos(f * 0.5656F) * 1.2F * f1;
-		bipedLeftLeg.rotateAngleX -= littleMaidMobX.Helper.cos(f * 0.5656F) * 1.2F * f1;		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isRiding)) {
+		bipedRightArm.rotateAngleX = -Helper.cos(f * 0.5656F) * 0.8F * f1;
+		bipedLeftArm.rotateAngleX = Helper.cos(f * 0.5656F) * 0.8F * f1;
+		bipedRightLeg.rotateAngleX += Helper.cos(f * 0.5656F) * 1.2F * f1;
+		bipedLeftLeg.rotateAngleX -= Helper.cos(f * 0.5656F) * 1.2F * f1;		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isRiding)) {
 			// 乗り物に乗っている
 			bipedRightArm.rotateAngleX -= 0.3F;
 			bipedLeftArm.rotateAngleX -= 0.3F;
@@ -225,13 +225,13 @@ public class MultiModel_Elsa3 extends ModelModchuBaseSR2 {	public ModelRendere
 		}
 		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)) {
 			//待機状態の特別表示
-			bipedRightArm.rotateAngleX += littleMaidMobX.Helper.sin(f2 * 0.062F) * 0.05F - 0.6F;
+			bipedRightArm.rotateAngleX += Helper.sin(f2 * 0.062F) * 0.05F - 0.6F;
 			bipedRightArm.rotateAngleZ -= 0.4F;
 			Arms[0].rotationPointX -= 2.0F;
 			Arms[0].rotateAngleZ -= 1.5F;
 			Arms[0].rotateAngleX -= 0.5F;
 			Arms[0].rotateAngleY += 1.5F;
-			bipedLeftArm.rotateAngleX += littleMaidMobX.Helper.sin(f2 * 0.062F) * 0.05F - 0.6F;
+			bipedLeftArm.rotateAngleX += Helper.sin(f2 * 0.062F) * 0.05F - 0.6F;
 			bipedLeftArm.rotateAngleZ += 0.4F;
 			Arms[1].rotationPointX += 2.0F;
 			Arms[1].rotateAngleZ += 1.5F;
@@ -240,17 +240,17 @@ public class MultiModel_Elsa3 extends ModelModchuBaseSR2 {	public ModelRendere
 		} else {
 			if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
 				// 弓構え
-				float f6 = littleMaidMobX.Helper.sin(onGrounds[dominantArm] * 3.141593F);
-				float f7 = littleMaidMobX.Helper.sin((1.0F - (1.0F - onGrounds[dominantArm]) * (1.0F - onGrounds[dominantArm])) * 3.141593F);
+				float f6 = Helper.sin(onGrounds[dominantArm] * 3.141593F);
+				float f7 = Helper.sin((1.0F - (1.0F - onGrounds[dominantArm]) * (1.0F - onGrounds[dominantArm])) * 3.141593F);
 				bipedRightArm.rotateAngleZ = 0.0F;
 				bipedLeftArm.rotateAngleZ = 0.0F;
 				bipedRightArm.rotateAngleY = -(0.1F - f6 * 0.6F);
 				bipedLeftArm.rotateAngleY = 0.1F - f6 * 0.6F;
 				bipedRightArm.rotateAngleX = -1.470796F;
 				bipedRightArm.rotateAngleX -= f6 * 1.2F - f7 * 0.4F;
-				bipedRightArm.rotateAngleZ += littleMaidMobX.Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
-				bipedLeftArm.rotateAngleZ -= littleMaidMobX.Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
-				bipedRightArm.rotateAngleX += littleMaidMobX.Helper.sin(f2 * 0.062F) * 0.05F;
+				bipedRightArm.rotateAngleZ += Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
+				bipedLeftArm.rotateAngleZ -= Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
+				bipedRightArm.rotateAngleX += Helper.sin(f2 * 0.062F) * 0.05F;
 				bipedRightArm.rotateAngleX += bipedHead.rotateAngleX;
 				bipedLeftArm.rotateAngleX = bipedRightArm.rotateAngleX + 0.4F;
 				bipedRightArm.rotateAngleY += bipedHead.rotateAngleY;
@@ -259,10 +259,10 @@ public class MultiModel_Elsa3 extends ModelModchuBaseSR2 {	public ModelRendere
 				// 通常
 				bipedRightArm.rotateAngleZ += 0.3F;
 				bipedLeftArm.rotateAngleZ -= 0.3F;
-				bipedRightArm.rotateAngleZ += littleMaidMobX.Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
-				bipedLeftArm.rotateAngleZ -= littleMaidMobX.Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
-				bipedRightArm.rotateAngleX += littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F;
-				bipedLeftArm.rotateAngleX -= littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F;
+				bipedRightArm.rotateAngleZ += Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
+				bipedLeftArm.rotateAngleZ -= Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
+				bipedRightArm.rotateAngleX += Helper.sin(f2 * 0.067F) * 0.05F;
+				bipedLeftArm.rotateAngleX -= Helper.sin(f2 * 0.067F) * 0.05F;
 			}
 		}
 //		setRotationAnglesGulliverAfter(f, f1, f2, f3, f4, f5, entityCaps);

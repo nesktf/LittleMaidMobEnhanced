@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseAug;import littleMaidMobX.render.model.ModelRenderer;public class MultiModel_SA extends ModelModchuBaseAug {
+package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseAug;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.util.helper.Helper;public class MultiModel_SA extends ModelModchuBaseAug {
 	public ModelRenderer ChignonAug_R;
 	public ModelRenderer ChignonAug_L;
 	public ModelRenderer Chignon_RB;
@@ -290,7 +290,7 @@ package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps
 			Cheek_R.setVisible(false);
 			Cheek_L.setVisible(false);
 		}
-		int ticksExisted = littleMaidMobX.Helper.getEntityTicksExisted(entityliving);
+		int ticksExisted = Helper.getEntityTicksExisted(entityliving);
 		float f3 = (float)ticksExisted + f2 + ModelCapsHelper.getCapsValueFloat(this, entityCaps, caps_entityIdFactor);
 		float f4 = 0.0F;
 		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isLookSuger)) {

@@ -4,10 +4,10 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Random;
 
-import littleMaidMobX.ClientHelper;
 import littleMaidMobX.LittleMaidMobX;
 import littleMaidMobX.entity.EntityLittleMaid;
 import littleMaidMobX.gui.button.GuiButtonNextPage;
+import littleMaidMobX.util.helper.ClientHelper;
 import littleMaidMobX.inventory.ContainerInventory;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.gui.GuiButton;
@@ -401,7 +401,7 @@ public class GuiInventory extends GuiContainer {
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		switch (par1GuiButton.id) {
 		case 100:
-			entitylittlemaid.setNextTexturePackege(0);
+			entitylittlemaid.setNextTexturePackage(0);
 			entitylittlemaid.setTextureNames();
 			break;
 		case 101:
@@ -409,7 +409,7 @@ public class GuiInventory extends GuiContainer {
 			entitylittlemaid.setTextureNames();
 			break;
 		case 110:
-			entitylittlemaid.setNextTexturePackege(1);
+			entitylittlemaid.setNextTexturePackage(1);
 			entitylittlemaid.setTextureNames();
 			break;
 		case 111:

@@ -11,10 +11,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Stack;
 
-import littleMaidMobX.model.ModelBase;
-import littleMaidMobX.model.ModelMultiBase;
 import littleMaidMobX.model.caps.IModelCaps;
 import littleMaidMobX.model.caps.ModelCapsHelper;
+import littleMaidMobX.model.maid.ModelBase;
+import littleMaidMobX.model.maid.ModelMultiBase;
 import littleMaidMobX.wrapper.MinecraftClientWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -37,9 +37,6 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 
 public class ModelRenderer {

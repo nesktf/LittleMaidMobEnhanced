@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import littleMaidMobX.entity.EntityLittleMaid;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;public class MultiModel_NM1 extends ModelModchuBaseSR2 {
+package littleMaidMobX.model.maids;import littleMaidMobX.entity.EntityLittleMaid;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.util.helper.Helper;public class MultiModel_NM1 extends ModelModchuBaseSR2 {
 	public ModelRenderer Headwear;
 	public ModelRenderer HornR1;
 	public ModelRenderer HornR2;
@@ -354,7 +354,7 @@ package littleMaidMobX.model.maids;import littleMaidMobX.entity.EntityLittleMa
 		Arms[1].rotateAngleZ = 0F;
 		Object entityliving = entityCaps.getCapsValue(entityCaps.caps_Entity);
 		if (entityliving != null); else return;
-		int ticksExisted = littleMaidMobX.Helper.getEntityTicksExisted(entityliving);
+		int ticksExisted = Helper.getEntityTicksExisted(entityliving);
 		float f3 = (float)ticksExisted + f2 + ModelCapsHelper.getCapsValueFloat(this, entityCaps, caps_entityIdFactor);		eyeR.showModel = eyeL.showModel =
 		eyeR1.showModel = eyeL1.showModel = false;
 		Skirt.showModel = true;
@@ -413,12 +413,12 @@ package littleMaidMobX.model.maids;import littleMaidMobX.entity.EntityLittleMa
 	public void setRotationAnglesLM(float f, float f1, float f2, float f3, float f4, float f5, IModelCaps entityCaps) {
 		bipedHead.rotateAngleY = f3 / (180F / (float) Math.PI);
 		bipedHead.rotateAngleX = f4 / (180F / (float) Math.PI);
-		bipedRightArm.rotateAngleX = littleMaidMobX.Helper.cos(f * 0.5656F + (float) Math.PI) * 1.6F * f1 * 0.5F;
-		bipedLeftArm.rotateAngleX = littleMaidMobX.Helper.cos(f * 0.5656F) * 1.6F * f1 * 0.5F;
+		bipedRightArm.rotateAngleX = Helper.cos(f * 0.5656F + (float) Math.PI) * 1.6F * f1 * 0.5F;
+		bipedLeftArm.rotateAngleX = Helper.cos(f * 0.5656F) * 1.6F * f1 * 0.5F;
 		bipedRightArm.rotateAngleZ =
 		bipedLeftArm.rotateAngleZ = 0.0F;
-		bipedRightLeg.rotateAngleX = littleMaidMobX.Helper.cos(f * 0.5656F) * 1.0F * f1;
-		bipedLeftLeg.rotateAngleX = littleMaidMobX.Helper.cos(f * 0.5656F + (float) Math.PI) * 1.0F * f1;
+		bipedRightLeg.rotateAngleX = Helper.cos(f * 0.5656F) * 1.0F * f1;
+		bipedLeftLeg.rotateAngleX = Helper.cos(f * 0.5656F + (float) Math.PI) * 1.0F * f1;
 		bipedRightLeg.rotateAngleY =
 		bipedLeftLeg.rotateAngleY = 0.0F;
 		bipedBody.rotationPointY = 8.0F;
@@ -461,10 +461,10 @@ package littleMaidMobX.model.maids;import littleMaidMobX.entity.EntityLittleMa
 			Skirt.rotationPointZ =
 			Skirt.rotateAngleX = 0.0F;
 		}		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait) && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
-			bipedRightArm.rotateAngleX = littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F - 0.7F;
+			bipedRightArm.rotateAngleX = Helper.sin(f2 * 0.067F) * 0.05F - 0.7F;
 			bipedRightArm.rotateAngleY = 0.0F;
 			bipedRightArm.rotateAngleZ = -0.4F;
-			bipedLeftArm.rotateAngleX = littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F - 0.7F;
+			bipedLeftArm.rotateAngleX = Helper.sin(f2 * 0.067F) * 0.05F - 0.7F;
 			bipedLeftArm.rotateAngleY = 0.0F;
 			bipedLeftArm.rotateAngleZ = 0.4F;
 			Arms[0].rotationPointX -= 2.0F;
@@ -477,8 +477,8 @@ package littleMaidMobX.model.maids;import littleMaidMobX.entity.EntityLittleMa
 			Arms[1].rotateAngleY -= 1.5F;
 		}
 		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
-			float f7 = littleMaidMobX.Helper.sin(onGrounds[dominantArm] * (float) Math.PI);
-			float f9 = littleMaidMobX.Helper.sin((1.0F - (1.0F - onGrounds[dominantArm]) * (1.0F - onGrounds[dominantArm])) * (float) Math.PI);
+			float f7 = Helper.sin(onGrounds[dominantArm] * (float) Math.PI);
+			float f9 = Helper.sin((1.0F - (1.0F - onGrounds[dominantArm]) * (1.0F - onGrounds[dominantArm])) * (float) Math.PI);
 			bipedRightArm.rotateAngleZ = 0.0F;
 			bipedLeftArm.rotateAngleZ = 0.0F;
 			bipedRightArm.rotateAngleY = -(0.1F - f7 * 0.6F);
@@ -487,10 +487,10 @@ package littleMaidMobX.model.maids;import littleMaidMobX.entity.EntityLittleMa
 			bipedLeftArm.rotateAngleX = -1.470796F;
 			bipedRightArm.rotateAngleX -= f7 * 1.2F - f9 * 0.4F;
 			bipedLeftArm.rotateAngleX -= f7 * 1.2F - f9 * 0.4F;
-			bipedRightArm.rotateAngleZ += littleMaidMobX.Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
-			bipedLeftArm.rotateAngleZ -= littleMaidMobX.Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
-			bipedRightArm.rotateAngleX += littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F;
-			bipedLeftArm.rotateAngleX -= littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F;
+			bipedRightArm.rotateAngleZ += Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
+			bipedLeftArm.rotateAngleZ -= Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
+			bipedRightArm.rotateAngleX += Helper.sin(f2 * 0.067F) * 0.05F;
+			bipedLeftArm.rotateAngleX -= Helper.sin(f2 * 0.067F) * 0.05F;
 			bipedRightArm.rotateAngleX += bipedHead.rotateAngleX;
 			bipedLeftArm.rotateAngleX -= bipedHead.rotateAngleX;
 			bipedRightArm.rotateAngleY += bipedHead.rotateAngleY;
@@ -499,10 +499,10 @@ package littleMaidMobX.model.maids;import littleMaidMobX.entity.EntityLittleMa
 			if (!ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)) {
 				bipedRightArm.rotateAngleZ += 0.3F;
 				bipedLeftArm.rotateAngleZ -= 0.3F;
-				bipedRightArm.rotateAngleZ += littleMaidMobX.Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
-				bipedLeftArm.rotateAngleZ -= littleMaidMobX.Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
-				bipedRightArm.rotateAngleX += littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F;
-				bipedLeftArm.rotateAngleX -= littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F;
+				bipedRightArm.rotateAngleZ += Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
+				bipedLeftArm.rotateAngleZ -= Helper.cos(f2 * 0.09F) * 0.05F + 0.05F;
+				bipedRightArm.rotateAngleX += Helper.sin(f2 * 0.067F) * 0.05F;
+				bipedLeftArm.rotateAngleX -= Helper.sin(f2 * 0.067F) * 0.05F;
 			}
 		}
 		breastFloats(f, f1, f2, f3, f4, f5, entityCaps);//		setRotationAnglesGulliverAfter(f, f1, f2, f3, f4, f5, entityCaps);

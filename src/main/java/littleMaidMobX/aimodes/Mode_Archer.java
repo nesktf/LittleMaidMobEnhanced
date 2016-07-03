@@ -6,6 +6,7 @@ import littleMaidMobX.LittleMaidMobX;
 import littleMaidMobX.ai.AIHurtByTarget;
 import littleMaidMobX.ai.AINearestAttackableTarget;
 import littleMaidMobX.entity.EntityLittleMaid;
+import littleMaidMobX.util.Debug;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAITasks;
@@ -159,7 +160,7 @@ public class Mode_Archer extends ModeBase {
 //			owner.getWeaponStatus();
 			updateGuns();
 			
-			World lworld = owner.worldObj;
+			/*World lworld = owner.worldObj;
 			List<Entity> llist = lworld.getEntitiesWithinAABB(Entity.class, owner.boundingBox.expand(16D, 16D, 16D));
 			for (int li = 0; li < llist.size(); li++) {
 				Entity lentity = llist.get(li); 
@@ -173,7 +174,7 @@ public class Mode_Archer extends ModeBase {
 						lworld.setBlock(lx, ly, lz, Blocks.fire);
 					}
 				}
-			}
+			}*/
 			break;
 		}
 	}
@@ -186,10 +187,10 @@ public class Mode_Archer extends ModeBase {
 					
 					if (owner.maidAvatar.isItemReload) {
 						owner.maidAvatar.stopUsingItem();
-						LittleMaidMobX.Debug(String.format("id:%d cancel reload.", owner.getEntityId()));
+						Debug.ai(String.format("id:%d cancel reload.", owner.getEntityId()));
 					} else {
 						owner.maidAvatar.clearItemInUse();
-						LittleMaidMobX.Debug(String.format("id:%d clear.", owner.getEntityId()));
+						Debug.ai(String.format("id:%d clear.", owner.getEntityId()));
 					}
 				}
 			} else {
@@ -199,7 +200,7 @@ public class Mode_Archer extends ModeBase {
 		if (owner.weaponReload && !owner.maidAvatar.isUsingItem()) {
 			
 			owner.maidInventory.getCurrentItem().useItemRightClick(owner.worldObj, owner.maidAvatar);
-			LittleMaidMobX.Debug("id:%d force reload.", owner.getEntityId());
+			Debug.ai("id:%d force reload.", owner.getEntityId());
 			owner.mstatAimeBow = true;
 		}
 

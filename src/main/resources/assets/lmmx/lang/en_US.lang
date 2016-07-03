@@ -78,3 +78,14 @@ littleMaidMob.mode.T-Miner=T-Miner
 littleMaidMob.text.Health=Health
 littleMaidMob.text.AP=AP
 littleMaidMob.text.STATUS=Status
+
+littlemaidmob.configgui.ctgy.maids=Maids
+littlemaidmob.configgui.ctgy.maids.tooltip=Maid Behavior Settings
+littlemaidmob.configgui.ctgy.spawning=Spawning
+littlemaidmob.configgui.ctgy.spawning.tooltip=Maid Spawn Settings (Requires Restart)
+littlemaidmob.configgui.ctgy.items=Items
+littlemaidmob.configgui.ctgy.items.tooltip=Toggle Spawn Egg Recipe (Requires Restart)
+littlemaidmob.configgui.ctgy.mmmlib=Core Settings
+littlemaidmob.configgui.ctgy.mmmlib.tooltip=MMMLib or MaidMob cores settings
+littlemaidmob.configgui.ctgy.debug=Debug
+littlemaidmob.configgui.ctgy.debug.tooltip=Toggle console debug messages

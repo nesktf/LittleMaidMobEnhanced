@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.render.model.ModelBoxPlate;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;public class MultiModel_Elsa2 extends ModelModchuBaseSR2 {		public MultiModel_Elsa2(StringBuilder hack) {		super(hack);	}	public MultiModel_Elsa2() {
+package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;import littleMaidMobX.render.model.ModelBoxPlate;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.util.helper.Helper;public class MultiModel_Elsa2 extends ModelModchuBaseSR2 {		public MultiModel_Elsa2(StringBuilder hack) {		super(hack);	}	public MultiModel_Elsa2() {
 		this(0.0F);
 	}	public MultiModel_Elsa2(float f) {
 		this(f, 0.0F);
@@ -115,10 +115,10 @@ package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps
 		bipedRightLeg.rotationPointY += 5.5F;
 		bipedLeftLeg.rotationPointY += 5.5F;
 		Skirt.rotationPointY += 2.5F;
-		bipedRightArm.rotateAngleX = littleMaidMobX.Helper.cos(f * 0.5656F + 3.141593F) * 1.6F * f1 * 0.5F;
-		bipedLeftArm.rotateAngleX = littleMaidMobX.Helper.cos(f * 0.5656F) * 1.6F * f1 * 0.5F;
-		bipedRightLeg.rotateAngleX = littleMaidMobX.Helper.cos(f * 0.5656F) * 1.0F * f1;
-		bipedLeftLeg.rotateAngleX = littleMaidMobX.Helper.cos(f * 0.5656F + 3.141593F) * 1.0F * f1;		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isRiding)) {
+		bipedRightArm.rotateAngleX = Helper.cos(f * 0.5656F + 3.141593F) * 1.6F * f1 * 0.5F;
+		bipedLeftArm.rotateAngleX = Helper.cos(f * 0.5656F) * 1.6F * f1 * 0.5F;
+		bipedRightLeg.rotateAngleX = Helper.cos(f * 0.5656F) * 1.0F * f1;
+		bipedLeftLeg.rotateAngleX = Helper.cos(f * 0.5656F + 3.141593F) * 1.0F * f1;		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isRiding)) {
 			// 乗り物に乗っている
 			bipedRightArm.rotateAngleX += -0.6283185F;
 			bipedLeftArm.rotateAngleX += -0.6283185F;
@@ -136,16 +136,16 @@ package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps
 		}		if (armSwingFlag(entityCaps)) {
 			// 腕振り
 			float f6, f7, f8;
-			f6 = littleMaidMobX.Helper.sin(littleMaidMobX.Helper.sqrt(onGrounds[0]) * (float) Math.PI * 2.0F);
-			f7 = littleMaidMobX.Helper.sin(littleMaidMobX.Helper.sqrt(onGrounds[1]) * (float) Math.PI * 2.0F);
+			f6 = Helper.sin(Helper.sqrt(onGrounds[0]) * (float) Math.PI * 2.0F);
+			f7 = Helper.sin(Helper.sqrt(onGrounds[1]) * (float) Math.PI * 2.0F);
 			// R
 			if (onGrounds[0] > 0F) {
 				f6 = 1.0F - onGrounds[0];
 				f6 *= f6;
 				f6 *= f6;
 				f6 = 1.0F - f6;
-				f7 = littleMaidMobX.Helper.sin(f6 * (float) Math.PI);
-				f8 = littleMaidMobX.Helper.sin(onGrounds[0] * (float) Math.PI) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
+				f7 = Helper.sin(f6 * (float) Math.PI);
+				f8 = Helper.sin(onGrounds[0] * (float) Math.PI) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
 				bipedRightArm.rotateAngleX -= f7 * 1.2D + f8;
 			} else {
 				bipedRightArm.rotateAngleX += bipedBody.rotateAngleY;
@@ -156,8 +156,8 @@ package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps
 				f6 *= f6;
 				f6 *= f6;
 				f6 = 1.0F - f6;
-				f7 = littleMaidMobX.Helper.sin(f6 * (float) Math.PI);
-				f8 = littleMaidMobX.Helper.sin(onGrounds[1] * (float) Math.PI) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
+				f7 = Helper.sin(f6 * (float) Math.PI);
+				f8 = Helper.sin(onGrounds[1] * (float) Math.PI) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
 				bipedLeftArm.rotateAngleX -= f7 * 1.2D + f8;
 			} else {
 				bipedLeftArm.rotateAngleX += bipedBody.rotateAngleY;
@@ -174,23 +174,23 @@ package littleMaidMobX.model.maids;import littleMaidMobX.model.caps.IModelCaps
 		}
 		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait) && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
 			//待機状態の特別表示
-			bipedRightArm.rotateAngleX = littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F - 0.7F;
-			bipedLeftArm.rotateAngleX = littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F - 0.7F;
+			bipedRightArm.rotateAngleX = Helper.sin(f2 * 0.067F) * 0.05F - 0.7F;
+			bipedLeftArm.rotateAngleX = Helper.sin(f2 * 0.067F) * 0.05F - 0.7F;
 		}
 		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
 			// 弓構え
-			float f6 = littleMaidMobX.Helper.sin(onGrounds[dominantArm] * 3.141593F);
-			float f7 = littleMaidMobX.Helper.sin((1.0F - (1.0F - onGrounds[dominantArm])) * 3.141593F);
+			float f6 = Helper.sin(onGrounds[dominantArm] * 3.141593F);
+			float f7 = Helper.sin((1.0F - (1.0F - onGrounds[dominantArm])) * 3.141593F);
 			bipedRightArm.rotateAngleX = -1.470796F;
 			bipedRightArm.rotateAngleX -= f6 * 1.2F - f7 * 0.4F;
-			bipedRightArm.rotateAngleX += littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F;
+			bipedRightArm.rotateAngleX += Helper.sin(f2 * 0.067F) * 0.05F;
 			bipedRightArm.rotateAngleX += bipedHead.rotateAngleX;
 			bipedLeftArm.rotateAngleX = bipedRightArm.rotateAngleX + 0.4F;
 		} else {
 			if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)) {
 				// 呼吸 腕等
-				bipedRightArm.rotateAngleX += littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F;
-				bipedLeftArm.rotateAngleX -= littleMaidMobX.Helper.sin(f2 * 0.067F) * 0.05F;
+				bipedRightArm.rotateAngleX += Helper.sin(f2 * 0.067F) * 0.05F;
+				bipedLeftArm.rotateAngleX -= Helper.sin(f2 * 0.067F) * 0.05F;
 			}
 		}
 //		setRotationAnglesGulliverAfter(f, f1, f2, f3, f4, f5, entityCaps);

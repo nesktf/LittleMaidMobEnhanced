@@ -1,6 +1,6 @@
 package littleMaidMobX.model.caps;
 
-import littleMaidMobX.CastHelper;
+import littleMaidMobX.util.helper.CastHelper;
 
 
 public class ModelCapsHelper {

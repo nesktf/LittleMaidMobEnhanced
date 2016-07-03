@@ -12,9 +12,10 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.TreeMap;
 
-import littleMaidMobX.Helper;
 import littleMaidMobX.LittleMaidMobX;
 import littleMaidMobX.entity.EntityLittleMaid;
+import littleMaidMobX.util.Debug;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.io.Config;
 import littleMaidMobX.wrapper.MinecraftWrapper;
 import net.minecraft.entity.Entity;
@@ -123,7 +124,7 @@ public class IFF {
 			if (pMap != null) {
 				
 				pMap.put(pName, pEntity);
-				LittleMaidMobX.Debug(pName + " added.");
+				Debug.ai(pName + " added.");
 			}
 			
 			
@@ -232,7 +233,7 @@ public class IFF {
 			for (File lf : lfile.listFiles()) {
 				if (lf.getName().endsWith("littleMaidMob.iff")) {
 					String ls = lf.getName().substring(17, lf.getName().length() - 20);
-					LittleMaidMobX.Debug(ls);
+					Debug.ai(ls);
 					loadIFF(ls);
 				}
 			}
@@ -255,7 +256,7 @@ public class IFF {
 			}
 			lfile = MinecraftServer.getServer().getFile(lfilename);
 		}
-		LittleMaidMobX.Debug(lfile.getAbsolutePath());
+		Debug.ai(lfile.getAbsolutePath());
 		return lfile;
 	}
 

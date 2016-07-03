@@ -2,9 +2,9 @@ package littleMaidMobX.render.model;
 
 import java.util.Map;
 
-import littleMaidMobX.ClientHelper;
-import littleMaidMobX.model.ModelMultiBase;
+import littleMaidMobX.util.helper.ClientHelper;
 import littleMaidMobX.model.caps.IModelCaps;
+import littleMaidMobX.model.maid.ModelMultiBase;
 import net.minecraft.client.model.TextureOffset;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;

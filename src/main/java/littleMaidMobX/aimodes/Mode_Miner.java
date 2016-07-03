@@ -1,43 +1,22 @@
 package littleMaidMobX.aimodes;
 
-import java.util.List;
-
-import littleMaidMobX.Helper;
-import littleMaidMobX.LittleMaidMobX;
-import littleMaidMobX.ai.AIHurtByTarget;
 import littleMaidMobX.entity.EntityLittleMaid;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.sound.EnumSound;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.BlockRedstoneOre;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.EntityAIWatchClosest2;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemAppleGold;
-import net.minecraft.item.ItemAxe;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemBow;
-import net.minecraft.item.ItemBucketMilk;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -104,7 +83,7 @@ public class Mode_Miner extends ModeBase
 		ItemStack litemstack = owner.maidInventory.getStackInSlot(0);
 		if (litemstack != null)
 		{
-			if (litemstack.getItem() instanceof ItemPickaxe)
+			if (litemstack.getItem() instanceof ItemPickaxe || TriggerSelect.checkItem(owner.getMaidMaster(), "Pickaxe", litemstack))
 			{
 				owner.setMaidMode("Miner");
 				return true;

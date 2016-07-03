@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import littleMaidMobX.ClientHelper;
 import littleMaidMobX.entity.EntitySelect;
-import littleMaidMobX.model.ModelMultiBase;
+import littleMaidMobX.util.helper.ClientHelper;
+import littleMaidMobX.model.maid.ModelMultiBase;
 import littleMaidMobX.registry.ModelManager;
 import littleMaidMobX.textures.TextureBox;
 import littleMaidMobX.textures.TextureBoxBase;

@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;public class MultiModel_long extends ModelModchuBaseSR2 {
+package littleMaidMobX.model.maids;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;import littleMaidMobX.render.model.ModelRenderer;public class MultiModel_long extends ModelModchuBaseSR2 {
 	public ModelRenderer longhear;
 	public ModelRenderer kamidome;		public MultiModel_long(StringBuilder hack) {		super(hack);	}	public MultiModel_long() {
 		this(0.0F);

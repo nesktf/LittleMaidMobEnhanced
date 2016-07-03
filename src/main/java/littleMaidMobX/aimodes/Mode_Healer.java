@@ -3,8 +3,8 @@ package littleMaidMobX.aimodes;
 import java.util.Iterator;
 import java.util.List;
 
-import littleMaidMobX.Helper;
 import littleMaidMobX.entity.EntityLittleMaid;
+import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.sound.EnumSound;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAITasks;

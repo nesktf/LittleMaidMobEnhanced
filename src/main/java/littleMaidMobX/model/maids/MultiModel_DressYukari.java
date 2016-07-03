@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import net.minecraft.entity.Entity;import littleMaidMobX.Helper;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;public class MultiModel_DressYukari extends ModelModchuBaseSR2 {	public ModelRenderer Ahoge;
+package littleMaidMobX.model.maids;import littleMaidMobX.util.helper.Helper;import littleMaidMobX.model.caps.IModelCaps;import littleMaidMobX.model.caps.ModelCapsHelper;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;import littleMaidMobX.render.model.ModelRenderer;import net.minecraft.entity.Entity;public class MultiModel_DressYukari extends ModelModchuBaseSR2 {	public ModelRenderer Ahoge;
 	public ModelRenderer overHear;
 	public ModelRenderer Glass;
 	public ModelRenderer specialModel[];
@@ -87,11 +87,11 @@ package littleMaidMobX.model.maids;import net.minecraft.entity.Entity;import 
 		super.setRotationAnglesLM(f, f1, f2, f3, f4, f5, entityCaps);
 		Object entity = entityCaps.getCapsValue(entityCaps.caps_Entity);
 		if (entity != null); else return;		float t;
-		Object ridingEntity = littleMaidMobX.Helper.getRidingEntity(entity);
-		int ticksExisted = littleMaidMobX.Helper.getEntityTicksExisted(entity);
+		Object ridingEntity = Helper.getRidingEntity(entity);
+		int ticksExisted = Helper.getEntityTicksExisted(entity);
 		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isRiding)
 				&& ridingEntity != null) t = (float)ticksExisted;
-		else t = f2;		Ahoge.rotateAngleY = littleMaidMobX.Helper.cos(t * 0.2F + littleMaidMobX.Helper.cos(t * 0.05F + IdOffset) * 1.0F) * 0.2F;
+		else t = f2;		Ahoge.rotateAngleY = Helper.cos(t * 0.2F + Helper.cos(t * 0.05F + IdOffset) * 1.0F) * 0.2F;
 		Ahoge.rotateAngleX = 2.9F;		Skirt.rotateAngleX = 0f;
 		Skirt.rotationPointY -= 9F;
 		Skirt.rotationPointZ = 0f;		if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isRiding)) {

@@ -2,11 +2,73 @@ package littleMaidMobX.registry;
 
 import java.util.HashSet;
 
-import littleMaidMobX.model.maids.*;
+import littleMaidMobX.model.maid.ModelLittleMaid_AC;
+import littleMaidMobX.model.maid.ModelLittleMaid_Archetype;
+import littleMaidMobX.model.maid.ModelLittleMaid_Aug;
+import littleMaidMobX.model.maid.ModelLittleMaid_Orign;
+import littleMaidMobX.model.maid.ModelLittleMaid_SR2;
+import littleMaidMobX.model.maids.ModelLittleMaid_Beverly7;
+import littleMaidMobX.model.maids.ModelLittleMaid_Chloe2;
+import littleMaidMobX.model.maids.ModelLittleMaid_Elsa5;
+import littleMaidMobX.model.maids.ModelLittleMaid_RX0;
+import littleMaidMobX.model.maids.ModelMulti_Stef;
+import littleMaidMobX.model.maids.ModelMulti_Steve;
+import littleMaidMobX.model.maids.MultiModel_Angel;
+import littleMaidMobX.model.maids.MultiModel_Aokise;
+import littleMaidMobX.model.maids.MultiModel_Beverly2;
+import littleMaidMobX.model.maids.MultiModel_Beverly3;
+import littleMaidMobX.model.maids.MultiModel_Beverly4;
+import littleMaidMobX.model.maids.MultiModel_Beverly5;
+import littleMaidMobX.model.maids.MultiModel_Beverly6;
+import littleMaidMobX.model.maids.MultiModel_ChibiNeko;
+import littleMaidMobX.model.maids.MultiModel_DogAngel;
+import littleMaidMobX.model.maids.MultiModel_DogAngel2;
+import littleMaidMobX.model.maids.MultiModel_DressYukari;
+import littleMaidMobX.model.maids.MultiModel_Elsa;
+import littleMaidMobX.model.maids.MultiModel_Elsa2;
+import littleMaidMobX.model.maids.MultiModel_Elsa3;
+import littleMaidMobX.model.maids.MultiModel_Elsa4;
+import littleMaidMobX.model.maids.MultiModel_Elsie;
+import littleMaidMobX.model.maids.MultiModel_Evelyn3;
+import littleMaidMobX.model.maids.MultiModel_ExtraArms;
+import littleMaidMobX.model.maids.MultiModel_Kagami;
+import littleMaidMobX.model.maids.MultiModel_Kelo;
+import littleMaidMobX.model.maids.MultiModel_MS;
+import littleMaidMobX.model.maids.MultiModel_MS1;
+import littleMaidMobX.model.maids.MultiModel_Mabel;
+import littleMaidMobX.model.maids.MultiModel_NM;
+import littleMaidMobX.model.maids.MultiModel_NM1;
+import littleMaidMobX.model.maids.MultiModel_Pawapro;
+import littleMaidMobX.model.maids.MultiModel_Petit;
+import littleMaidMobX.model.maids.MultiModel_QB;
+import littleMaidMobX.model.maids.MultiModel_SA;
+import littleMaidMobX.model.maids.MultiModel_Shion;
+import littleMaidMobX.model.maids.MultiModel_Tenshi;
+import littleMaidMobX.model.maids.MultiModel_Utsuho;
+import littleMaidMobX.model.maids.MultiModel_VUD1;
+import littleMaidMobX.model.maids.MultiModel_Yomu;
+import littleMaidMobX.model.maids.MultiModel_Yukari;
+import littleMaidMobX.model.maids.MultiModel_Yukkuri;
+import littleMaidMobX.model.maids.MultiModel_bgs;
+import littleMaidMobX.model.maids.MultiModel_brs;
+import littleMaidMobX.model.maids.MultiModel_ch;
+import littleMaidMobX.model.maids.MultiModel_chrno;
+import littleMaidMobX.model.maids.MultiModel_chu;
+import littleMaidMobX.model.maids.MultiModel_dm;
+import littleMaidMobX.model.maids.MultiModel_long;
+import littleMaidMobX.model.maids.MultiModel_mahoro;
+import littleMaidMobX.model.maids.MultiModel_naz;
+import littleMaidMobX.model.maids.MultiModel_st;
+import littleMaidMobX.model.maids.MultiModel_suika;
+import littleMaidMobX.model.maids.MultiModel_taremimi;
+import littleMaidMobX.model.maids.MultiModel_tareusa;
+import littleMaidMobX.model.maids.MultiModel_twinD;
+import littleMaidMobX.model.maids.MultiModel_usagi;
 
 public class ModelRegistry {
 	public static final HashSet<Class> list = new HashSet<Class>();
-	static {
+	static
+	{
 		list.add(ModelLittleMaid_AC.class);
 		list.add(ModelLittleMaid_Archetype.class);
 		list.add(ModelLittleMaid_Aug.class);

@@ -1,4 +1,4 @@
-package littleMaidMobX.model.maids;import littleMaidMobX.render.model.ModelRenderer;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;public class MultiModel_Kagami extends ModelModchuBaseSR2 {
+package littleMaidMobX.model.maids;import littleMaidMobX.model.modchu.ModelModchuBaseSR2;import littleMaidMobX.render.model.ModelRenderer;public class MultiModel_Kagami extends ModelModchuBaseSR2 {
 	public ModelRenderer tailR;
 	public ModelRenderer tailRFA;
 	public ModelRenderer tailRBA;

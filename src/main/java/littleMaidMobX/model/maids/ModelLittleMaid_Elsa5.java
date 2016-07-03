@@ -2,11 +2,11 @@ package littleMaidMobX.model.maids;
 
 import java.util.Random;
 
+import littleMaidMobX.model.maid.ModelLittleMaidBase;
+import littleMaidMobX.render.model.ModelRenderer;
 //import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import littleMaidMobX.model.caps.IModelCaps;
 import littleMaidMobX.model.caps.ModelCapsHelper;
-import littleMaidMobX.model.lmm.ModelLittleMaidBase;
-import littleMaidMobX.render.model.ModelRenderer;
 
 
 public class ModelLittleMaid_Elsa5 extends ModelLittleMaidBase {
@@ -44,7 +44,7 @@ public class ModelLittleMaid_Elsa5 extends ModelLittleMaidBase {
 	}
 
 	@Override
-	public void initModel(float psize, float pyoffset, boolean isAfterInit)
+	public void initModel(float psize, float pyoffset)
 	{
 		offsetY = (byte)(pyoffset + 10); //Global to Local
 

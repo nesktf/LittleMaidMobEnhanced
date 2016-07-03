@@ -2,6 +2,7 @@ package littleMaidMobX.ai;
 
 import littleMaidMobX.LittleMaidMobX;
 import littleMaidMobX.entity.EntityLittleMaid;
+import littleMaidMobX.util.Debug;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.AxisAlignedBB;
@@ -44,7 +45,7 @@ public class AIJumpToMaster extends EntityAIBase implements IEntityAI {
 		if (theMaid.isFreedom()) {
 			
 			if (theMaid.homeWorld != theMaid.dimension) {
-				LittleMaidMobX.Debug(String.format("ID:%d, %d -> %d, Change HomeWorld. reset HomePosition.",
+				Debug.ai(String.format("ID:%d, %d -> %d, Change HomeWorld. reset HomePosition.",
 						theMaid.getEntityId(),theMaid.homeWorld, theMaid.worldObj.provider.dimensionId));
 //				theMaid.func_110171_b(
 				theMaid.setHomeArea(
@@ -59,7 +60,7 @@ public class AIJumpToMaster extends EntityAIBase implements IEntityAI {
 					MathHelper.floor_double(theMaid.posY),
 					MathHelper.floor_double(theMaid.posZ)) > 400D) {
 				jumpTarget = false;
-				LittleMaidMobX.Debug(String.format(
+				Debug.ai(String.format(
 						"ID:%d(%s) Jump To Home.", theMaid.getEntityId(),
 						theMaid.worldObj.isRemote ? "C" : "W"));
 				return true;
@@ -77,7 +78,7 @@ public class AIJumpToMaster extends EntityAIBase implements IEntityAI {
 					return false;
 				}
 			}
-			LittleMaidMobX.Debug(
+			Debug.ai(
 					"ID:%d(%s) Jump To Master.",
 					theMaid.getEntityId(), theMaid.worldObj.isRemote ? "C" : "W");
 			return true;
@@ -127,7 +128,7 @@ public class AIJumpToMaster extends EntityAIBase implements IEntityAI {
 			int lz = theMaid.getHomePosition().posZ;
 			if (!(isCanJump(lx, ly, lz))) {
 				
-				LittleMaidMobX.Debug(String.format(
+				Debug.ai(String.format(
 						"ID:%d(%s) home lost.",
 						theMaid.getEntityId(), theMaid.worldObj.isRemote ? "C" : "W"));
 				int a;
@@ -175,17 +176,17 @@ public class AIJumpToMaster extends EntityAIBase implements IEntityAI {
 				if (f) {
 //					theMaid.func_110171_b(lx, ly, lz, (int) theMaid.func_110174_bM());
 					theMaid.setHomeArea(lx, ly, lz, (int) theMaid.func_110174_bM());
-					LittleMaidMobX.Debug(String.format(
+					Debug.ai(String.format(
 							"Find new position:%d, %d, %d.", lx, ly, lz));
 				} else {
 					if (isCanJump(lx, ly - 6, lz)) {
 						ly -= 6;
 					}
-					LittleMaidMobX.Debug(String.format(
+					Debug.ai(String.format(
 							"loss new position:%d, %d, %d.", lx, ly, lz));
 				}
 			} else {
-				LittleMaidMobX.Debug(String.format(
+				Debug.ai(String.format(
 						"ID:%d(%s) home solid.",
 						theMaid.getEntityId(), theMaid.worldObj.isRemote ? "C" : "W"));
 			}
@@ -202,7 +203,7 @@ public class AIJumpToMaster extends EntityAIBase implements IEntityAI {
 		theMaid.setAttackTarget(null);
 		theMaid.setRevengeTarget(null);
 		theMaid.getNavigator().clearPathEntity();
-		LittleMaidMobX.Debug(String.format("ID:%d(%s) Jump Fail.",
+		Debug.ai(String.format("ID:%d(%s) Jump Fail.",
 				theMaid.getEntityId(), theMaid.worldObj.isRemote ? "C" : "W"));
 	}
 
