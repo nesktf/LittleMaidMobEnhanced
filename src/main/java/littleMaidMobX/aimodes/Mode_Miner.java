@@ -14,6 +14,8 @@ import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
@@ -54,7 +56,7 @@ public class Mode_Miner extends ModeBase
 		ltasks[0].addTask(1, owner.aiSwiming);
 		ltasks[0].addTask(2, owner.func_70907_r());
 		ltasks[0].addTask(3, owner.aiJumpTo);
-		//ltasks[1].addTask(4, owner.aiFindBlock);
+		ltasks[1].addTask(4, owner.aiFindBlock);
 		//ltasks[0].addTask(5, owner.aiPanic);
 		
 		ltasks[0].addTask(10, owner.aiBeg);
@@ -181,9 +183,30 @@ public class Mode_Miner extends ModeBase
 	@Override
 	public boolean checkBlock(int pMode, int px, int py, int pz)
 	{
-		boolean ore = shouldBlockBeMined(px, py, pz);
-		if (ore && canBlockBeSeen(px, py, pz, true, true, false) && shouldMine())
+		if (owner.getHeldItem() == null)
 		{
+			return false;
+		}
+		if (owner.isFreedom() && owner.getHomePosition().getDistanceSquared(px, py, pz) > ModeBase.limitDistance_Freedom)
+		{
+			return false;
+		}
+		if (!owner.isFreedom() && owner.getMaidMasterEntity()!=null && owner.getMaidMasterEntity().getDistanceSq(px, py, pz) > ModeBase.limitDistance_Follow)
+		{
+			return false;
+		}
+		if (shouldBlockBeMined(px, py, pz) && canBlockBeSeen(px, py, pz, true, true, false) && isInvNotFull() && !owner.isMaidWait())
+		{
+			owner.worldObj.destroyBlockInWorldPartially(-1, targetX, targetY, targetZ, -1);
+			targetX = px;
+			targetY = py;
+			targetZ = pz;
+			timeMined = 0;
+			mineTime = Helper.getMineTime(owner.worldObj, targetX, targetY, targetZ, owner.getCurrentEquippedItem());
+				
+			//owner.aiFindBlock.setEnable(false);
+			owner.aiWander.setEnable(false);
+			//owner.aiFollow.setEnable(false);
 			if (owner.getNavigator().tryMoveToXYZ(px, py, pz, 1.0F))
 			{
 				owner.playSound(EnumSound.findTarget_D, false);
@@ -194,11 +217,70 @@ public class Mode_Miner extends ModeBase
 	}
 	
 	@Override
+	public boolean executeBlock(int pMode)
+	{
+		if (owner.isFreedom() && owner.getHomePosition().getDistanceSquared(targetX, targetY, targetZ) > ModeBase.limitDistance_Freedom)
+		{
+			return false;
+		}
+		if (!owner.isFreedom() && owner.getMaidMasterEntity()!=null && owner.getMaidMasterEntity().getDistanceSq(targetX, targetY, targetZ) > ModeBase.limitDistance_Follow)
+		{
+			return false;
+		}
+		World worldObj = owner.worldObj;
+		ItemStack item = owner.getCurrentEquippedItem();
+		ItemTool tool = (ItemTool) item.getItem();
+		if (item == null) return false;
+		
+		if (owner.getDistanceSq(targetX, targetY, targetZ) < 16D)
+		{
+			Block theBlock = worldObj.getBlock(targetX, targetY, targetZ);
+			int completed = (int)Math.floor((timeMined/mineTime)*8);
+				
+			owner.getLookHelper().setLookPosition(targetX, targetY, targetZ, 10F, owner.getVerticalFaceSpeed());
+			owner.setSwing(10, EnumSound.installation);
+			//worldObj.playSoundEffect((double)targetX+0.5D, (double)targetY+0.5D, (double)targetZ+0.5D, theBlock.stepSound.soundName, 10000.0F, 0.8F + worldObj.rand.nextFloat() * 0.2F);
+			worldObj.playSound((double)targetX+0.5D, (double)targetY+0.5D, (double)targetZ+0.5D, "dig.stone", 1.0f, (worldObj.rand.nextFloat() * 0.2F) + 0.95F, false);
+			worldObj.destroyBlockInWorldPartially(owner.getEntityId(), targetX, targetY, targetZ, completed);
+				
+			if(completed >= 8)
+			{
+				if (EnchantmentHelper.getSilkTouchModifier(owner))
+				{
+					worldObj.spawnEntityInWorld(new EntityItem(worldObj, targetX, targetY, targetZ, new ItemStack(theBlock)));
+				}
+				else
+				{
+					theBlock.dropBlockAsItem(worldObj, targetX, targetY, targetZ, worldObj.getBlockMetadata(targetX, targetY, targetZ), 0);
+					theBlock.dropXpOnBlockBreak(worldObj, targetX, targetY, targetZ, theBlock.getExpDrop(worldObj, worldObj.getBlockMetadata(targetX, targetY, targetZ), EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, item)));
+				}
+				worldObj.setBlockToAir(targetX, targetY, targetZ);
+				worldObj.destroyBlockInWorldPartially(owner.getEntityId(), targetX, targetY, targetZ, -1);
+					
+				item.damageItem(1, owner);
+					
+				timeMined = 0.0f;
+				owner.getNavigator().clearPathEntity();
+				//owner.aiFindBlock.setEnable(true);
+				owner.aiWander.setEnable(true);
+				//owner.aiFollow.setEnable(true);
+				return false;
+			}
+			else
+			{
+				String toolMaterial = tool.getToolMaterialName();
+				timeMined += tool.func_150913_i().getEfficiencyOnProperMaterial();
+			}
+		}
+		return true;
+	}
+	
+	@Override
 	public void updateAITick(int pMode)
 	{
-		if (pMode == mmode_Miner && owner.getNextEquipItem() && shouldMine())
+		if (pMode == mmode_Miner)/* && owner.getNextEquipItem() && isInvNotFull())*/
 		{
-			boolean doMine = true;
+			/*boolean doMine = true;
 			ItemStack tool = owner.getCurrentEquippedItem();
 			ItemTool item = (ItemTool) tool.getItem();
 			World worldObj = owner.worldObj;
@@ -297,18 +379,16 @@ public class Mode_Miner extends ModeBase
 					
 					owner.aiFindBlock.setEnable(false);
 					owner.aiWander.setEnable(false);
-				}
+				}*/
 				
-				if (owner.getCurrentEquippedItem().stackSize <= 0)
-				{
-					owner.maidInventory.setInventoryCurrentSlotContents(null);
-					owner.getNextEquipItem();
-				}
+			if (owner.getCurrentEquippedItem() == null || owner.getCurrentEquippedItem().stackSize <= 0)
+			{
+				owner.maidInventory.setInventoryCurrentSlotContents(null);
+				owner.getNextEquipItem();
 			}
-
 		}
 	}
-	private boolean shouldMine()
+	private boolean isInvNotFull()
 	{
 		if (owner.maidInventory.getFirstEmptyStack() == -1)
 		{

@@ -13,6 +13,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -126,8 +127,36 @@ public class Mode_Torcher extends ModeBase {
 	}
 
 	@Override
-	public boolean checkBlock(int pMode, int px, int py, int pz) {
+	public boolean checkBlock(int pMode, int px, int py, int pz)
+	{
+		if (owner.getHeldItem() == null)
+		{
+			return false;
+		}
+		if (owner.isFreedom() && owner.getHomePosition().getDistanceSquared(px, py, pz) > ModeBase.limitDistance_Freedom) {
+			return false;
+		}
+		if (!owner.isFreedom() && owner.getMaidMasterEntity()!=null &&
+				owner.getMaidMasterEntity().getDistanceSq(px, py, pz) > ModeBase.limitDistance_Follow) {
+			return false;
+		}
+		// アイテムを置けない場合
+		Item heldItem = owner.getHeldItem().getItem();
+		if (heldItem instanceof ItemBlock) {
+			if (!canPlaceItemBlockOnSide(owner.worldObj, px, py - 1, pz, 1, owner.maidAvatar, owner.getHeldItem(), (ItemBlock) heldItem)) {
+				return false;
+			}
+		}
+
 		int v = getBlockLighting(px, py, pz);
+		if (v < 8 && canBlockBeSeen(px, py - 1, pz, true, true, true) && !owner.isMaidWait()) {
+			if (owner.getNavigator().tryMoveToXYZ(px, py, pz, 1.0F) ) {
+				//owner.playLittleMaidSound(LMM_EnumSound.findTarget_D, true);
+				return true;
+			}
+		}
+		return false;
+		/*int v = getBlockLighting(px, py, pz);
 		if (v < 8 && canBlockBeSeen(px, py - 1, pz, true, true, false))
 		{
 			if (owner.getNavigator().tryMoveToXYZ(px, py, pz, 1.0F) )
@@ -136,17 +165,42 @@ public class Mode_Torcher extends ModeBase {
 				return true;
 			}
 		}
+		return false;*/
+	}
+	
+	@Override
+	public boolean executeBlock(int pMode, int px, int py, int pz)
+	{
+		ItemStack lis = owner.getCurrentEquippedItem();
+		if (lis == null) return false;
+
+		if(lis.getItem()!=Item.getItemFromBlock(Blocks.torch)) return false;
+
+		int li = lis.stackSize;
+		// TODO:当たり判定をどうするか
+		if (lis.getItem().onItemUse(lis, owner.maidAvatar, owner.worldObj, px, py - 1, pz, 1, 0.5F, 1.0F, 0.5F))
+		{
+			owner.setSwing(10, EnumSound.installation);
+			//owner.addMaidExperience(0.32f);
+			if (owner.maidAvatar.capabilities.isCreativeMode) {
+				lis.stackSize = li;
+			}
+			if (lis.stackSize <= 0) {
+				owner.maidInventory.setInventoryCurrentSlotContents(null);
+				owner.getNextEquipItem();
+			}
+		}
 		return false;
 	}
 
 	public boolean canPlaceItemBlockOnSide(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer, ItemStack par7ItemStack, ItemBlock pItemBlock)
 	{
-		Block var8 = par1World.getBlock(par2, par3, par4);
+		Block theBlock = par1World.getBlock(par2, par3, par4);
 		
-		if (Block.isEqualTo(var8, Blocks.snow)) {
+		if (Block.isEqualTo(theBlock, Blocks.snow)) {
 			par5 = 1;
-		} else if (!Block.isEqualTo(var8, Blocks.vine) && !Block.isEqualTo(var8, Blocks.tallgrass) &&
-				!Block.isEqualTo(var8, Blocks.deadbush)) {
+		} else if (!Block.isEqualTo(theBlock, Blocks.vine) && !Block.isEqualTo(theBlock, Blocks.tallgrass) &&
+				!Block.isEqualTo(theBlock, Blocks.deadbush)) {
 			if (par5 == 0) {
 				--par3;
 			}
@@ -166,7 +220,6 @@ public class Mode_Torcher extends ModeBase {
 				++par2;
 			}
 		}
-		
 		Material lmat = par1World.getBlock(par2, par3, par4).getMaterial();
 		if (lmat instanceof MaterialLiquid) {
 			return false;
@@ -175,7 +228,7 @@ public class Mode_Torcher extends ModeBase {
 		return par1World.canPlaceEntityOnSide(Block.getBlockFromItem(pItemBlock), par2, par3, par4, false, par5, (Entity)null, par7ItemStack);
 	}
 
-	@Override
+	/*@Override
 	public void updateAITick(int pMode)
 	{
 		if (pMode == mmode_Torcher && owner.getNextEquipItem())
@@ -230,6 +283,6 @@ public class Mode_Torcher extends ModeBase {
 			}
 
 		}
-	}
+	}*/
 
 }

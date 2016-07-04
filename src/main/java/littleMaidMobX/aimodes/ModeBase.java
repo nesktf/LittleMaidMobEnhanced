@@ -33,6 +33,9 @@ public abstract class ModeBase {
 
 	public int fpriority;
 	
+	public static final double limitDistance_Freedom = 400D;
+	
+	public static final double limitDistance_Follow  = 144D;
 	/**
 	 * 優先順位。
 	 * 番号が若いほうが先に処理される。
