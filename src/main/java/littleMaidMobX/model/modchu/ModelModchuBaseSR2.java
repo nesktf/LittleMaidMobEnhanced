@@ -26,6 +26,12 @@ public class ModelModchuBaseSR2 extends ModelModchuBaseMulti {
 		super(psize, pyoffset, pTextureWidth, pTextureHeight);
 	}
 
+  @Override
+  public void defaultAddChildSetting() {
+    super.defaultAddChildSetting();
+    this.bipedHead.addChild(this.eyeR);
+    this.bipedHead.addChild(this.eyeL);
+  }
 
 	@Override
 	public void initModel(float psize, float pyoffset, boolean isAfterInit) {
