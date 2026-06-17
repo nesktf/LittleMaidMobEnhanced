@@ -339,8 +339,10 @@ public class GuiTriggerSelect extends GuiContainer {
                 if (iterator1.hasNext()) {
                     String s = (String) iterator1.next();
 
-                    if (!s.toLowerCase()
-                        .contains(s1)) {
+                    if (
+                        !s.toLowerCase()
+                            .contains(s1)
+                    ) {
                         continue;
                     }
 

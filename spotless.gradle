@@ -18,9 +18,9 @@ spotless {
         target 'src/*/java/**/*.java', 'src/*/scala/**/*.java'
 
         toggleOffOn()
-        importOrderFile(Blowdryer.file('spotless.importorder'))
+        importOrderFile('spotless.importorder')
         removeUnusedImports()
-        eclipse('4.19').configFile(Blowdryer.file('spotless.eclipseformat.xml'))
+        eclipse('4.19').configFile("formatter.xml")
     }
     kotlin {
         target 'src/*/kotlin/**/*.kt', 'src/*/java/**/*.kt'

@@ -250,8 +250,10 @@ public class MultiModel_QB extends ModelModchuBaseMulti {
         armSwing(f, f1, f2, f3, f4, f5, entityCaps);
         bipedRightArm.rotationPointX = -1.5F;
         bipedLeftArm.rotationPointX = 1.5F;
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
             bipedRightArm.rotationPointY = bipedLeftArm.rotationPointY = 0.5F;
             bipedRightArm.rotationPointZ = bipedLeftArm.rotationPointZ = -2.5F;
             bipedRightArm.rotateAngleX = Helper.sin(f2 * 0.067F) * 0.05F - 0.7F;

@@ -195,9 +195,11 @@ public class Helper {
             return false;
         }
         if (movingobjectposition.typeOfHit == MovingObjectType.BLOCK) {
-            if (movingobjectposition.blockX == MathHelper.floor_double(vec3d1.xCoord)
-                && movingobjectposition.blockY == MathHelper.floor_double(vec3d1.yCoord)
-                && movingobjectposition.blockZ == MathHelper.floor_double(vec3d1.zCoord)) {
+            if (
+                movingobjectposition.blockX == MathHelper.floor_double(vec3d1.xCoord)
+                    && movingobjectposition.blockY == MathHelper.floor_double(vec3d1.yCoord)
+                    && movingobjectposition.blockZ == MathHelper.floor_double(vec3d1.zCoord)
+            ) {
                 return true;
             }
         }
@@ -307,8 +309,10 @@ public class Helper {
         float lf = 0;
         if (lm.find()) {
             lf = Integer.valueOf(lm.group(1));
-            if (!lm.group(2)
-                .isEmpty()) {
+            if (
+                !lm.group(2)
+                    .isEmpty()
+            ) {
                 lf += (float) (lm.group(2)
                     .charAt(0) - 96) * 0.01;
             }

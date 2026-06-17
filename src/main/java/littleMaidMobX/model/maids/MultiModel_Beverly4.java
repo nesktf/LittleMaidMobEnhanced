@@ -386,8 +386,10 @@ public class MultiModel_Beverly4 extends ModelModchuBaseBeverly {
         rightArm.rotateAngleZ = 0.2F + fb;
         leftArm.rotateAngleZ = -rightArm.rotateAngleZ;
 
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
             rightArm.rotateAngleX = (float) Math.sin(f2 * 0.067F) * 0.05F - 0.45F;
             rightArm.rotateAngleY = 0.0F;
             rightArm.rotateAngleZ = -0.2F;

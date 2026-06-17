@@ -129,8 +129,10 @@ public class AIFindBlock extends EntityAIBase implements IEntityAI {
     public boolean continueExecuting() {
         fmodeBase.updateBlock();
 
-        if (!theMaid.getNavigator()
-            .noPath()) return true;
+        if (
+            !theMaid.getNavigator()
+                .noPath()
+        ) return true;
 
         double ld = theMaid.getDistanceTilePos();
         if (ld > 100.0D) {

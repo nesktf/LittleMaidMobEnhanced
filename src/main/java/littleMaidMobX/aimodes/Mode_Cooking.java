@@ -146,8 +146,10 @@ public class Mode_Cooking extends ModeBlockBase {
         boolean lflag = false;
         int li;
 
-        if (owner.getSwingStatusDominant()
-            .canAttack()) {
+        if (
+            owner.getSwingStatusDominant()
+                .canAttack()
+        ) {
 
             litemstack = ltile.getStackInSlot(2);
             if (litemstack != null) {
@@ -268,8 +270,10 @@ public class Mode_Cooking extends ModeBlockBase {
             } else if (var3 < 1.0F) {
                 var4 = MathHelper.floor_float((float) pCount * var3);
 
-                if (var4 < MathHelper.ceiling_float_int((float) pCount * var3)
-                    && (float) Math.random() < (float) pCount * var3 - (float) var4) {
+                if (
+                    var4 < MathHelper.ceiling_float_int((float) pCount * var3)
+                        && (float) Math.random() < (float) pCount * var3 - (float) var4
+                ) {
                     ++var4;
                 }
 

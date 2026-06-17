@@ -70,8 +70,10 @@ public class GuiInventory extends GuiContainer {
     @Override
     public void initGui() {
         super.initGui();
-        if (!entitylittlemaid.getActivePotionEffects()
-            .isEmpty()) {
+        if (
+            !entitylittlemaid.getActivePotionEffects()
+                .isEmpty()
+        ) {
             guiLeft = 160 + (width - xSize - 200) / 2;
         }
         buttonList.add(txbutton[0] = new GuiButtonNextPage(100, guiLeft + 25, guiTop + 7, false));

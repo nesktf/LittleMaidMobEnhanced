@@ -57,9 +57,11 @@ public class AIAttackOnCollide extends EntityAIBase implements IEntityAI {
         attackRange = (double) theMaid.width + (double) entityTarget.width + 0.4D;
         attackRange *= attackRange;
 
-        if ((pathToTarget != null)
-            || (theMaid.getDistanceSq(entityTarget.posX, entityTarget.boundingBox.minY, entityTarget.posZ)
-                <= attackRange)) {
+        if (
+            (pathToTarget != null)
+                || (theMaid.getDistanceSq(entityTarget.posX, entityTarget.boundingBox.minY, entityTarget.posZ)
+                    <= attackRange)
+        ) {
             return true;
         } else {
             theMaid.setAttackTarget(null);
@@ -136,8 +138,10 @@ public class AIAttackOnCollide extends EntityAIBase implements IEntityAI {
                 theMaid.getNavigator()
                     .tryMoveToXYZ(entityTarget.posX, entityTarget.posY, entityTarget.posZ, moveSpeed);
             }
-            if (theMaid.getEntitySenses()
-                .canSee(entityTarget)) {
+            if (
+                theMaid.getEntitySenses()
+                    .canSee(entityTarget)
+            ) {
 
                 rerouteTimer = 4 + theMaid.getRNG()
                     .nextInt(7);
@@ -172,8 +176,10 @@ public class AIAttackOnCollide extends EntityAIBase implements IEntityAI {
             theMaid.maidAvatar.stopUsingItem();
         }
 
-        if (!theMaid.getSwingStatusDominant()
-            .canAttack()) {
+        if (
+            !theMaid.getSwingStatusDominant()
+                .canAttack()
+        ) {
             return;
         } else {
 
@@ -188,8 +194,10 @@ public class AIAttackOnCollide extends EntityAIBase implements IEntityAI {
             }
 
             theMaid.attackEntityAsMob(entityTarget);
-            if (theMaid.getActiveModeClass()
-                .isChangeTartget(entityTarget)) {
+            if (
+                theMaid.getActiveModeClass()
+                    .isChangeTartget(entityTarget)
+            ) {
 
                 theMaid.setAttackTarget(null);
                 theMaid.setTarget(null);

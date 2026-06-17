@@ -102,8 +102,10 @@ public class Mode_Ripper extends ModeBase {
     @Override
     public void updateAITick(int pMode) {
         ItemStack litemstack = owner.maidInventory.getCurrentItem();
-        if (litemstack != null && (owner.getAttackTarget() instanceof EntityCreeper
-            || owner.getEntityToAttack() instanceof EntityTNTPrimed)) {
+        if (
+            litemstack != null && (owner.getAttackTarget() instanceof EntityCreeper
+                || owner.getEntityToAttack() instanceof EntityTNTPrimed)
+        ) {
             if (pMode == mmode_Ripper) {
                 owner.setMaidMode("TNT-D");
                 owner.maidOverDriveTime.setEnable(true);
@@ -125,10 +127,12 @@ public class Mode_Ripper extends ModeBase {
                 if (lastTimeSinceIgnited != timeSinceIgnited) {
                     owner.getDataWatcher()
                         .updateObject(Statics.dataWatch_Free, Integer.valueOf(0));
-                } else if (owner.getDataWatcher()
-                    .getWatchableObjectInt(Statics.dataWatch_Free) == 1) {
-                        lastTimeSinceIgnited = timeSinceIgnited = 0;
-                    }
+                } else if (
+                    owner.getDataWatcher()
+                        .getWatchableObjectInt(Statics.dataWatch_Free) == 1
+                ) {
+                    lastTimeSinceIgnited = timeSinceIgnited = 0;
+                }
             }
             lastTimeSinceIgnited = timeSinceIgnited;
             if (timeSinceIgnited > -1) {
@@ -233,8 +237,10 @@ public class Mode_Ripper extends ModeBase {
             return false;
         }
 
-        if (owner.getSwingStatusDominant()
-            .canAttack()) {
+        if (
+            owner.getSwingStatusDominant()
+                .canAttack()
+        ) {
             ItemStack lis = owner.getCurrentEquippedItem();
             if (pEntity instanceof EntityCreeper) {
 

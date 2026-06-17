@@ -133,29 +133,35 @@ public class Mode_Farmer extends ModeBase {
     @Override
     public boolean checkBlock(int pMode, int px, int py, int pz) {
         if (owner.isFreedom()) {
-            if (owner.getHomePosition()
-                .getDistanceSquared(
-                    MathHelper.floor_double(owner.posX),
-                    MathHelper.floor_double(owner.posY),
-                    MathHelper.floor_double(owner.posZ))
-                > limitDistance_Freedom) {
+            if (
+                owner.getHomePosition()
+                    .getDistanceSquared(
+                        MathHelper.floor_double(owner.posX),
+                        MathHelper.floor_double(owner.posY),
+                        MathHelper.floor_double(owner.posZ))
+                    > limitDistance_Freedom
+            ) {
                 return false;
             }
         } else if (owner.getMaidMasterEntity() != null) {
-            if (owner.getMaidMasterEntity()
-                .getDistanceSq(px, py, pz) > limitDistance_Follow) {
+            if (
+                owner.getMaidMasterEntity()
+                    .getDistanceSq(px, py, pz) > limitDistance_Follow
+            ) {
                 return false;
             }
         }
-        if (!canMoveThrough(
-            owner,
-            0.9D,
-            px + 0.5D,
-            py + 1.9D,
-            pz + 0.5D,
-            py == MathHelper.floor_double(owner.posY - 1D),
-            true,
-            false)) return false;
+        if (
+            !canMoveThrough(
+                owner,
+                0.9D,
+                px + 0.5D,
+                py + 1.9D,
+                pz + 0.5D,
+                py == MathHelper.floor_double(owner.posY - 1D),
+                true,
+                false)
+        ) return false;
         if (isUnfarmedLand(px, py, pz)) return true;
         if (isFarmedLand(px, py, pz)) {
             /*
@@ -185,8 +191,10 @@ public class Mode_Farmer extends ModeBase {
 
         boolean haveNothing = !(curStack.getItem() instanceof ItemHoe);
 
-        if (!haveNothing && isUnfarmedLand(px, py, pz)
-            && curStack.tryPlaceItemIntoWorld(owner.maidAvatar, owner.worldObj, px, py, pz, 1, 0.5F, 1.0F, 0.5F)) {
+        if (
+            !haveNothing && isUnfarmedLand(px, py, pz)
+                && curStack.tryPlaceItemIntoWorld(owner.maidAvatar, owner.worldObj, px, py, pz, 1, 0.5F, 1.0F, 0.5F)
+        ) {
             owner.setSwing(10, EnumSound.Null/* , false */);
             // owner.playLittleMaidSound(EnumSound.farmer_farm, false);
 
@@ -251,9 +259,11 @@ public class Mode_Farmer extends ModeBase {
     @Override
     public void onUpdate(int pMode) {
         // TODO 自動生成されたメソッド・スタブ
-        if (pMode == mmode_Farmer && ++clearCount >= 300
-            && owner.getNavigator()
-                .noPath()) {
+        if (
+            pMode == mmode_Farmer && ++clearCount >= 300
+                && owner.getNavigator()
+                    .noPath()
+        ) {
             try {
                 if (!owner.isWorking()) {
                     if (owner.aiCollectItem.shouldExecute()) owner.aiCollectItem.updateTask();
@@ -322,8 +332,10 @@ public class Mode_Farmer extends ModeBase {
         for (int l = x - 4; l <= x + 4; ++l) {
             for (int i1 = y; i1 <= y + 1; ++i1) {
                 for (int j1 = z - 4; j1 <= z + 4; ++j1) {
-                    if (owner.worldObj.getBlock(l, i1, j1)
-                        .getMaterial() == Material.water) {
+                    if (
+                        owner.worldObj.getBlock(l, i1, j1)
+                            .getMaterial() == Material.water
+                    ) {
                         return true;
                     }
                 }
@@ -369,8 +381,10 @@ public class Mode_Farmer extends ModeBase {
         MovingObjectPosition movingobjectposition = pEntity.worldObj.func_147447_a(vec3do, vec3dt, do1, do2, false);
 
         if (movingobjectposition != null && movingobjectposition.typeOfHit == MovingObjectType.BLOCK) {
-            if (movingobjectposition.blockX == (int) pX && movingobjectposition.blockY == (int) pY
-                && movingobjectposition.blockZ == (int) pZ) {
+            if (
+                movingobjectposition.blockX == (int) pX && movingobjectposition.blockY == (int) pY
+                    && movingobjectposition.blockZ == (int) pZ
+            ) {
                 return true;
             }
             return false;

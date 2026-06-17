@@ -127,8 +127,10 @@ public class Mode_Playing extends ModeBase {
                         .getEntitiesWithinAABBExcludingEntity(owner, owner.boundingBox.expand(16D, 4D, 16D));
                     for (Entity e : list) {
                         if (e != null && (e instanceof EntityPlayer || e instanceof EntityLittleMaid)) {
-                            if (owner.getRNG()
-                                .nextBoolean()) {
+                            if (
+                                owner.getRNG()
+                                    .nextBoolean()
+                            ) {
                                 owner.setAttackTarget((EntityLivingBase) e);
                                 break;
                             }
@@ -139,16 +141,20 @@ public class Mode_Playing extends ModeBase {
             case 1:
 
                 owner.setAttackTarget(null);
-                if (owner.getNavigator()
-                    .noPath()) {
+                if (
+                    owner.getNavigator()
+                        .noPath()
+                ) {
                     fcounter = 2;
                 }
                 break;
 
             case 2:
 
-                if (owner.getAttackTarget() == null && owner.getNavigator()
-                    .noPath()) {
+                if (
+                    owner.getAttackTarget() == null && owner.getNavigator()
+                        .noPath()
+                ) {
                     if (movePlaying()) {
                         fcounter = 3;
                     } else {
@@ -162,12 +168,16 @@ public class Mode_Playing extends ModeBase {
                 break;
             case 3:
 
-                if (owner.getNavigator()
-                    .noPath()) {
-                    if (checkSnows(
-                        MathHelper.floor_double(owner.posX),
-                        MathHelper.floor_double(owner.posY),
-                        MathHelper.floor_double(owner.posZ))) {
+                if (
+                    owner.getNavigator()
+                        .noPath()
+                ) {
+                    if (
+                        checkSnows(
+                            MathHelper.floor_double(owner.posX),
+                            MathHelper.floor_double(owner.posY),
+                            MathHelper.floor_double(owner.posZ))
+                    ) {
                         // owner.isMaidChaseWait = true;
                         owner.attackTime = 30;
                         if (owner.getPlayingRole() == mpr_QuickShooter) {

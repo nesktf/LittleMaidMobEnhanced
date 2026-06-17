@@ -197,8 +197,10 @@ public class MultiModel_Shion extends ModelModchuBaseMulti {
                 SkirtL.setRotationPoint(-0.5F, 0.0F, 0.0F);
             }
         }
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
             setCapsValue(entityCaps, caps_visible, sodeL, false);
             setCapsValue(entityCaps, caps_visible, sodeR, false);
             setCapsValue(entityCaps, caps_visible, WsodeL, true);
@@ -281,8 +283,10 @@ public class MultiModel_Shion extends ModelModchuBaseMulti {
                 setCapsValue(entityCaps, caps_visible, eyeR, false);
             }
         } else {
-            if (!eyeFlag | (eyeFlag
-                && 0.0D > (mh_sin(f2 * 0.1F) * 0.3F) + Math.random() * 0.10000000149011612D + 0.18000000715255737D)) {
+            if (
+                !eyeFlag | (eyeFlag
+                    && 0.0D > (mh_sin(f2 * 0.1F) * 0.3F) + Math.random() * 0.10000000149011612D + 0.18000000715255737D)
+            ) {
                 setCapsValue(entityCaps, caps_visible, eyeL, false);
                 setCapsValue(entityCaps, caps_visible, eyeR, false);
             } else {

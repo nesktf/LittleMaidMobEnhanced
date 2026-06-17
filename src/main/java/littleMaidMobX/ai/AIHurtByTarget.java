@@ -86,15 +86,19 @@ public class AIHurtByTarget extends EntityAIHurtByTarget {
             }
         }
 
-        if (!taskOwner.isWithinHomeDistance(
-            MathHelper.floor_double(par1EntityLiving.posX),
-            MathHelper.floor_double(par1EntityLiving.posY),
-            MathHelper.floor_double(par1EntityLiving.posZ))) {
+        if (
+            !taskOwner.isWithinHomeDistance(
+                MathHelper.floor_double(par1EntityLiving.posX),
+                MathHelper.floor_double(par1EntityLiving.posY),
+                MathHelper.floor_double(par1EntityLiving.posZ))
+        ) {
             return false;
         }
 
-        if (shouldCheckSight && !taskOwner.getEntitySenses()
-            .canSee(par1EntityLiving)) {
+        if (
+            shouldCheckSight && !taskOwner.getEntitySenses()
+                .canSee(par1EntityLiving)
+        ) {
             return false;
         }
 

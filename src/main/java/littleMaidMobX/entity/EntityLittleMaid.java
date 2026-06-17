@@ -1169,10 +1169,12 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
                 Entity entity1 = (Entity) worldObj.loadedEntityList.get(i);
                 if (!entity1.isDead && entity1 instanceof EntityLittleMaid) {
                     EntityLittleMaid elm = (EntityLittleMaid) entity1;
-                    if (elm != this && elm.isContract()
-                        && elm.maidAnniversary == maidAnniversary
-                        && elm.getMaidMaster()
-                            .equalsIgnoreCase(getMaidMaster())) {
+                    if (
+                        elm != this && elm.isContract()
+                            && elm.maidAnniversary == maidAnniversary
+                            && elm.getMaidMaster()
+                                .equalsIgnoreCase(getMaidMaster())
+                    ) {
 
                         if (getEntityId() > elm.getEntityId()) {
                             Debug.entity(
@@ -1209,8 +1211,10 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
             return maidAvatar.getItemIcon(par1ItemStack, par2);
         }
 
-        if (par1ItemStack.getItem()
-            .requiresMultipleRenderPasses()) {
+        if (
+            par1ItemStack.getItem()
+                .requiresMultipleRenderPasses()
+        ) {
             return par1ItemStack.getItem()
                 .getIconFromDamageForRenderPass(par1ItemStack.getItemDamage(), par2);
         } else {
@@ -1436,8 +1440,10 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
         }
 
         float llasthealth = getHealth();
-        if (par2 > 0 && getActiveModeClass() != null
-            && !getActiveModeClass().damageEntity(maidMode, par1DamageSource, par2)) {
+        if (
+            par2 > 0 && getActiveModeClass() != null
+                && !getActiveModeClass().damageEntity(maidMode, par1DamageSource, par2)
+        ) {
             // maidAvatar.damageEntity(par1DamageSource, par2);
             super.damageEntity(par1DamageSource, par2);
             setMaidWait(false);
@@ -1460,8 +1466,10 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
     public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
         Entity entity = par1DamageSource.getEntity();
 
-        if (par1DamageSource.getDamageType()
-            .equalsIgnoreCase("thrown")) {
+        if (
+            par1DamageSource.getDamageType()
+                .equalsIgnoreCase("thrown")
+        ) {
             if (entity != null && this.maidAvatar != null && entity.getEntityId() == this.maidAvatar.getEntityId()) {
                 return false;
             }
@@ -1470,8 +1478,10 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
         Debug.entity("LMM_EntityLittleMaid.attackEntityFrom " + this + "(" + this.maidAvatar + ") <= " + entity);
 
         maidDamageSound = EnumSound.hurt;
-        if (par1DamageSource == DamageSource.inFire || par1DamageSource == DamageSource.onFire
-            || par1DamageSource == DamageSource.lava) {
+        if (
+            par1DamageSource == DamageSource.inFire || par1DamageSource == DamageSource.onFire
+                || par1DamageSource == DamageSource.lava
+        ) {
             maidDamageSound = EnumSound.hurt_fire;
         }
         for (ModeBase lm : maidEntityModeList) {
@@ -2428,8 +2438,10 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
         ItemStack itemstack1 = par1EntityPlayer.getCurrentEquippedItem();
 
         for (int li = 0; li < maidEntityModeList.size(); li++) {
-            if (maidEntityModeList.get(li)
-                .preInteract(par1EntityPlayer, itemstack1)) {
+            if (
+                maidEntityModeList.get(li)
+                    .preInteract(par1EntityPlayer, itemstack1)
+            ) {
                 return true;
             }
         }
@@ -2438,8 +2450,10 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
             return false;
         }
 
-        if (lhealth > 0F && par1EntityPlayer.riddenByEntity != null
-            && !(par1EntityPlayer.riddenByEntity instanceof EntityLittleMaid)) {
+        if (
+            lhealth > 0F && par1EntityPlayer.riddenByEntity != null
+                && !(par1EntityPlayer.riddenByEntity instanceof EntityLittleMaid)
+        ) {
 
             par1EntityPlayer.riddenByEntity.mountEntity(this);
             return true;
@@ -2463,8 +2477,10 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
                         setPathToEntity(null);
 
                         for (int li = 0; li < maidEntityModeList.size(); li++) {
-                            if (maidEntityModeList.get(li)
-                                .interact(par1EntityPlayer, itemstack1)) {
+                            if (
+                                maidEntityModeList.get(li)
+                                    .interact(par1EntityPlayer, itemstack1)
+                            ) {
                                 return true;
                             }
                         }
@@ -3196,9 +3212,11 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
             return getActiveModeClass().isUsingTile(pTile);
         }
         for (int li = 0; li < maidTiles.length; li++) {
-            if (maidTiles[li] != null && pTile.xCoord == maidTiles[li][0]
-                && pTile.yCoord == maidTiles[li][1]
-                && pTile.zCoord == maidTiles[li][2]) {
+            if (
+                maidTiles[li] != null && pTile.xCoord == maidTiles[li][0]
+                    && pTile.yCoord == maidTiles[li][1]
+                    && pTile.zCoord == maidTiles[li][2]
+            ) {
                 return true;
             }
         }

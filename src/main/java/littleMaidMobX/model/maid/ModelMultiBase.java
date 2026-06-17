@@ -61,8 +61,10 @@ public abstract class ModelMultiBase extends ModelBase implements IModelCaps {
         textureWidth = pTextureWidth;
         textureHeight = pTextureHeight;
 
-        if (FMLCommonHandler.instance()
-            .getSide() == Side.CLIENT) {
+        if (
+            FMLCommonHandler.instance()
+                .getSide() == Side.CLIENT
+        ) {
             // LMM_LittleMaidMobX.Debug("ModelMulti.InitClient");
 
             Arms = new ModelRenderer[2];

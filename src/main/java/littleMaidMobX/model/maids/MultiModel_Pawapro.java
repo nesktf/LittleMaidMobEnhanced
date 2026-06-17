@@ -242,8 +242,10 @@ public class MultiModel_Pawapro extends ModelModchuBaseOkota {
         setCapsValue(entityCaps, caps_visible, eyeLFire, false);
         setCapsValue(entityCaps, caps_visible, eyeRFire, false);
 
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
             setCapsValue(entityCaps, caps_visible, eyeLniko, true);
             setCapsValue(entityCaps, caps_visible, eyeRniko, true);
         }

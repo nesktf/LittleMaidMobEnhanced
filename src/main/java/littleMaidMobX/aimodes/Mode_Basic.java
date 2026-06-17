@@ -133,8 +133,10 @@ public class Mode_Basic extends ModeBlockBase {
 
     @Override
     public boolean isSearchBlock() {
-        if (owner.getMaidModeInt() == mmode_Escorter && owner.isFreedom()
-            && owner.maidInventory.getFirstEmptyStack() == -1) {
+        if (
+            owner.getMaidModeInt() == mmode_Escorter && owner.isFreedom()
+                && owner.maidInventory.getFirstEmptyStack() == -1
+        ) {
 
             fDistance = 100F;
             return myInventory == null;
@@ -189,8 +191,10 @@ public class Mode_Basic extends ModeBlockBase {
                 }
                 double lr = lentity.getDistanceSqToEntity(owner);
 
-                if (fDistance > lr && owner.getEntitySenses()
-                    .canSee(lentity)) {
+                if (
+                    fDistance > lr && owner.getEntitySenses()
+                        .canSee(lentity)
+                ) {
                     myInventory = (IInventory) lentity;
                     fDistance = lr;
                 }
@@ -333,19 +337,25 @@ public class Mode_Basic extends ModeBlockBase {
 
     protected void putChest() {
 
-        if (owner.getSwingStatusDominant()
-            .canAttack() && myChest != null) {
+        if (
+            owner.getSwingStatusDominant()
+                .canAttack() && myChest != null
+        ) {
 
             ItemStack is;
             Debug.ai(String.format("getChest:%d", maidSearchCount));
-            while ((is = owner.maidInventory.getStackInSlot(maidSearchCount)) == null
-                && maidSearchCount < owner.maidInventory.mainInventory.length) {
+            while (
+                (is = owner.maidInventory.getStackInSlot(maidSearchCount)) == null
+                    && maidSearchCount < owner.maidInventory.mainInventory.length
+            ) {
                 maidSearchCount++;
             }
-            if (is != null && !(is.getItem() == Items.sugar || is.getItem() == Items.clock
-                || (is == owner.maidInventory.armorItemInSlot(3))
-            // || (is.getItem() instanceof ItemArmor && ((ItemArmor)is.getItem()).armorType == 0)
-            )) {
+            if (
+                is != null && !(is.getItem() == Items.sugar || is.getItem() == Items.clock
+                    || (is == owner.maidInventory.armorItemInSlot(3))
+                // || (is.getItem() instanceof ItemArmor && ((ItemArmor)is.getItem()).armorType == 0)
+                )
+            ) {
                 // mod_littleMaidMob.Debug("getchest2.");
                 boolean f = false;
                 for (int j = 0; j < myChest.getSizeInventory() && is.stackSize > 0; j++) {
@@ -474,15 +484,17 @@ public class Mode_Basic extends ModeBlockBase {
                             }
 
                             return true;
-                        } else if (pitemstack.getItem() instanceof ItemBucketMilk && !owner.getActivePotionEffects()
-                            .isEmpty()) {
+                        } else if (
+                            pitemstack.getItem() instanceof ItemBucketMilk && !owner.getActivePotionEffects()
+                                .isEmpty()
+                        ) {
 
-                                if (!owner.worldObj.isRemote) {
-                                    owner.clearActivePotions();
-                                }
-                                Helper.decPlayerInventory(pentityplayer, -1, 1);
-                                return true;
+                            if (!owner.worldObj.isRemote) {
+                                owner.clearActivePotions();
                             }
+                            Helper.decPlayerInventory(pentityplayer, -1, 1);
+                            return true;
+                        }
                     }
                 }
             }

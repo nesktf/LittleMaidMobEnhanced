@@ -43,8 +43,10 @@ public class AINearestAttackableTarget extends EntityAINearestAttackableTarget {
 
     @Override
     public boolean shouldExecute() {
-        if (this.targetChance > 0 && this.taskOwner.getRNG()
-            .nextInt(this.targetChance) != 0) {
+        if (
+            this.targetChance > 0 && this.taskOwner.getRNG()
+                .nextInt(this.targetChance) != 0
+        ) {
             return false;
             // } else if (theMaid.getAttackTarget() != null) {
             // return true;
@@ -114,8 +116,10 @@ public class AINearestAttackableTarget extends EntityAINearestAttackableTarget {
             }
         }
 
-        if (shouldCheckSight && !taskOwner.getEntitySenses()
-            .canSee(pTarget)) {
+        if (
+            shouldCheckSight && !taskOwner.getEntitySenses()
+                .canSee(pTarget)
+        ) {
             return false;
         }
 

@@ -192,8 +192,10 @@ public class IFF {
         int li = 0;
         if (entity instanceof EntityLittleMaid) {
             if (((EntityLittleMaid) entity).isContract()) {
-                if (((EntityLittleMaid) entity).getMaidMaster()
-                    .contentEquals(pUsername)) {
+                if (
+                    ((EntityLittleMaid) entity).getMaidMaster()
+                        .contentEquals(pUsername)
+                ) {
 
                     lcname = (new StringBuilder()).append(lename)
                         .append(":Contract")
@@ -239,8 +241,10 @@ public class IFF {
             File lfile = MinecraftServer.getServer()
                 .getFile("");
             for (File lf : lfile.listFiles()) {
-                if (lf.getName()
-                    .endsWith("littleMaidMob.iff")) {
+                if (
+                    lf.getName()
+                        .endsWith("littleMaidMob.iff")
+                ) {
                     String ls = lf.getName()
                         .substring(
                             17,
@@ -326,8 +330,10 @@ public class IFF {
                     sb.append("triggerWeapon")
                         .append(TriggerSelect.selector.get(le.getKey()))
                         .append("=");
-                    if (!le.getValue()
-                        .isEmpty()) {
+                    if (
+                        !le.getValue()
+                            .isEmpty()
+                    ) {
                         String itemName = Item.itemRegistry.getNameForObject(
                             le.getValue()
                                 .get(0));

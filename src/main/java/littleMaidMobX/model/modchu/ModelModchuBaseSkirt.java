@@ -81,8 +81,10 @@ public abstract class ModelModchuBaseSkirt extends ModelModchuBaseAction {
     @Override
     public void setLivingAnimationsLM(IModelCaps entityCaps, float f, float f1, float f2) {
         super.setLivingAnimationsLM(entityCaps, f, f1, f2);
-        if (ModelCapsHelper.getCapsValueInt(this, entityCaps, caps_skirtFloats) == 2
-            | ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_breastFloats)) {
+        if (
+            ModelCapsHelper.getCapsValueInt(this, entityCaps, caps_skirtFloats) == 2
+                | ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_breastFloats)
+        ) {
             Object entityliving = entityCaps != null ? entityCaps.getCapsValue(entityCaps.caps_Entity) : null;
             // Modchu_Debug.mDebug1("MultiModelSkirtFloats setLivingAnimationsLM entityliving="+entityliving);
             if (entityliving instanceof EntityLivingBase) {
@@ -107,9 +109,11 @@ public abstract class ModelModchuBaseSkirt extends ModelModchuBaseAction {
     public void skirtFloats(float f, float f1, float f2, float f3, float f4, float f5, IModelCaps entityCaps) {}
 
     public void breastFloats(float f, float f1, float f2, float f3, float f4, float f5, IModelCaps entityCaps) {
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_breastFloats)
-            && breastFloatsModelRendererMap != null
-            && !breastFloatsModelRendererMap.isEmpty());
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_breastFloats)
+                && breastFloatsModelRendererMap != null
+                && !breastFloatsModelRendererMap.isEmpty()
+        );
         else return;
         String[] breastNames = getBreastName();
         if (breastNames != null && breastNames.length > 0);

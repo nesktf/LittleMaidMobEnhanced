@@ -604,8 +604,10 @@ public class MultiModel_Yukkuri extends ModelModchuBaseOkota {
                 : basebipedHeadRotationPointY - bipedRightLeg.rotateAngleX * 8F;
             bipedHead.rotateAngleX += 0.5F;
         }
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
             bipedHead.rotationPointY = bipedRightLeg.rotateAngleX < 0.0F ? basebipedHeadRotationPointY
                 : basebipedHeadRotationPointY - bipedRightLeg.rotateAngleX * 8F;
         }
@@ -644,8 +646,10 @@ public class MultiModel_Yukkuri extends ModelModchuBaseOkota {
                 setCapsValue(entityCaps, caps_visible, eyeR, false);
             }
         } else {
-            if (eyeFlag
-                && 0.0D > (mh_sin(f2 * 0.1F) * 0.3F) + Math.random() * 0.10000000149011612D + 0.18000000715255737D) {
+            if (
+                eyeFlag
+                    && 0.0D > (mh_sin(f2 * 0.1F) * 0.3F) + Math.random() * 0.10000000149011612D + 0.18000000715255737D
+            ) {
                 setCapsValue(entityCaps, caps_visible, eyeL, false);
                 setCapsValue(entityCaps, caps_visible, eyeR, false);
             } else {

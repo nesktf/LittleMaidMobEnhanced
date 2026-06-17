@@ -47,8 +47,10 @@ public class AIAvoidPlayer extends EntityAIBase implements IEntityAI {
             return false;
         }
 
-        if (!theMaid.getEntitySenses()
-            .canSee(theMaster)) {
+        if (
+            !theMaid.getEntitySenses()
+                .canSee(theMaster)
+        ) {
             return false;
         }
 

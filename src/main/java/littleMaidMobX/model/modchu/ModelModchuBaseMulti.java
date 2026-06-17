@@ -397,9 +397,11 @@ public class ModelModchuBaseMulti extends ModelModchuBaseSkirt {
         bipedHead.rotateAngleX = f4 / 57.29578F;
         bipedRightArm.rotateAngleX = Helper.cos(f * 0.6662F + 3.141593F) * 2.0F * f1 * 0.5F;
         bipedLeftArm.rotateAngleX = Helper.cos(f * 0.6662F) * 2.0F * f1 * 0.5F;
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isSneak)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isRiding)
-            && ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_oldwalking)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isSneak)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isRiding)
+                && ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_oldwalking)
+        ) {
             bipedRightArm.rotateAngleX = Helper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
             bipedLeftArm.rotateAngleX = Helper.cos(f * 0.6662F) * 1.4F * f1;
             bipedLeftArm.rotateAngleZ = (Helper.cos(f * 0.2812F) - 1.0F) * 1.0F * f1;

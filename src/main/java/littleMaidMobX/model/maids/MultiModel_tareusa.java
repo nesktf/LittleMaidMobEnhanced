@@ -104,8 +104,10 @@ public class MultiModel_tareusa extends ModelModchuBaseOkota {
         if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isSneak)) {
             Usasippo.setRotateAngleY(0.0F);
         }
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
             Usasippo.setRotateAngleY(0.0F);
             Usasippo.setRotateAngleX(mh_sin(f2 * 0.3F) * 0.1F);
             UsaER.rotateAngleX = UsaEL.rotateAngleX = mh_sin(f2 * 0.1F) * 0.06F + 0.2F;

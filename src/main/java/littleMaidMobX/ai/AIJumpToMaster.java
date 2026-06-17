@@ -60,12 +60,14 @@ public class AIJumpToMaster extends EntityAIBase implements IEntityAI {
                 return false;
             }
 
-            if (theMaid.getHomePosition()
-                .getDistanceSquared(
-                    MathHelper.floor_double(theMaid.posX),
-                    MathHelper.floor_double(theMaid.posY),
-                    MathHelper.floor_double(theMaid.posZ))
-                > 400D) {
+            if (
+                theMaid.getHomePosition()
+                    .getDistanceSquared(
+                        MathHelper.floor_double(theMaid.posX),
+                        MathHelper.floor_double(theMaid.posY),
+                        MathHelper.floor_double(theMaid.posZ))
+                    > 400D
+            ) {
                 jumpTarget = false;
                 Debug.ai(
                     String.format(
@@ -103,12 +105,14 @@ public class AIJumpToMaster extends EntityAIBase implements IEntityAI {
 
                 for (int l = 0; l <= 4; l++) {
                     for (int i1 = 0; i1 <= 4; i1++) {
-                        if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && theWorld.getBlock(i + l, k - 1, j + i1)
-                            .isNormalCube()
-                            && !theWorld.getBlock(i + l, k, j + i1)
+                        if (
+                            (l < 1 || i1 < 1 || l > 3 || i1 > 3) && theWorld.getBlock(i + l, k - 1, j + i1)
                                 .isNormalCube()
-                            && !theWorld.getBlock(i + l, k + 1, j + i1)
-                                .isNormalCube()) {
+                                && !theWorld.getBlock(i + l, k, j + i1)
+                                    .isNormalCube()
+                                && !theWorld.getBlock(i + l, k + 1, j + i1)
+                                    .isNormalCube()
+                        ) {
 
                             double dd = theOwner.getDistanceSq(
                                 (double) (i + l) + 0.5D + MathHelper.sin(theOwner.rotationYaw * 0.01745329252F) * 2.0D,

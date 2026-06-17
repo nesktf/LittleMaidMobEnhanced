@@ -80,8 +80,10 @@ public class AIBeg extends EntityAIBase {
 
         littleMaid.getLookHelper()
             .setLookPositionWithEntity(targetPlayer, 10F, littleMaid.getVerticalFaceSpeed());
-        if (littleMaid.getNavigator()
-            .noPath()) {
+        if (
+            littleMaid.getNavigator()
+                .noPath()
+        ) {
             littleMaid.setLooksWithInterest(true);
         } else {
             littleMaid.setLooksWithInterest(false);

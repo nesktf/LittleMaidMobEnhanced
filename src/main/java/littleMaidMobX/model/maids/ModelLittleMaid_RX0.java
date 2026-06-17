@@ -271,9 +271,11 @@ public class ModelLittleMaid_RX0 extends ModelLittleMaidBase {
         // bipedLeftLeg.setVisible(true);
         // GL11.glScalef(0.85F, 0.85F, 0.85F);
         scaleFactor = 0.80F;
-        if ((!ModelCapsHelper.getCapsValueBoolean(pEntityCaps, caps_isOverdriveDelay)
-            && !ModelCapsHelper.getCapsValueBoolean(pEntityCaps, caps_isBloodsuck)
-            && ((lvisible & 0x0001) == 0)) && true) {
+        if (
+            (!ModelCapsHelper.getCapsValueBoolean(pEntityCaps, caps_isOverdriveDelay)
+                && !ModelCapsHelper.getCapsValueBoolean(pEntityCaps, caps_isBloodsuck)
+                && ((lvisible & 0x0001) == 0)) && true
+        ) {
             // bansheeMode
             bipedBust.setRotationPoint(0F, 2.5F, -2F);
             bipedBust.setRotateAngleDegX(-0F);

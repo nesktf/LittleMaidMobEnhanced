@@ -63,8 +63,10 @@ public class Mode_Archer extends ModeBase {
     public boolean changeMode(EntityPlayer pentityplayer) {
         ItemStack litemstack = owner.maidInventory.getStackInSlot(0);
         if (litemstack != null) {
-            if (litemstack.getItem() instanceof ItemBow
-                || TriggerSelect.checkItem(owner.getMaidMaster(), "Bow", litemstack)) {
+            if (
+                litemstack.getItem() instanceof ItemBow
+                    || TriggerSelect.checkItem(owner.getMaidMaster(), "Bow", litemstack)
+            ) {
                 if (owner.maidInventory.getInventorySlotContainItem(ItemFlintAndSteel.class) > -1) {
                     owner.setMaidMode("Blazingstar");
                 } else {
@@ -106,8 +108,10 @@ public class Mode_Archer extends ModeBase {
                     litemstack = owner.maidInventory.getStackInSlot(li);
                     if (litemstack == null) continue;
 
-                    if (litemstack.getItem() instanceof ItemBow
-                        || TriggerSelect.checkItem(owner.getMaidMaster(), "Bow", litemstack)) {
+                    if (
+                        litemstack.getItem() instanceof ItemBow
+                            || TriggerSelect.checkItem(owner.getMaidMaster(), "Bow", litemstack)
+                    ) {
                         return li;
                     }
                 }
@@ -173,8 +177,10 @@ public class Mode_Archer extends ModeBase {
     }
 
     protected void updateGuns() {
-        if (owner.getAttackTarget() == null || !owner.getAttackTarget()
-            .isEntityAlive()) {
+        if (
+            owner.getAttackTarget() == null || !owner.getAttackTarget()
+                .isEntityAlive()
+        ) {
 
             if (!owner.weaponReload) {
                 if (owner.maidAvatar.isUsingItem()) {

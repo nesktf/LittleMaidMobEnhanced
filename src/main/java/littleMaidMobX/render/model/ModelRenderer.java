@@ -440,9 +440,11 @@ public class ModelRenderer {
                 GL11.glScalef(f2, -f2, -f2);
             } else {
                 float var6;
-                if ((litem instanceof ItemBlock) && RenderBlocks.renderItemIn3d(
-                    Block.getBlockFromItem(litem)
-                        .getRenderType())) {
+                if (
+                    (litem instanceof ItemBlock) && RenderBlocks.renderItemIn3d(
+                        Block.getBlockFromItem(litem)
+                            .getRenderType())
+                ) {
                     var6 = 0.5F;
                     // GL11.glTranslatef(0.0F, 0.1875F, -0.3125F);
                     GL11.glTranslatef(0.0F, 0.1875F, -0.2125F);
@@ -490,8 +492,10 @@ public class ModelRenderer {
 
         if (pRealBlock && litem instanceof ItemSkull) {
             String lsowner = "";
-            if (itemstack.hasTagCompound() && itemstack.getTagCompound()
-                .hasKey("SkullOwner")) {
+            if (
+                itemstack.hasTagCompound() && itemstack.getTagCompound()
+                    .hasKey("SkullOwner")
+            ) {
                 lsowner = itemstack.getTagCompound()
                     .getString("SkullOwner");
             }

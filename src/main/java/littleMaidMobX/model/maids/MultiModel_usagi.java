@@ -124,8 +124,10 @@ public class MultiModel_usagi extends ModelModchuBaseOkota {
 
         if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isSneak)) Usasippo.setRotateAngleY(0.0F);
 
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
             Usasippo.setRotateAngleY(mh_cos(f2 * 0.2F) * 0.5F);
             UsaER.rotateAngleX = UsaEL.rotateAngleX = 2.268928F;
             UsaEL.rotationPointX = -2F;

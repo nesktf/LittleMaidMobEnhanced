@@ -91,12 +91,16 @@ public class FileManager {
             if (dirMods.isDirectory()) {
                 Debug.addon("getModFile-get:%d.", dirMods.list().length);
                 for (File t : dirMods.listFiles()) {
-                    if (t.getName()
-                        .indexOf(pprefix) != -1) {
-                        if (t.getName()
-                            .endsWith(".zip")
-                            || t.getName()
-                                .endsWith(".jar")) {
+                    if (
+                        t.getName()
+                            .indexOf(pprefix) != -1
+                    ) {
+                        if (
+                            t.getName()
+                                .endsWith(".zip")
+                                || t.getName()
+                                    .endsWith(".jar")
+                        ) {
                             llist.add(t);
                             Debug.addon("getModFile-file:%s", t.getName());
                         } else if (t.isDirectory()) {
@@ -150,8 +154,10 @@ public class FileManager {
     protected static boolean addList(List<File> pList, File pFile) {
         for (File lf : pList) {
             try {
-                if (pFile.getCanonicalPath()
-                    .compareTo(lf.getCanonicalPath()) == 0) {
+                if (
+                    pFile.getCanonicalPath()
+                        .compareTo(lf.getCanonicalPath()) == 0
+                ) {
                     return false;
                 }
             } catch (Exception e) {

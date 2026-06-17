@@ -341,8 +341,10 @@ public class MultiModel_Kelo extends ModelModchuBaseOkota {
             // Skirt.rotationPointZ = 0.0F;
         }
 
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
             setCapsValue(entityCaps, caps_visible, KeloeyeL1, false);
             setCapsValue(entityCaps, caps_visible, KeloeyeR1, false);
             setCapsValue(entityCaps, caps_visible, KeloeyeL2, true);

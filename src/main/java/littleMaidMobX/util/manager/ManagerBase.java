@@ -48,10 +48,12 @@ public abstract class ManagerBase {
         Debug.addon("START SEARCH MODS FOLDER");
         decodeDirectory(root, root);
         for (File lf : root.listFiles()) {
-            if (lf.isFile() && (lf.getName()
-                .endsWith(".zip")
-                || lf.getName()
-                    .endsWith(".jar"))) {
+            if (
+                lf.isFile() && (lf.getName()
+                    .endsWith(".zip")
+                    || lf.getName()
+                        .endsWith(".jar"))
+            ) {
                 // パッケージ
                 decodeZip(lf);
             } else if (lf.isDirectory()) {

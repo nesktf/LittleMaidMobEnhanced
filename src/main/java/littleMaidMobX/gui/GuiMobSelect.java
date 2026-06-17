@@ -53,10 +53,11 @@ public abstract class GuiMobSelect extends GuiScreen {
         if (!pForce && !entityMap.isEmpty()) return;
 
         for (Map.Entry<Class, String> le : entityMapClass.entrySet()) {
-            if (Modifier.isAbstract(
-                le.getKey()
-                    .getModifiers()))
-                continue;
+            if (
+                Modifier.isAbstract(
+                    le.getKey()
+                        .getModifiers())
+            ) continue;
             int li = 0;
             Entity lentity = null;
             try {

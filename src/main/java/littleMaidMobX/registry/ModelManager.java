@@ -532,8 +532,10 @@ public class ModelManager {
                     break;
                 }
                 if (!zipentry.isDirectory()) {
-                    if (zipentry.getName()
-                        .endsWith(".class")) {
+                    if (
+                        zipentry.getName()
+                            .endsWith(".class")
+                    ) {
                         if (server) {
                             try {
                                 addModelClassServer(zipentry.getName(), pSearch);
@@ -547,19 +549,22 @@ public class ModelManager {
                                 e.printStackTrace();
                             }
                         }
-                    } else if (zipentry.getName()
-                        .endsWith(".png")) {
-                            String lt1 = "mob/littleMaid";
-                            String lt2 = "mob/ModelMulti";
-                            addTextureName(zipentry.getName(), pSearch);
-                            if (FMLCommonHandler.instance()
+                    } else if (
+                        zipentry.getName()
+                            .endsWith(".png")
+                    ) {
+                        String lt1 = "mob/littleMaid";
+                        String lt2 = "mob/ModelMulti";
+                        addTextureName(zipentry.getName(), pSearch);
+                        if (
+                            FMLCommonHandler.instance()
                                 .getSide() == Side.CLIENT
                                 && (zipentry.getName()
                                     .startsWith(lt1)
                                     || zipentry.getName()
-                                        .startsWith(lt2)))
-                                ZipTexturesLoader.keys.add(zipentry.getName());
-                        }
+                                        .startsWith(lt2))
+                        ) ZipTexturesLoader.keys.add(zipentry.getName());
+                    }
                 }
             } while (true);
 
@@ -593,8 +598,10 @@ public class ModelManager {
                 } else {
                     String tn = PathHelper.getLinuxAntiDotName(nfile.getAbsolutePath());
                     String rmn = PathHelper.getLinuxAntiDotName(FileManager.dirMods.getAbsolutePath());
-                    if (nfile.getName()
-                        .endsWith(".class")) {
+                    if (
+                        nfile.getName()
+                            .endsWith(".class")
+                    ) {
                         if (tn.startsWith(rmn)) {
                             if (server) {
                                 try {
@@ -610,20 +617,22 @@ public class ModelManager {
                                 }
                             }
                         }
-                    } else if (nfile.getName()
-                        .endsWith(".png")) {
-                            String s = nfile.getPath()
-                                .replace('\\', '/');
-                            int i = s.indexOf(pSearch[1]);
-                            if (i > -1) {
-                                // 対象はTexture Directory
-                                addTextureName(s.substring(i), pSearch);
-                                // addTextureName(s.substring(i).replace('\\', '/'));
-                            }
-                        } else {
-                            // サブフォルダ分のアーカイブを検索
-                            addTexturesZip(nfile, pSearch, server);
+                    } else if (
+                        nfile.getName()
+                            .endsWith(".png")
+                    ) {
+                        String s = nfile.getPath()
+                            .replace('\\', '/');
+                        int i = s.indexOf(pSearch[1]);
+                        if (i > -1) {
+                            // 対象はTexture Directory
+                            addTextureName(s.substring(i), pSearch);
+                            // addTextureName(s.substring(i).replace('\\', '/'));
                         }
+                    } else {
+                        // サブフォルダ分のアーカイブを検索
+                        addTexturesZip(nfile, pSearch, server);
+                    }
                 }
             }
             return true;

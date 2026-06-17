@@ -207,8 +207,10 @@ public class EntityLittleMaidAvatar extends EntityPlayer {
         // }
         ItemStack stack = getCurrentEquippedItem();
         // maybe remove this too, it passes our player entity along
-        if (stack != null && stack.getItem()
-            .onLeftClickEntity(stack, this, p_71059_1_)) {
+        if (
+            stack != null && stack.getItem()
+                .onLeftClickEntity(stack, this, p_71059_1_)
+        ) {
             return;
         }
         if (p_71059_1_.canAttackWithItem()) {

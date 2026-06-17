@@ -1,21 +1,32 @@
 {
-	"modListVersion": 2,
-	"modList": [{
-		"modid": "${modId}",
-		"name": "${modName}",
-    "description": "LittleMaidMob adds a (tameable) mob called the Little Maid, who can do a lot of stuff for you!",
-		"version": "${modVersion}",
-		"mcversion": "${minecraftVersion}",
-    "url": "http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1287042",
-    "updateUrl": "http://forum.minecraftuser.jp/viewtopic.php?f=13&t=23347",
-    "authorList": ["MMM", "EMB40", "Verclene", "KuroNeko87", "Legojer", "Lepakko683", "Nidefawl", "Shuron77"],
-    "credits": "Created by MMM",
-    "logoFile": "assets/lmmx/banner.png",
-		"screenshots": [],
-		"parent": "",
-		"requiredMods": [],
-		"dependencies": [],
-		"dependants": [],
-		"useDependencyInformation": false
-	}]
+  "modListVersion": 2,
+  "modList": [
+    {
+      "modid": "${modId}",
+      "name": "${modName}",
+      "description": "LittleMaidMob adds a (tameable) mob called the Little Maid, who can do a lot of stuff for you!",
+      "version": "${modVersion}",
+      "mcversion": "${minecraftVersion}",
+      "url": "http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1287042",
+      "updateUrl": "http://forum.minecraftuser.jp/viewtopic.php?f=13&t=23347",
+      "authorList": [
+        "MMM",
+        "EMB40",
+        "Verclene",
+        "KuroNeko87",
+        "Legojer",
+        "Lepakko683",
+        "Nidefawl",
+        "Shuron77"
+      ],
+      "credits": "Created by MMM",
+      "logoFile": "assets/lmmx/banner.png",
+      "screenshots": [],
+      "parent": "",
+      "requiredMods": [],
+      "dependencies": [],
+      "dependants": [],
+      "useDependencyInformation": false
+    }
+  ]
 }

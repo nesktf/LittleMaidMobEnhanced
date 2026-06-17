@@ -185,8 +185,10 @@ public abstract class ModeBase {
 
         if (movingobjectposition != null && movingobjectposition.typeOfHit == MovingObjectType.BLOCK) {
 
-            if (movingobjectposition.blockX == pX && movingobjectposition.blockY == pY
-                && movingobjectposition.blockZ == pZ) {
+            if (
+                movingobjectposition.blockX == pX && movingobjectposition.blockY == pY
+                    && movingobjectposition.blockZ == pZ
+            ) {
                 return true;
             }
         }

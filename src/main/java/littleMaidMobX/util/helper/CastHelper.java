@@ -158,16 +158,18 @@ public class CastHelper {
         Object[] o1 = null;
         if (o != null && o instanceof Object[]) {
             o1 = (Object[]) o;
-        } else if (o.getClass()
-            .isArray()) {
-                int size = Array.getLength(o);
-                o1 = new Object[size];
-                for (int i = 0; i < size; i++) {
-                    o1[i] = Array.get(o, i);
-                }
-            } else {
-                o1 = new Object[] { o };
+        } else if (
+            o.getClass()
+                .isArray()
+        ) {
+            int size = Array.getLength(o);
+            o1 = new Object[size];
+            for (int i = 0; i < size; i++) {
+                o1[i] = Array.get(o, i);
             }
+        } else {
+            o1 = new Object[] { o };
+        }
         if (o != null && c != null) {
             for (int i = 0; i < o1.length; i++) {
                 if (i >= c.length) break;

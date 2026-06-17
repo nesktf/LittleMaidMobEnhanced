@@ -230,9 +230,11 @@ public class InventoryLittleMaid extends InventoryPlayer {
             // if (mainInventory[j] != null &&
             // mainInventory[j].getItem().getClass().isAssignableFrom(itemClass))
             // {
-            if (mainInventory[j] != null && itemClass.isAssignableFrom(
-                mainInventory[j].getItem()
-                    .getClass())) {
+            if (
+                mainInventory[j] != null && itemClass.isAssignableFrom(
+                    mainInventory[j].getItem()
+                        .getClass())
+            ) {
                 return j;
             }
         }
@@ -243,8 +245,10 @@ public class InventoryLittleMaid extends InventoryPlayer {
     protected int getInventorySlotContainItemAndDamage(Item item, int damege) {
 
         for (int i = 0; i < mainInventory.length; i++) {
-            if (mainInventory[i] != null && mainInventory[i].getItem() == item
-                && mainInventory[i].getItemDamage() == damege) {
+            if (
+                mainInventory[i] != null && mainInventory[i].getItem() == item
+                    && mainInventory[i].getItemDamage() == damege
+            ) {
                 return i;
             }
         }

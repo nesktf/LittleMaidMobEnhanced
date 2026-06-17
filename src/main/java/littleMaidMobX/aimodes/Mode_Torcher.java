@@ -49,8 +49,10 @@ public class Mode_Torcher extends ModeBase {
     public boolean changeMode(EntityPlayer pentityplayer) {
         ItemStack litemstack = owner.maidInventory.getStackInSlot(0);
         if (litemstack != null) {
-            if (litemstack.getItem() == Item.getItemFromBlock(Blocks.torch)
-                || TriggerSelect.checkItem(owner.getMaidMaster(), "Torch", litemstack)) {
+            if (
+                litemstack.getItem() == Item.getItemFromBlock(Blocks.torch)
+                    || TriggerSelect.checkItem(owner.getMaidMaster(), "Torch", litemstack)
+            ) {
                 owner.setMaidMode("Torcher");
                 return true;
             }
@@ -82,8 +84,10 @@ public class Mode_Torcher extends ModeBase {
                     litemstack = owner.maidInventory.getStackInSlot(li);
                     if (litemstack == null) continue;
 
-                    if (litemstack.getItem() == Item.getItemFromBlock(Blocks.torch)
-                        || TriggerSelect.checkItem(owner.getMaidMaster(), "Torch", litemstack)) {
+                    if (
+                        litemstack.getItem() == Item.getItemFromBlock(Blocks.torch)
+                            || TriggerSelect.checkItem(owner.getMaidMaster(), "Torch", litemstack)
+                    ) {
                         return li;
                     }
                 }
@@ -112,9 +116,11 @@ public class Mode_Torcher extends ModeBase {
 
     protected int getBlockLighting(int i, int j, int k) {
         World worldObj = owner.worldObj;
-        if (worldObj.getBlock(i, j - 1, k)
-            .getMaterial()
-            .isSolid() && worldObj.getBlock(i, j, k) == Blocks.air) {
+        if (
+            worldObj.getBlock(i, j - 1, k)
+                .getMaterial()
+                .isSolid() && worldObj.getBlock(i, j, k) == Blocks.air
+        ) {
             return worldObj.getBlockLightValue(i, j, k);
         }
         return 32;
@@ -125,36 +131,44 @@ public class Mode_Torcher extends ModeBase {
         if (owner.getHeldItem() == null) {
             return false;
         }
-        if (owner.isFreedom() && owner.getHomePosition()
-            .getDistanceSquared(px, py, pz) > ModeBase.limitDistance_Freedom) {
+        if (
+            owner.isFreedom() && owner.getHomePosition()
+                .getDistanceSquared(px, py, pz) > ModeBase.limitDistance_Freedom
+        ) {
             return false;
         }
-        if (!owner.isFreedom() && owner.getMaidMasterEntity() != null
-            && owner.getMaidMasterEntity()
-                .getDistanceSq(px, py, pz) > ModeBase.limitDistance_Follow) {
+        if (
+            !owner.isFreedom() && owner.getMaidMasterEntity() != null
+                && owner.getMaidMasterEntity()
+                    .getDistanceSq(px, py, pz) > ModeBase.limitDistance_Follow
+        ) {
             return false;
         }
         // アイテムを置けない場合
         Item heldItem = owner.getHeldItem()
             .getItem();
         if (heldItem instanceof ItemBlock) {
-            if (!canPlaceItemBlockOnSide(
-                owner.worldObj,
-                px,
-                py - 1,
-                pz,
-                1,
-                owner.maidAvatar,
-                owner.getHeldItem(),
-                (ItemBlock) heldItem)) {
+            if (
+                !canPlaceItemBlockOnSide(
+                    owner.worldObj,
+                    px,
+                    py - 1,
+                    pz,
+                    1,
+                    owner.maidAvatar,
+                    owner.getHeldItem(),
+                    (ItemBlock) heldItem)
+            ) {
                 return false;
             }
         }
 
         int v = getBlockLighting(px, py, pz);
         if (v < 8 && canBlockBeSeen(px, py - 1, pz, true, true, true) && !owner.isMaidWait()) {
-            if (owner.getNavigator()
-                .tryMoveToXYZ(px, py, pz, 1.0F)) {
+            if (
+                owner.getNavigator()
+                    .tryMoveToXYZ(px, py, pz, 1.0F)
+            ) {
                 // owner.playLittleMaidSound(LMM_EnumSound.findTarget_D, true);
                 return true;
             }
@@ -183,8 +197,10 @@ public class Mode_Torcher extends ModeBase {
 
         int li = lis.stackSize;
         // TODO:当たり判定をどうするか
-        if (lis.getItem()
-            .onItemUse(lis, owner.maidAvatar, owner.worldObj, px, py - 1, pz, 1, 0.5F, 1.0F, 0.5F)) {
+        if (
+            lis.getItem()
+                .onItemUse(lis, owner.maidAvatar, owner.worldObj, px, py - 1, pz, 1, 0.5F, 1.0F, 0.5F)
+        ) {
             owner.setSwing(10, EnumSound.installation);
             // owner.addMaidExperience(0.32f);
             if (owner.maidAvatar.capabilities.isCreativeMode) {
@@ -204,27 +220,29 @@ public class Mode_Torcher extends ModeBase {
 
         if (Block.isEqualTo(theBlock, Blocks.snow)) {
             par5 = 1;
-        } else if (!Block.isEqualTo(theBlock, Blocks.vine) && !Block.isEqualTo(theBlock, Blocks.tallgrass)
-            && !Block.isEqualTo(theBlock, Blocks.deadbush)) {
-                if (par5 == 0) {
-                    --par3;
-                }
-                if (par5 == 1) {
-                    ++par3;
-                }
-                if (par5 == 2) {
-                    --par4;
-                }
-                if (par5 == 3) {
-                    ++par4;
-                }
-                if (par5 == 4) {
-                    --par2;
-                }
-                if (par5 == 5) {
-                    ++par2;
-                }
+        } else if (
+            !Block.isEqualTo(theBlock, Blocks.vine) && !Block.isEqualTo(theBlock, Blocks.tallgrass)
+                && !Block.isEqualTo(theBlock, Blocks.deadbush)
+        ) {
+            if (par5 == 0) {
+                --par3;
             }
+            if (par5 == 1) {
+                ++par3;
+            }
+            if (par5 == 2) {
+                --par4;
+            }
+            if (par5 == 3) {
+                ++par4;
+            }
+            if (par5 == 4) {
+                --par2;
+            }
+            if (par5 == 5) {
+                ++par2;
+            }
+        }
         Material lmat = par1World.getBlock(par2, par3, par4)
             .getMaterial();
         if (lmat instanceof MaterialLiquid) {

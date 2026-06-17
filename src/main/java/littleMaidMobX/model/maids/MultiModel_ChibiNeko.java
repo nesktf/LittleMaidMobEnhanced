@@ -584,9 +584,10 @@ public class MultiModel_ChibiNeko extends ModelModchuBaseSR2 {
         DrowaL2.rotationPointY = -2.0F;
         DrowaL2.rotationPointZ = 0.0F;
 
-        if (bipedHead.rotateAngleX > Helper.degToRad(10F))
-            Tail2.rotateAngleX = Tail3.rotateAngleX = Tail4.rotateAngleX = Tail5.rotateAngleX = Tail6.rotateAngleX = -Helper
-                .degToRad(10F);
+        if (
+            bipedHead.rotateAngleX > Helper.degToRad(10F)
+        ) Tail2.rotateAngleX = Tail3.rotateAngleX = Tail4.rotateAngleX = Tail5.rotateAngleX = Tail6.rotateAngleX = -Helper
+            .degToRad(10F);
         else Tail2.rotateAngleX = Tail3.rotateAngleX = Tail4.rotateAngleX = Tail5.rotateAngleX = Tail6.rotateAngleX = -bipedHead.rotateAngleX;// +bipedBody.rotateAngleX);
         Shippo1.rotateAngleX = 125F / 180F * (float) Math.PI + 0.025F * Helper.sin(-t * 0.6F + idFactor);
         Shippo2.rotateAngleX = 20F / 180F * (float) Math.PI;

@@ -197,30 +197,34 @@ public class LittleMaidMobX {
             } else {
                 BiomeGenBase[] biomeList = BiomeGenBase.getBiomeGenArray();
                 for (BiomeGenBase biome : biomeList) {
-                    if (biome != null && (!BiomeDictionary.isBiomeOfType(biome, Type.OCEAN)
-                        && !BiomeDictionary.isBiomeOfType(biome, Type.MOUNTAIN)
-                        && !BiomeDictionary.isBiomeOfType(biome, Type.HILLS)
-                        && !BiomeDictionary.isBiomeOfType(biome, Type.RIVER)
-                        && !BiomeDictionary.isBiomeOfType(biome, Type.MAGICAL)
-                        && !BiomeDictionary.isBiomeOfType(biome, Type.END)
-                        && !BiomeDictionary.isBiomeOfType(biome, Type.NETHER)
-                        && !BiomeDictionary.isBiomeOfType(biome, Type.JUNGLE)
-                        && !BiomeDictionary.isBiomeOfType(biome, Type.DEAD)
-                        && !BiomeDictionary.isBiomeOfType(biome, Type.SPOOKY)
-                        && !BiomeDictionary.isBiomeOfType(biome, Type.MESA))) {
-                        if (BiomeDictionary.isBiomeOfType(biome, Type.HOT)
-                            || BiomeDictionary.isBiomeOfType(biome, Type.COLD)
-                            || BiomeDictionary.isBiomeOfType(biome, Type.WET)
-                            || BiomeDictionary.isBiomeOfType(biome, Type.DRY)
-                            || BiomeDictionary.isBiomeOfType(biome, Type.SAVANNA)
-                            || BiomeDictionary.isBiomeOfType(biome, Type.CONIFEROUS)
-                            || BiomeDictionary.isBiomeOfType(biome, Type.LUSH)
-                            || BiomeDictionary.isBiomeOfType(biome, Type.MUSHROOM)
-                            || BiomeDictionary.isBiomeOfType(biome, Type.FOREST)
-                            || BiomeDictionary.isBiomeOfType(biome, Type.PLAINS)
-                            || BiomeDictionary.isBiomeOfType(biome, Type.SANDY)
-                            || BiomeDictionary.isBiomeOfType(biome, Type.SNOWY)
-                            || BiomeDictionary.isBiomeOfType(biome, Type.BEACH));
+                    if (
+                        biome != null && (!BiomeDictionary.isBiomeOfType(biome, Type.OCEAN)
+                            && !BiomeDictionary.isBiomeOfType(biome, Type.MOUNTAIN)
+                            && !BiomeDictionary.isBiomeOfType(biome, Type.HILLS)
+                            && !BiomeDictionary.isBiomeOfType(biome, Type.RIVER)
+                            && !BiomeDictionary.isBiomeOfType(biome, Type.MAGICAL)
+                            && !BiomeDictionary.isBiomeOfType(biome, Type.END)
+                            && !BiomeDictionary.isBiomeOfType(biome, Type.NETHER)
+                            && !BiomeDictionary.isBiomeOfType(biome, Type.JUNGLE)
+                            && !BiomeDictionary.isBiomeOfType(biome, Type.DEAD)
+                            && !BiomeDictionary.isBiomeOfType(biome, Type.SPOOKY)
+                            && !BiomeDictionary.isBiomeOfType(biome, Type.MESA))
+                    ) {
+                        if (
+                            BiomeDictionary.isBiomeOfType(biome, Type.HOT)
+                                || BiomeDictionary.isBiomeOfType(biome, Type.COLD)
+                                || BiomeDictionary.isBiomeOfType(biome, Type.WET)
+                                || BiomeDictionary.isBiomeOfType(biome, Type.DRY)
+                                || BiomeDictionary.isBiomeOfType(biome, Type.SAVANNA)
+                                || BiomeDictionary.isBiomeOfType(biome, Type.CONIFEROUS)
+                                || BiomeDictionary.isBiomeOfType(biome, Type.LUSH)
+                                || BiomeDictionary.isBiomeOfType(biome, Type.MUSHROOM)
+                                || BiomeDictionary.isBiomeOfType(biome, Type.FOREST)
+                                || BiomeDictionary.isBiomeOfType(biome, Type.PLAINS)
+                                || BiomeDictionary.isBiomeOfType(biome, Type.SANDY)
+                                || BiomeDictionary.isBiomeOfType(biome, Type.SNOWY)
+                                || BiomeDictionary.isBiomeOfType(biome, Type.BEACH)
+                        );
                         {
                             EntityRegistry.addSpawn(
                                 EntityLittleMaid.class,

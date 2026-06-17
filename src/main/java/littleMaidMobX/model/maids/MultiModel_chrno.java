@@ -155,8 +155,10 @@ public class MultiModel_chrno extends ModelModchuBaseOkota {
             Icewing1.setRotateAngleY(Icewing2.setRotateAngleY(Icewing3.setRotateAngleY(bipedBody.getRotateAngleY())));
             Icewing4.setRotateAngleY(Icewing5.setRotateAngleY(Icewing6.setRotateAngleY(bipedBody.getRotateAngleY())));
         }
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
             setCapsValue(entityCaps, caps_visible, Leftarm1, true);
             setCapsValue(entityCaps, caps_visible, Leftarm2, true);
             setCapsValue(entityCaps, caps_visible, Rightarm1, true);
@@ -193,8 +195,10 @@ public class MultiModel_chrno extends ModelModchuBaseOkota {
     @Override
     public ModelRenderer getDominantArm(IModelCaps entityCaps) {
 
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
             if (ModelCapsHelper.getCapsValueInt(this, entityCaps, caps_dominantArm) == 0) return Rightarm1;
             return Leftarm1;
         } else {
@@ -206,8 +210,10 @@ public class MultiModel_chrno extends ModelModchuBaseOkota {
     @Override
     public void setArmorBipedRightArmShowModel(IModelCaps entityCaps, boolean b) {
         super.setArmorBipedRightArmShowModel(entityCaps, b);
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
             setCapsValue(entityCaps, caps_visible, Rightarm1, b);
             setCapsValue(entityCaps, caps_visible, Rightarm2, b);
         } else {
@@ -219,8 +225,10 @@ public class MultiModel_chrno extends ModelModchuBaseOkota {
     @Override
     public void setArmorBipedLeftArmShowModel(IModelCaps entityCaps, boolean b) {
         super.setArmorBipedLeftArmShowModel(entityCaps, b);
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
             setCapsValue(entityCaps, caps_visible, Leftarm1, b);
             setCapsValue(entityCaps, caps_visible, Leftarm2, b);
         } else {

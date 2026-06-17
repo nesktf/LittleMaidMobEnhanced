@@ -163,10 +163,12 @@ public class Mode_Pharmacist extends ModeBlockBase {
         SwingStatus lswing = owner.getSwingStatusDominant();
 
         // isMaidChaseWait = true;
-        if (ltile.getStackInSlot(0) != null || ltile.getStackInSlot(1) != null
-            || ltile.getStackInSlot(2) != null
-            || ltile.getStackInSlot(3) != null
-            || !lswing.canAttack()) {
+        if (
+            ltile.getStackInSlot(0) != null || ltile.getStackInSlot(1) != null
+                || ltile.getStackInSlot(2) != null
+                || ltile.getStackInSlot(3) != null
+                || !lswing.canAttack()
+        ) {
 
             owner.setWorking(true);
         }
@@ -206,8 +208,10 @@ public class Mode_Pharmacist extends ModeBlockBase {
             }
 
             litemstack1 = owner.maidInventory.getCurrentItem();
-            if (!lflag && (litemstack1 != null && litemstack1.getItem() instanceof ItemPotion
-                && !Helper.hasEffect(litemstack1))) {
+            if (
+                !lflag && (litemstack1 != null && litemstack1.getItem() instanceof ItemPotion
+                    && !Helper.hasEffect(litemstack1))
+            ) {
 
                 int li = 0;
                 for (li = 0; li < 3 && !lflag; li++) {
@@ -221,12 +225,14 @@ public class Mode_Pharmacist extends ModeBlockBase {
                     }
                 }
             }
-            if (!lflag
-                && (ltile.getStackInSlot(0) != null || ltile.getStackInSlot(1) != null
-                    || ltile.getStackInSlot(2) != null)
-                && (owner.maidInventory.currentItem == -1
-                    || (litemstack1 != null && litemstack1.getItem() instanceof ItemPotion
-                        && !Helper.hasEffect(litemstack1)))) {
+            if (
+                !lflag
+                    && (ltile.getStackInSlot(0) != null || ltile.getStackInSlot(1) != null
+                        || ltile.getStackInSlot(2) != null)
+                    && (owner.maidInventory.currentItem == -1
+                        || (litemstack1 != null && litemstack1.getItem() instanceof ItemPotion
+                            && !Helper.hasEffect(litemstack1)))
+            ) {
 
                 // for (inventryPos = 0; inventryPos < owner.maidInventory.mainInventory.length; inventryPos++) {
                 for (; inventryPos < owner.maidInventory.mainInventory.length; inventryPos++) {
@@ -239,26 +245,32 @@ public class Mode_Pharmacist extends ModeBlockBase {
                 }
             }
 
-            if (!lflag && litemstack2 == null
-                && (ltile.getStackInSlot(0) != null || ltile.getStackInSlot(1) != null
-                    || ltile.getStackInSlot(2) != null)) {
+            if (
+                !lflag && litemstack2 == null
+                    && (ltile.getStackInSlot(0) != null || ltile.getStackInSlot(1) != null
+                        || ltile.getStackInSlot(2) != null)
+            ) {
 
-                if (litemstack1 != null && !(litemstack1.getItem() instanceof ItemPotion)
-                    && litemstack1.getItem()
-                        .isPotionIngredient(litemstack1)) {
+                if (
+                    litemstack1 != null && !(litemstack1.getItem() instanceof ItemPotion)
+                        && litemstack1.getItem()
+                            .isPotionIngredient(litemstack1)
+                ) {
                     ltile.setInventorySlotContents(3, litemstack1);
                     owner.maidInventory.setInventorySlotContents(inventryPos, null);
                     owner.playSound("random.pop");
                     owner.setSwing(15, EnumSound.Null);
                     lflag = true;
-                } else if (litemstack1 == null
-                    || (litemstack1.getItem() instanceof ItemPotion && Helper.hasEffect(litemstack1))
-                    || !litemstack1.getItem()
-                        .isPotionIngredient(litemstack1)) {
+                } else if (
+                    litemstack1 == null
+                        || (litemstack1.getItem() instanceof ItemPotion && Helper.hasEffect(litemstack1))
+                        || !litemstack1.getItem()
+                            .isPotionIngredient(litemstack1)
+                ) {
 
-                            inventryPos = owner.maidInventory.mainInventory.length;
-                            lflag = true;
-                        }
+                    inventryPos = owner.maidInventory.mainInventory.length;
+                    lflag = true;
+                }
                 inventryPos++;
                 // owner.maidInventory.currentItem = maidSearchCount;
                 owner.setEquipItem(inventryPos);

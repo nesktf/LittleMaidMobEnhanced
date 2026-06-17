@@ -201,8 +201,10 @@ public class MultiModel_Elsie extends ModelModchuBaseMulti {
             // bipedLeftLeg.rotationPointY -= 1.0F;
             // Skirt.rotationPointZ = 4.0F;
         }
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
             bipedRightArm.rotateAngleX = Helper.sin(f2 * 0.067F) * 0.05F - 0.7F;
             bipedRightArm.rotateAngleY = 0.0F;
             bipedRightArm.rotateAngleZ = -0.4F;

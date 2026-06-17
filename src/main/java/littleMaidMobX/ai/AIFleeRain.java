@@ -36,10 +36,12 @@ public class AIFleeRain extends EntityAIBase implements IEntityAI {
             return false;
         }
 
-        if (!theWorld.canBlockSeeTheSky(
-            MathHelper.floor_double(theCreature.posX),
-            (int) theCreature.boundingBox.minY,
-            MathHelper.floor_double(theCreature.posZ))) {
+        if (
+            !theWorld.canBlockSeeTheSky(
+                MathHelper.floor_double(theCreature.posX),
+                (int) theCreature.boundingBox.minY,
+                MathHelper.floor_double(theCreature.posZ))
+        ) {
             return false;
         }
 

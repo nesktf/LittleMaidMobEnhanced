@@ -79,8 +79,10 @@ public class Mode_Miner extends ModeBase {
     public boolean changeMode(EntityPlayer pentityplayer) {
         ItemStack litemstack = owner.maidInventory.getStackInSlot(0);
         if (litemstack != null) {
-            if (litemstack.getItem() instanceof ItemPickaxe
-                || TriggerSelect.checkItem(owner.getMaidMaster(), "Pickaxe", litemstack)) {
+            if (
+                litemstack.getItem() instanceof ItemPickaxe
+                    || TriggerSelect.checkItem(owner.getMaidMaster(), "Pickaxe", litemstack)
+            ) {
                 owner.setMaidMode("Miner");
                 return true;
             }
@@ -113,8 +115,10 @@ public class Mode_Miner extends ModeBase {
                         continue;
                     }
 
-                    if (litemstack.getItem() instanceof ItemPickaxe
-                        || TriggerSelect.checkItem(owner.getMaidMaster(), "Pickaxe", litemstack)) {
+                    if (
+                        litemstack.getItem() instanceof ItemPickaxe
+                            || TriggerSelect.checkItem(owner.getMaidMaster(), "Pickaxe", litemstack)
+                    ) {
                         return li;
                     }
                 }
@@ -170,18 +174,24 @@ public class Mode_Miner extends ModeBase {
         if (owner.getHeldItem() == null) {
             return false;
         }
-        if (owner.isFreedom() && owner.getHomePosition()
-            .getDistanceSquared(px, py, pz) > ModeBase.limitDistance_Freedom) {
+        if (
+            owner.isFreedom() && owner.getHomePosition()
+                .getDistanceSquared(px, py, pz) > ModeBase.limitDistance_Freedom
+        ) {
             return false;
         }
-        if (!owner.isFreedom() && owner.getMaidMasterEntity() != null
-            && owner.getMaidMasterEntity()
-                .getDistanceSq(px, py, pz) > ModeBase.limitDistance_Follow) {
+        if (
+            !owner.isFreedom() && owner.getMaidMasterEntity() != null
+                && owner.getMaidMasterEntity()
+                    .getDistanceSq(px, py, pz) > ModeBase.limitDistance_Follow
+        ) {
             return false;
         }
-        if (shouldBlockBeMined(px, py, pz) && canBlockBeSeen(px, py, pz, true, true, false)
-            && isInvNotFull()
-            && !owner.isMaidWait()) {
+        if (
+            shouldBlockBeMined(px, py, pz) && canBlockBeSeen(px, py, pz, true, true, false)
+                && isInvNotFull()
+                && !owner.isMaidWait()
+        ) {
             owner.worldObj.destroyBlockInWorldPartially(-1, targetX, targetY, targetZ, -1);
             targetX = px;
             targetY = py;
@@ -192,8 +202,10 @@ public class Mode_Miner extends ModeBase {
             // owner.aiFindBlock.setEnable(false);
             owner.aiWander.setEnable(false);
             // owner.aiFollow.setEnable(false);
-            if (owner.getNavigator()
-                .tryMoveToXYZ(px, py, pz, 1.0F)) {
+            if (
+                owner.getNavigator()
+                    .tryMoveToXYZ(px, py, pz, 1.0F)
+            ) {
                 owner.playSound(EnumSound.findTarget_D, false);
                 return true;
             }
@@ -203,13 +215,17 @@ public class Mode_Miner extends ModeBase {
 
     @Override
     public boolean executeBlock(int pMode) {
-        if (owner.isFreedom() && owner.getHomePosition()
-            .getDistanceSquared(targetX, targetY, targetZ) > ModeBase.limitDistance_Freedom) {
+        if (
+            owner.isFreedom() && owner.getHomePosition()
+                .getDistanceSquared(targetX, targetY, targetZ) > ModeBase.limitDistance_Freedom
+        ) {
             return false;
         }
-        if (!owner.isFreedom() && owner.getMaidMasterEntity() != null
-            && owner.getMaidMasterEntity()
-                .getDistanceSq(targetX, targetY, targetZ) > ModeBase.limitDistance_Follow) {
+        if (
+            !owner.isFreedom() && owner.getMaidMasterEntity() != null
+                && owner.getMaidMasterEntity()
+                    .getDistanceSq(targetX, targetY, targetZ) > ModeBase.limitDistance_Follow
+        ) {
             return false;
         }
         World worldObj = owner.worldObj;

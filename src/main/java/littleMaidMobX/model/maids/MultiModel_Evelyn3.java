@@ -479,8 +479,10 @@ public class MultiModel_Evelyn3 extends ModelModchuBaseSR2 {
             leftLeg.rotationPointZ = 0F;
             bipedHead.rotationPointZ = 0F;
         }
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
 
             bipedRightArm.rotateAngleX -= 0.5F - Helper.sin(f2 * 0.067F) * 0.05F;
             bipedRightArm.rotateAngleY = 0.0F;

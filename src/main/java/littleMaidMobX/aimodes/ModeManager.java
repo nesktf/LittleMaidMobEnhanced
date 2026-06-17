@@ -61,13 +61,17 @@ public class ModeManager extends ManagerBase {
             // 既存
             if (maidModeList.contains(lemb)) return false;
 
-            if (maidModeList.isEmpty() || lemb.priority() >= maidModeList.get(maidModeList.size() - 1)
-                .priority()) {
+            if (
+                maidModeList.isEmpty() || lemb.priority() >= maidModeList.get(maidModeList.size() - 1)
+                    .priority()
+            ) {
                 maidModeList.add(lemb);
             } else {
                 for (int li = 0; li < maidModeList.size(); li++) {
-                    if (lemb.priority() < maidModeList.get(li)
-                        .priority()) {
+                    if (
+                        lemb.priority() < maidModeList.get(li)
+                            .priority()
+                    ) {
                         maidModeList.add(li, lemb);
                         break;
                     }

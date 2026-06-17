@@ -185,8 +185,10 @@ public class AIAttackArrow extends EntityAIBase implements IEntityAI {
 
                     lcanattack &= lsee;
                     // mod_littleMaidMob.Debug(String.format("id:%d at:%d", entityId, attackTime));
-                    if (((fMaid.weaponFullAuto && !lcanattack) || (lcanattack && fMaid.getSwingStatusDominant()
-                        .canAttack())) && fAvatar.isItemTrigger) {
+                    if (
+                        ((fMaid.weaponFullAuto && !lcanattack) || (lcanattack && fMaid.getSwingStatusDominant()
+                            .canAttack())) && fAvatar.isItemTrigger
+                    ) {
 
                         Debug.entity("id:%d shoot.", fMaid.getEntityId());
                         fAvatar.stopUsingItem();
@@ -255,13 +257,17 @@ public class AIAttackArrow extends EntityAIBase implements IEntityAI {
             }
         } else {
 
-            if (fMaid.getNavigator()
-                .noPath()) {
+            if (
+                fMaid.getNavigator()
+                    .noPath()
+            ) {
                 fMaid.getNavigator()
                     .tryMoveToEntityLiving(fTarget, 1.0);
             }
-            if (fMaid.getNavigator()
-                .noPath()) {
+            if (
+                fMaid.getNavigator()
+                    .noPath()
+            ) {
                 Debug.ai("id:%d Target renge out.", fMaid.getEntityId());
                 fMaid.setAttackTarget(null);
             }

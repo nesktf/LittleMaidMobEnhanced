@@ -71,8 +71,10 @@ public class MultiModel_naz extends ModelModchuBaseOkota {
         super.setRotationAnglesLM(f, f1, f2, f3, f4, f5, entityCaps);
         CatTail.setRotateAngleX(mh_sin(f * 0.6662F) * 0.5F - 4.363323F);
 
-        if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
-            && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)) {
+        if (
+            ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isWait)
+                && !ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_aimedBow)
+        ) {
             CatTail.setRotateAngleX(mh_sin(f2 * 0.6662F) * 0.1F - 4.363323F);
         }
     }

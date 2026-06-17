@@ -45,8 +45,10 @@ public class Mode_Healer extends ModeBase {
     public boolean changeMode(EntityPlayer pentityplayer) {
         ItemStack litemstack = owner.maidInventory.getStackInSlot(0);
         if (litemstack != null) {
-            if (litemstack.getItem() instanceof ItemFood
-                || (litemstack.getItem() instanceof ItemPotion && Helper.hasEffect(litemstack))) {
+            if (
+                litemstack.getItem() instanceof ItemFood
+                    || (litemstack.getItem() instanceof ItemPotion && Helper.hasEffect(litemstack))
+            ) {
                 owner.setMaidMode("Healer");
                 return true;
             }
@@ -76,8 +78,9 @@ public class Mode_Healer extends ModeBase {
                     ItemStack is = owner.maidInventory.getStackInSlot(i);
                     if (is == null) continue;
 
-                    if (is.getItem() instanceof ItemFood
-                        || (is.getItem() instanceof ItemPotion && Helper.hasEffect(is))) {
+                    if (
+                        is.getItem() instanceof ItemFood || (is.getItem() instanceof ItemPotion && Helper.hasEffect(is))
+                    ) {
                         return i;
                     }
                 }
@@ -97,14 +100,18 @@ public class Mode_Healer extends ModeBase {
     public void updateAITick(int pMode) {
         if (pMode == mmode_Healer) {
 
-            if (owner.getSwingStatusDominant()
-                .canAttack()) {
+            if (
+                owner.getSwingStatusDominant()
+                    .canAttack()
+            ) {
 
-                if (owner.isContractEX() && owner.mstatMasterDistanceSq < 16D
-                    && owner.mstatMasterEntity != null
-                    && owner.mstatMasterEntity.isEntityAlive()
-                    && owner.mstatMasterEntity instanceof EntityPlayer
-                    && owner.canEntityBeSeen(owner.mstatMasterEntity)) {
+                if (
+                    owner.isContractEX() && owner.mstatMasterDistanceSq < 16D
+                        && owner.mstatMasterEntity != null
+                        && owner.mstatMasterEntity.isEntityAlive()
+                        && owner.mstatMasterEntity instanceof EntityPlayer
+                        && owner.canEntityBeSeen(owner.mstatMasterEntity)
+                ) {
                     EntityPlayer lmaster = owner.mstatMasterEntity;
                     int h = lmaster.getFoodStats()
                         .getFoodLevel();
@@ -155,8 +162,10 @@ public class Mode_Healer extends ModeBase {
                                 for (Iterator iterator = list.iterator(); iterator.hasNext();) {
                                     potioneffect = (PotionEffect) iterator.next();
                                     if (potioneffect.getPotionID() == Potion.heal.id) {
-                                        if ((6 << potioneffect.getAmplifier())
-                                            <= (lmaster.getMaxHealth() - lmaster.getHealth())) {
+                                        if (
+                                            (6 << potioneffect.getAmplifier())
+                                                <= (lmaster.getMaxHealth() - lmaster.getHealth())
+                                        ) {
                                             // mod_littleMaidMob.Debug(String.format("%d <= %d", (6 <<
                                             // potioneffect.getAmplifier()), (masterEntity.func_40117_c() -
                                             // masterEntity.health)));
@@ -166,8 +175,10 @@ public class Mode_Healer extends ModeBase {
                                         }
                                         break;
                                     } else {
-                                        if (Potion.potionTypes[potioneffect.getPotionID()].isBadEffect()
-                                            || lmaster.isPotionActive(potioneffect.getPotionID())) {
+                                        if (
+                                            Potion.potionTypes[potioneffect.getPotionID()].isBadEffect()
+                                                || lmaster.isPotionActive(potioneffect.getPotionID())
+                                        ) {
                                             lswing = false;
                                             break;
                                         }

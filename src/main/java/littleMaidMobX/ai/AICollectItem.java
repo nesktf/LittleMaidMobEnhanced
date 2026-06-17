@@ -43,14 +43,16 @@ public class AICollectItem extends EntityAIBase {
                 EntityPlayer ep = theMaid.mstatMasterEntity != null ? theMaid.mstatMasterEntity
                     : theMaid.worldObj.getClosestPlayerToEntity(theMaid, 16F);
 
-                if (!ei.isDead && ei.onGround
-                    && ei.delayBeforeCanPickup <= 0
-                    && !ei.isBurning()
-                    && canEntityItemBeSeen(ei)
-                    && (ep == null || ep.getDistanceSq(
-                        ei.posX + MathHelper.sin(ep.rotationYaw * 0.01745329252F) * 2.0D,
-                        ei.posY,
-                        ei.posZ - MathHelper.cos(ep.rotationYaw * 0.01745329252F) * 2.0D) > 7.5D)) {
+                if (
+                    !ei.isDead && ei.onGround
+                        && ei.delayBeforeCanPickup <= 0
+                        && !ei.isBurning()
+                        && canEntityItemBeSeen(ei)
+                        && (ep == null || ep.getDistanceSq(
+                            ei.posX + MathHelper.sin(ep.rotationYaw * 0.01745329252F) * 2.0D,
+                            ei.posY,
+                            ei.posZ - MathHelper.cos(ep.rotationYaw * 0.01745329252F) * 2.0D) > 7.5D)
+                ) {
                     ItemStack lstack = ei.getEntityItem();
                     if ((lstack.getItem() != Items.sugar)) {
                         if ((theMaid.maidActiveModeClass == null)) {
