@@ -46,7 +46,7 @@ public class TextureRegistry {
 		list.add("/assets/minecraft/textures/entity/littleMaid/mob_littlemaid.png");
 
 		// modchu modelset
-		/*list.add("/assets/minecraft/textures/entity/littleMaid/ACKC/Hime_SR2/littleMaid_ACKC_Hime_c.png");
+		list.add("/assets/minecraft/textures/entity/littleMaid/ACKC/Hime_SR2/littleMaid_ACKC_Hime_c.png");
 		list.add("/assets/minecraft/textures/entity/littleMaid/ACKC/Io_Aug/littleMaid_ACKC_Io_f.png");
 		list.add("/assets/minecraft/textures/entity/littleMaid/ACKC/Sakaki_Aug/littleMaid_ACKC_Sakaki_0.png");
 		list.add("/assets/minecraft/textures/entity/littleMaid/ACKC/Kana_SR2/littleMaid_ACKC_Kana_5.png");
@@ -3033,6 +3033,6 @@ public class TextureRegistry {
 		list.add("/assets/minecraft/textures/entity/littleMaid/e12color_Elsa3/contract_9.png");
 		list.add("/assets/minecraft/textures/entity/littleMaid/e12color_Elsa3/contract_5.png");
 		list.add("/assets/minecraft/textures/entity/littleMaid/e12color_Elsa3/contract_f.png");
-		list.add("/assets/minecraft/textures/entity/littleMaid/e12color_Elsa3/contract_c.png");*/
+		list.add("/assets/minecraft/textures/entity/littleMaid/e12color_Elsa3/contract_c.png");
 	}
 }

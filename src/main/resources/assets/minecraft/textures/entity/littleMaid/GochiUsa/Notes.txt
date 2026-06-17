@@ -1,0 +1,37 @@
+LittleMaidMob by MMM
+
+GochiUsa textures by Tenshi-Astraea
+
+
+
+Required:
+
+Minecraft ver. 1.5.2(recommended) - 1.6.4
+
+Minecraft Forge
+
+
+
+Optional:
+
+littlemaidmob soundpack
+
+
+
+Instructions:
+
+Download and unzip the GochiUsa pack and place it into the MultiModelSet zip file (or similar) in your mod folder.
+
+
+
+Notes: 
+
+The hair braids on the redhead(Megumi) belong to a separate armor texture I made from the KemonoMdl add on. It's a little inconvenient but I wanted to be consistent and use the VUD1 model for all of the textures. 
+
+One problem I've noticed with this hybrid is that the Kemono model has a different head tilt from the other models I've seen so far. This will only occur when you hold out sugar on a tamed maid, so it shouldn't become a major problem.
+
+The same goes for the bunny ears and tail on Rize.
+
+Finally, the kimono arms on the girls in green belong to the Shion model from the MutliModelSet. As far as I know it's still unavailable in Minecraft 1.6.4.
+
+
