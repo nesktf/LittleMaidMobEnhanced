@@ -5,27 +5,27 @@ import net.minecraft.entity.ai.EntityAIWander;
 
 public class AIWander extends EntityAIWander implements IEntityAI {
 
-	protected boolean isEnable;
-	
-	public AIWander(EntityCreature par1EntityCreature, float par2) {
-		super(par1EntityCreature, par2);
-		
-		isEnable = false;
-	}
+    protected boolean isEnable;
 
-	@Override
-	public boolean shouldExecute() {
-		return isEnable && super.shouldExecute();
-	}
-	
-	@Override
-	public void setEnable(boolean pFlag) {
-		isEnable = pFlag;
-	}
+    public AIWander(EntityCreature par1EntityCreature, float par2) {
+        super(par1EntityCreature, par2);
 
-	@Override
-	public boolean getEnable() {
-		return isEnable;
-	}
+        isEnable = false;
+    }
+
+    @Override
+    public boolean shouldExecute() {
+        return isEnable && super.shouldExecute();
+    }
+
+    @Override
+    public void setEnable(boolean pFlag) {
+        isEnable = pFlag;
+    }
+
+    @Override
+    public boolean getEnable() {
+        return isEnable;
+    }
 
 }

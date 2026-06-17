@@ -1,23 +1,23 @@
 package littleMaidMobX.ai;
 
-import littleMaidMobX.entity.EntityLittleMaid;
 import net.minecraft.entity.ai.EntityAISit;
+
+import littleMaidMobX.entity.EntityLittleMaid;
 
 public class AIWait extends EntityAISit {
 
-	public EntityLittleMaid theMaid;
+    public EntityLittleMaid theMaid;
 
+    public AIWait(EntityLittleMaid pEntity) {
+        super(pEntity);
+        this.setMutexBits(5);
 
-	public AIWait(EntityLittleMaid pEntity) {
-		super(pEntity);
-		this.setMutexBits(5);
+        theMaid = pEntity;
+    }
 
-		theMaid = pEntity;
-	}
-
-	@Override
-	public boolean shouldExecute() {
-		return theMaid.isMaidWaitEx() || (!theMaid.isFreedom() && theMaid.mstatMasterEntity == null);
-	}
+    @Override
+    public boolean shouldExecute() {
+        return theMaid.isMaidWaitEx() || (!theMaid.isFreedom() && theMaid.mstatMasterEntity == null);
+    }
 
 }

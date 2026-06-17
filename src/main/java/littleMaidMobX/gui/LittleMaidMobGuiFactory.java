@@ -4,16 +4,16 @@ import java.util.Set;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+
 import cpw.mods.fml.client.IModGuiFactory;
 
-public class LittleMaidMobGuiFactory implements IModGuiFactory
-{
-	@Override
+public class LittleMaidMobGuiFactory implements IModGuiFactory {
+
+    @Override
     public void initialize(Minecraft minecraftInstance) {}
 
     @Override
-    public Class<? extends GuiScreen> mainConfigGuiClass()
-    {
+    public Class<? extends GuiScreen> mainConfigGuiClass() {
         return LittleMaidMobGuiConfig.class;
     }
 
@@ -27,4 +27,3 @@ public class LittleMaidMobGuiFactory implements IModGuiFactory
         return null;
     }
 }
-
