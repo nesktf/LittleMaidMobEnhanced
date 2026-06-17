@@ -57,7 +57,7 @@ public class ContainerInventory extends ContainerPlayer {
 			final int armorIndex = 1 + j; 
 			this.addSlotToContainer(new Slot(linventory, linventory.getSizeInventory() - 2 - j, 8, 8 + j * 18)
 			{
-				private static final String __OBFID = "CL_00001755";
+				//private static final String __OBFID = "CL_00001755";
 				/**
 				 * Returns the maximum stack size for a given slot (usually the same as getInventoryStackLimit(), but 1
 				 * in the case of armor slots)

@@ -181,9 +181,10 @@ public class Mode_Basic extends ModeBlockBase {
 	@Override
 	public boolean overlooksBlock(int pMode) {
 		
-		List<Entity> list = owner.worldObj.getEntitiesWithinAABB(IInventory.class, owner.boundingBox.expand(8D, 2D, 8D));
+		List list = owner.worldObj.getEntitiesWithinAABB(IInventory.class, owner.boundingBox.expand(8D, 2D, 8D));
 		double cartl = 256D;
-		for (Entity lentity : list) {
+		for (Object obj: list) {
+      Entity lentity = (Entity)obj;
 			if (!fusedTiles.contains(lentity)) {
 				if (((IInventory)lentity).getSizeInventory() < 18) {
 					

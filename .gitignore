@@ -3,6 +3,7 @@ bin
 run/
 eclipse/
 src_/
+build/
 
 
 ModelRenderer.cc.java

@@ -15,7 +15,7 @@ public class ContainerCreative extends Container
 	private static InventoryBasic field_147060_v = new InventoryBasic("tmp", true, 45);
     /** the list of items in this container */
     public List itemList = new ArrayList();
-    private static final String __OBFID = "CL_00000753";
+    //private static final String __OBFID = "CL_00000753";
 
     public ContainerCreative(EntityPlayer par1EntityPlayer)
     {

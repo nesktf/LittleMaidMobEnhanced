@@ -1,13 +1,52 @@
 
 plugins {
-    id("com.gtnewhorizons.gtnhconvention")
+  id("com.gtnewhorizons.gtnhconvention")
 }
 
-//archivesBaseName = "LittleMaidMobEnhanced"
+/*
+processResources
+{
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
 
-jar {
-  manifest {
-    attributes 'FMLCorePlugin': 'littleMaidMobX.util.transform.CoreMod',
-               'FMLCorePluginContainsFMLMod': 'true'
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+                
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs)
+	{
+        exclude 'mcmod.info'
+    }
+}
+tasks.processResources {
+  // this will ensure that this task is redone when the versions change.
+  inputs.property("version", project.version)
+  inputs.property("mcversion", project.minecraft.version)
+
+  // replace stuff in mcmod.info, nothing else
+  from(sourceSets.main.resources.srcDirs) {
+    include("mcmod.info")
+
+    // replace version and mcversion
+    expand("version":project.version, "mcversion":project.minecraft.version)
+  }
+
+  // copy everything else, thats not the mcmod.info
+  from(sourceSets.main.resources.srcDirs) {
+    exclude("mcmod.info")
   }
 }
+
+tasks.jar {
+  manifest {
+    attributes["FMLCorePlugin"] = "littleMaidMobX.util.transform.CoreMod"
+    attributes["FMLCorePluginContainsFMLMod"] = true
+  }
+}
+*/
