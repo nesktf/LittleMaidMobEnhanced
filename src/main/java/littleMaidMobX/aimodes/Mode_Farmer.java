@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemSeedFood;
 import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -291,12 +292,17 @@ public class Mode_Farmer extends ModeBase {
     }
 
     protected int getHadSeedIndex() {
-        int r = -1;
-        for (Item item : TriggerSelect.getuserTriggerList(null, "Seeds")) {
-            r = owner.maidInventory.getInventorySlotContainItem(item);
-            if (r != -1) break;
+        for (int i = 0; i < owner.maidInventory.maxInventorySize; ++i) {
+            ItemStack itemStack = owner.maidInventory.getStackInSlot(i);
+            if (itemStack == null) {
+                continue;
+            }
+            Item item = itemStack.getItem();
+            if ((item instanceof ItemSeeds) || (item instanceof ItemSeedFood)) {
+                return i;
+            }
         }
-        return r;
+        return -1;
     }
 
     protected boolean isUnfarmedLand(int x, int y, int z) {
