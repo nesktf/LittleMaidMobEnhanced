@@ -224,21 +224,22 @@ public class ModelManager {
         List<String> sortedModelNames = new ArrayList<String>(modelMap.keySet());
         sortedModelNames.sort((a, b) -> Integer.compare(b.length(), a.length()));
         for (TextureBox ltb : textures) {
-            if (ltb.modelName.isEmpty()) {
-                ltb.setModels(defaultModelName, null, ldm);
-            } else {
-                if (modelMap.containsKey(ltb.modelName)) {
+            boolean matched = false;
+            for (String mName : sortedModelNames) {
+                if (ltb.textureName.equals(mName) || ltb.textureName.endsWith("_" + mName)) {
+                    String pkg = ltb.textureName.equals(mName) ? ""
+                        : ltb.textureName.substring(0, ltb.textureName.length() - mName.length() - 1);
+                    ltb.packageName = pkg;
+                    ltb.setModels(mName, modelMap.get(mName), ldm);
+                    matched = true;
+                    break;
+                }
+            }
+            if (!matched) {
+                if (!ltb.modelName.isEmpty() && modelMap.containsKey(ltb.modelName)) {
                     ltb.setModels(ltb.modelName, modelMap.get(ltb.modelName), ldm);
                 } else {
-                    for (String mName : sortedModelNames) {
-                        if (ltb.textureName.equals(mName) || ltb.textureName.endsWith("_" + mName)) {
-                            String pkg = ltb.textureName.equals(mName) ? ""
-                                : ltb.textureName.substring(0, ltb.textureName.length() - mName.length() - 1);
-                            ltb.packageName = pkg;
-                            ltb.setModels(mName, modelMap.get(mName), ldm);
-                            break;
-                        }
-                    }
+                    ltb.setModels(defaultModelName, null, ldm);
                 }
             }
         }
