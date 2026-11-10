@@ -2,6 +2,7 @@ package littleMaidMobX.gui;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -21,6 +22,8 @@ public class GuiTextureSelect extends GuiScreen {
     protected GuiScreen owner;
     protected GuiTextureSlot selectPanel;
     protected GuiButton modeButton[] = new GuiButton[2];
+    protected GuiTextField searchField;
+    protected GuiButton clearButton;
     public ITextureEntity target;
     public int canSelectColor;
     public int selectColor;
@@ -38,17 +41,74 @@ public class GuiTextureSelect extends GuiScreen {
     public void initGui() {
         selectPanel = new GuiTextureSlot(this);
         selectPanel.registerScrollButtons(3, 4);
+
+        int searchWidth = 140;
+        int searchHeight = 14;
+        int searchX = width / 2 - searchWidth / 2 - 8;
+        int searchY = 16;
+        String prevQuery = searchField != null ? searchField.getText() : "";
+        searchField = new GuiTextField(mc.fontRenderer, searchX, searchY, searchWidth, searchHeight);
+        searchField.setText(prevQuery);
+        searchField.setFocused(true);
+
+        buttonList.add(clearButton = new GuiButton(300, searchX + searchWidth + 2, searchY, 14, searchHeight, "x"));
         buttonList.add(modeButton[0] = new GuiButton(100, width / 2 - 55, height - 55, 80, 20, "Texture"));
         buttonList.add(modeButton[1] = new GuiButton(101, width / 2 + 30, height - 55, 80, 20, "Armor"));
         buttonList.add(new GuiButton(200, width / 2 - 10, height - 30, 120, 20, "Select"));
         modeButton[0].enabled = false;
+
+        if (!prevQuery.isEmpty()) {
+            selectPanel.filter(prevQuery);
+        }
+    }
+
+    @Override
+    public void updateScreen() {
+        super.updateScreen();
+        if (searchField != null) {
+            searchField.updateCursorCounter();
+        }
     }
 
     @Override
     protected void keyTyped(char par1, int par2) {
         if (par2 == 1) {
             mc.displayGuiScreen(owner);
+            return;
         }
+        if (searchField != null && searchField.isFocused()) {
+            String prevText = searchField.getText();
+            if (searchField.textboxKeyTyped(par1, par2)) {
+                if (
+                    !searchField.getText()
+                        .equals(prevText)
+                ) {
+                    selectPanel.filter(searchField.getText());
+                }
+                return;
+            }
+        }
+        super.keyTyped(par1, par2);
+    }
+
+    @Override
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+        if (mouseButton == 1 && searchField != null) {
+            if (
+                mouseX >= searchField.xPosition && mouseX < searchField.xPosition + searchField.width
+                    && mouseY >= searchField.yPosition
+                    && mouseY < searchField.yPosition + searchField.height
+            ) {
+                searchField.setText("");
+                searchField.setFocused(true);
+                selectPanel.filter("");
+                return;
+            }
+        }
+        if (searchField != null) {
+            searchField.mouseClicked(mouseX, mouseY, mouseButton);
+        }
+        super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     @Override
@@ -56,6 +116,13 @@ public class GuiTextureSelect extends GuiScreen {
         drawDefaultBackground();
         selectPanel.drawScreen(par1, par2, par3);
         drawCenteredString(mc.fontRenderer, StatCollector.translateToLocal(screenTitle), width / 2, 4, 0xffffff);
+
+        if (searchField != null) {
+            searchField.drawTextBox();
+        }
+        if (selectPanel.getSize() == 0) {
+            drawCenteredString(mc.fontRenderer, "No textures found", width / 2, height / 2 - 10, 0x888888);
+        }
 
         super.drawScreen(par1, par2, par3);
 
@@ -95,6 +162,13 @@ public class GuiTextureSelect extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
         switch (par1GuiButton.id) {
+            case 300:
+                if (searchField != null) {
+                    searchField.setText("");
+                    searchField.setFocused(true);
+                    selectPanel.filter("");
+                }
+                break;
             case 100:
                 modeButton[0].enabled = false;
                 modeButton[1].enabled = true;

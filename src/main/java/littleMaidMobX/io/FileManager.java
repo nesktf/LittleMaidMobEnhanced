@@ -33,6 +33,8 @@ public class FileManager {
 
     public static File minecraftDir;
     public static File dirMods;
+    public static File dirMaidPacks;
+    public static File dirModsLittleMaidMob;
     public static File dirModsVersion;
     public static File dirDevClasses;
     public static File dirDevClassAssets;
@@ -44,27 +46,34 @@ public class FileManager {
     public static CommonClassLoaderWrapper COMMON_CLASS_LOADER;
 
     public static void init() {
+        Object[] lo = FMLInjectionData.data();
+        minecraftDir = (File) lo[6];
         dirMods = new File(minecraftDir, "mods");
-        // ClassLoaderを初期化
+        dirMaidPacks = new File(minecraftDir, "maidpacks");
+        dirModsLittleMaidMob = new File(dirMods, "littleMaidMob");
+        dirModsVersion = new File(dirMods, (String) lo[4]);
+
+        if (!dirMaidPacks.exists()) {
+            dirMaidPacks.mkdirs();
+        }
+        if (!dirModsLittleMaidMob.exists()) {
+            dirModsLittleMaidMob.mkdirs();
+        }
+
         List<URL> urls = new ArrayList<URL>();
         try {
             urls.add(
-                FileManager.dirMods.toURI()
+                dirMaidPacks.toURI()
                     .toURL());
-        } catch (MalformedURLException e1) {
+            urls.add(
+                dirModsLittleMaidMob.toURI()
+                    .toURL());
+        } catch (MalformedURLException e1) {}
 
-        }
         FileManager.COMMON_CLASS_LOADER = new CommonClassLoaderWrapper(
             urls.toArray(new URL[] {}),
             LittleMaidMobX.class.getClassLoader());
 
-        // TODO: better way?! this is called when loading configs
-        // look at other mods how they load configs
-        Object[] lo = FMLInjectionData.data();
-        minecraftDir = (File) lo[6];
-
-        // 開発モード
-        dirModsVersion = new File(dirMods, (String) lo[4]);
         Debug.addon("FileManager initialized.");
     }
 

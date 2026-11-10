@@ -22,7 +22,12 @@ public class ZipTexturesLoader implements IResourcePack {
         if (resourceExists(arg0)) {
             String key = arg0.getResourcePath();
             if (key.startsWith("/")) key = key.substring(1);
-            return FileManager.COMMON_CLASS_LOADER.getResourceAsStream(key);
+            InputStream is = FileManager.COMMON_CLASS_LOADER.getResourceAsStream(key);
+            if (is == null) {
+                is = FileManager.COMMON_CLASS_LOADER
+                    .getResourceAsStream("assets/" + arg0.getResourceDomain() + "/" + key);
+            }
+            return is;
         }
         return null;
     }
@@ -51,7 +56,9 @@ public class ZipTexturesLoader implements IResourcePack {
     public boolean resourceExists(ResourceLocation arg0) {
         String key = arg0.getResourcePath();
         if (key.startsWith("/")) key = key.substring(1);
-        return keys.contains(key);
+        if (keys.contains(key)) return true;
+        if (keys.contains("assets/" + arg0.getResourceDomain() + "/" + key)) return true;
+        return false;
     }
 
 }

@@ -1,4 +1,6 @@
+entity.lmmx.LittleMaid.name=Little Maid
 entity.lmmx.LittleMaidX.name=Little Maid
+entity.LittleMaid.name=Little Maid
 
 item.lmmx:spawn_lmmx_egg.name=Spawn Little Maid
 

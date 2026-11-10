@@ -512,6 +512,20 @@ public class Helper {
         return 0;
     }
 
+    public static int getEntityId(Object entity) {
+        if (entity instanceof Entity) {
+            return ((Entity) entity).getEntityId();
+        }
+        return 0;
+    }
+
+    public static float getRenderYawOffset(Object entity) {
+        if (entity instanceof EntityLivingBase) {
+            return ((EntityLivingBase) entity).renderYawOffset;
+        }
+        return 0.0F;
+    }
+
     public static Object getRidingEntity(Object entity) {
         if (entity instanceof Entity) {
             return ((Entity) entity).ridingEntity;

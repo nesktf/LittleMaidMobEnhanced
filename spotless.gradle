@@ -15,7 +15,7 @@ spotless {
         endWithNewline()
     }
     java {
-        target 'src/*/java/**/*.java', 'src/*/scala/**/*.java'
+        target 'src/*/java/**/*.java', 'src/*/scala/**/*.java', 'maidpacks/*/java/**/*.java'
 
         toggleOffOn()
         importOrderFile('spotless.importorder')
