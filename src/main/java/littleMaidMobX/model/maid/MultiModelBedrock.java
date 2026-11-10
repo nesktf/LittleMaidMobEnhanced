@@ -2,9 +2,12 @@ package littleMaidMobX.model.maid;
 
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
@@ -192,13 +195,35 @@ public class MultiModelBedrock extends ModelMultiMMMBase {
     }
 
     protected void buildBones(BonesItem[] bones, float psize) {
+        Set<String> excludedBones = new HashSet<String>();
         for (BonesItem bone : bones) {
+            if ("sleepShow".equalsIgnoreCase(bone.getName())) {
+                excludedBones.add(bone.getName());
+            }
+        }
+        boolean added = true;
+        while (added) {
+            added = false;
+            for (BonesItem bone : bones) {
+                if (
+                    bone.getParent() != null && excludedBones.contains(bone.getParent())
+                        && !excludedBones.contains(bone.getName())
+                ) {
+                    excludedBones.add(bone.getName());
+                    added = true;
+                }
+            }
+        }
+
+        for (BonesItem bone : bones) {
+            if (excludedBones.contains(bone.getName())) continue;
             indexBones.put(bone.getName(), bone);
             BedrockPart part = new BedrockPart(this, bone.getName());
             modelMap.put(bone.getName(), part);
         }
 
         for (BonesItem bone : bones) {
+            if (excludedBones.contains(bone.getName())) continue;
             String name = bone.getName();
             BedrockPart part = modelMap.get(name);
             if (part == null) continue;
@@ -501,8 +526,79 @@ public class MultiModelBedrock extends ModelMultiMMMBase {
         setDefaultPause(par1, par2, pTicksExisted, pHeadYaw, pHeadPitch, par6, pEntityCaps);
 
         boolean isWaitState = isWait
-            || (pEntityCaps != null && (ModelCapsHelper.getCapsValueBoolean(pEntityCaps, caps_isWait)
-                || ModelCapsHelper.getCapsValueBoolean(pEntityCaps, caps_isWaitEX)));
+            || (pEntityCaps != null && ModelCapsHelper.getCapsValueBoolean(pEntityCaps, caps_isWait));
+
+        // Held items angle
+        ItemStack[] heldStacks = pEntityCaps != null
+            ? (ItemStack[]) ModelCapsHelper.getCapsValue(pEntityCaps, caps_Items)
+            : null;
+        boolean hasItemRight = (heldItem[0] != 0)
+            || (heldStacks != null && heldStacks.length > 0 && heldStacks[0] != null);
+        boolean hasItemLeft = (heldItem[1] != 0)
+            || (heldStacks != null && heldStacks.length > 1 && heldStacks[1] != null);
+
+        if (hasItemRight && armRight != null) {
+            armRight.rotateAngleX = armRight.rotateAngleX * 0.5F - 0.3141593F;
+        }
+        if (hasItemLeft && armLeft != null) {
+            armLeft.rotateAngleX = armLeft.rotateAngleX * 0.5F - 0.3141593F;
+        }
+
+        // Tool use and attack swinging animation
+        if ((onGrounds[0] > -9990F || onGrounds[1] > -9990F) && !aimedBow) {
+            float f6 = onGrounds[0] > 0F ? MathHelper.sin(MathHelper.sqrt_float(onGrounds[0]) * (float) Math.PI * 2.0F)
+                : 0F;
+            float f7 = onGrounds[1] > 0F ? MathHelper.sin(MathHelper.sqrt_float(onGrounds[1]) * (float) Math.PI * 2.0F)
+                : 0F;
+            float bodyTorsoY = (f6 - f7) * 0.2F;
+            if (body != null) {
+                body.rotateAngleY += bodyTorsoY;
+            }
+            if (skirt != null) {
+                skirt.rotateAngleY += bodyTorsoY;
+            }
+            if (armRight != null) {
+                armRight.rotateAngleY += bodyTorsoY;
+            }
+            if (armLeft != null) {
+                armLeft.rotateAngleY += bodyTorsoY;
+            }
+            if (head != null) {
+                head.rotateAngleY -= bodyTorsoY;
+            }
+
+            // Right arm swing
+            if (onGrounds[0] > 0F && armRight != null) {
+                f6 = 1.0F - onGrounds[0];
+                f6 *= f6;
+                f6 *= f6;
+                f6 = 1.0F - f6;
+                f7 = MathHelper.sin(f6 * (float) Math.PI);
+                float headPitch = head != null ? head.rotateAngleX : 0.0F;
+                float f8 = MathHelper.sin(onGrounds[0] * (float) Math.PI) * -(headPitch - 0.7F) * 0.75F;
+                armRight.rotateAngleX -= f7 * 1.2F + f8;
+                armRight.rotateAngleY += bodyTorsoY * 2.0F;
+                armRight.rotateAngleZ += MathHelper.sin(onGrounds[0] * (float) Math.PI) * -0.4F;
+            } else if (armRight != null) {
+                armRight.rotateAngleX += bodyTorsoY;
+            }
+
+            // Left arm swing
+            if (onGrounds[1] > 0F && armLeft != null) {
+                f6 = 1.0F - onGrounds[1];
+                f6 *= f6;
+                f6 *= f6;
+                f6 = 1.0F - f6;
+                f7 = MathHelper.sin(f6 * (float) Math.PI);
+                float headPitch = head != null ? head.rotateAngleX : 0.0F;
+                float f8 = MathHelper.sin(onGrounds[1] * (float) Math.PI) * -(headPitch - 0.7F) * 0.75F;
+                armLeft.rotateAngleX -= f7 * 1.2F + f8;
+                armLeft.rotateAngleY += bodyTorsoY * 2.0F;
+                armLeft.rotateAngleZ += MathHelper.sin(onGrounds[1] * (float) Math.PI) * 0.4F;
+            } else if (armLeft != null) {
+                armLeft.rotateAngleX += bodyTorsoY;
+            }
+        }
 
         if (aimedBow && armRight != null && armLeft != null && head != null) {
             float lonGround = onGrounds[dominantArm];
@@ -639,12 +735,12 @@ public class MultiModelBedrock extends ModelMultiMMMBase {
         GL11.glPushMatrix();
         if (Arms != null && Arms[0] != null) {
             Arms[0].loadMatrix();
-            GL11.glTranslatef(0F, 0.05F, -0.05F);
+            GL11.glTranslatef(0F, 0.35F, -0.05F);
             Arms[0].renderItems(this, pEntityCaps, false, 0);
         }
         if (Arms != null && Arms[1] != null) {
             Arms[1].loadMatrix();
-            GL11.glTranslatef(0F, 0.05F, -0.05F);
+            GL11.glTranslatef(0F, 0.35F, -0.05F);
             Arms[1].renderItems(this, pEntityCaps, false, 1);
         }
         GL11.glPopMatrix();

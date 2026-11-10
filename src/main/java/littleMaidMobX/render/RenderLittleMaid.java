@@ -34,8 +34,10 @@ public class RenderLittleMaid extends RenderModelMulti {
         // modelMain.isAlphablend = true;
         // modelFATT.isAlphablend = true;
 
-        modelMain.setCapsValue(IModelCaps.caps_heldItemLeft, (Integer) 0);
-        modelMain.setCapsValue(IModelCaps.caps_heldItemRight, (Integer) 0);
+        modelMain
+            .setCapsValue(IModelCaps.caps_heldItemLeft, lmaid.mstatSwingStatus[1].getItemStack(lmaid) != null ? 1 : 0);
+        modelMain
+            .setCapsValue(IModelCaps.caps_heldItemRight, lmaid.mstatSwingStatus[0].getItemStack(lmaid) != null ? 1 : 0);
         // modelMain.setCapsValue(IModelCaps.caps_onGround, renderSwingProgress(lmaid, par9));
         modelMain.setCapsValue(
             IModelCaps.caps_onGround,
