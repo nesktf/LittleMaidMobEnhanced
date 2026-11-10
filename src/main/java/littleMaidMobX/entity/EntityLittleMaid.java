@@ -2758,10 +2758,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
         if (this.hasCustomNameTag()) {
             return this.getCustomNameTag();
         }
-        String name = StatCollector.translateToLocal("entity.lmmx++.LittleMaid.name");
-        if (name.equals("entity.lmmx++.LittleMaid.name")) {
-            name = StatCollector.translateToLocal("entity.lmmx.LittleMaid.name");
-        }
+        String name = StatCollector.translateToLocal("entity.lmmx.LittleMaid.name");
         if (name.equals("entity.lmmx.LittleMaid.name")) {
             name = StatCollector.translateToLocal("entity.LittleMaid.name");
         }
