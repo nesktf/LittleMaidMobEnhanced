@@ -108,8 +108,12 @@ public class ModelManager {
         addSearch("mmmlibx", "/assets/minecraft/textures/entity/ModelMulti/", "ModelMulti_");
         addSearch("mmmlibx", "/assets/minecraft/textures/entity/littleMaid/", "ModelMulti_");
         addSearch("mmmlibx", "/assets/minecraft/textures/entity/littleMaid/", "ModelLittleMaid_");
+        addSearch("mmmlibx", "/assets/minecraft/textures/entity/littleMaid/", "MultiModel_");
+        addSearch("mmmlibx", "/assets/minecraft/textures/entity/ModelMulti/", "MultiModel_");
         addSearch("mmmlibx", "/mob/ModelMulti/", "ModelMulti_");
         addSearch("mmmlibx", "/mob/littleMaid/", "ModelLittleMaid_");
+        addSearch("mmmlibx", "/mob/littleMaid/", "MultiModel_");
+        addSearch("mmmlibx", "/mob/ModelMulti/", "MultiModel_");
     }
 
     /**
@@ -193,9 +197,18 @@ public class ModelManager {
             }
         }
 
+        List<File> scanDirs = new ArrayList<File>();
+        if (FileManager.dirMaidPacks != null && FileManager.dirMaidPacks.isDirectory()) {
+            scanDirs.add(FileManager.dirMaidPacks);
+        }
+        if (FileManager.dirModsLittleMaidMob != null && FileManager.dirModsLittleMaidMob.isDirectory()) {
+            scanDirs.add(FileManager.dirModsLittleMaidMob);
+        }
+
         for (String[] lst : searchPrefix) {
-            // mods
-            searchFiles(FileManager.dirMods, lst, server);
+            for (File dir : scanDirs) {
+                searchFiles(dir, lst, server);
+            }
         }
 
         buildCrafterTexture();
@@ -253,15 +266,24 @@ public class ModelManager {
     }
 
     private void searchFiles(File ln, String[] lst, boolean server) {
-        Debug.texture("getTexture[%s:%s].", lst[0], lst[1]);
-        // mods
-        for (File lf : ln.listFiles()) {
+        if (ln == null || !ln.exists() || !ln.isDirectory()) {
+            return;
+        }
+        File[] files = ln.listFiles();
+        if (files == null) {
+            return;
+        }
+        Debug.texture("getTexture[%s:%s] in %s.", lst[0], lst[1], ln.getAbsolutePath());
+        for (File lf : files) {
             boolean lflag;
             if (lf.isDirectory()) {
-                // ディレクトリ
                 lflag = addTexturesDir(lf, lst, server);
             } else {
-                // zip
+                String lname = lf.getName()
+                    .toLowerCase();
+                if (lname.endsWith(".disabled") || (!lname.endsWith(".zip") && !lname.endsWith(".jar"))) {
+                    continue;
+                }
                 lflag = addTexturesZip(lf, lst, server);
             }
             Debug.texture("getTexture-append-%s-%s.", lf.getName(), lflag ? "done" : "fail");
@@ -420,12 +442,10 @@ public class ModelManager {
             try {
                 Package lpackage = LittleMaidMobX.class.getPackage();
                 Class lclass;
-                if (lpackage != null) {
-                    // cn = (new StringBuilder("")).append(".").append(cn).toString();
-                    cn = cn.replace("/", ".");
-                    System.out.println("ModelManager.addModelClass : " + cn);
+                cn = cn.replace("/", ".");
+                try {
                     lclass = FileManager.COMMON_CLASS_LOADER.loadClass(cn);
-                } else {
+                } catch (ClassNotFoundException e) {
                     lclass = Class.forName(cn);
                 }
                 if (!(ModelMultiBase.class).isAssignableFrom(lclass) || Modifier.isAbstract(lclass.getModifiers())) {
@@ -480,12 +500,10 @@ public class ModelManager {
             try {
                 Package lpackage = LittleMaidMobX.class.getPackage();
                 Class lclass;
-                if (lpackage != null) {
-                    // cn = (new StringBuilder("")).append(".").append(cn).toString();
-                    cn = cn.replace("/", ".");
-                    System.out.println("MMM_TextureManager.addModelClass : " + cn);
+                cn = cn.replace("/", ".");
+                try {
                     lclass = FileManager.COMMON_CLASS_LOADER.loadClass(cn);
-                } else {
+                } catch (ClassNotFoundException e) {
                     lclass = Class.forName(cn);
                 }
                 if (!(ModelMultiBase.class).isAssignableFrom(lclass) || Modifier.isAbstract(lclass.getModifiers())) {
@@ -553,17 +571,18 @@ public class ModelManager {
                         zipentry.getName()
                             .endsWith(".png")
                     ) {
-                        String lt1 = "mob/littleMaid";
-                        String lt2 = "mob/ModelMulti";
                         addTextureName(zipentry.getName(), pSearch);
                         if (
                             FMLCommonHandler.instance()
                                 .getSide() == Side.CLIENT
-                                && (zipentry.getName()
-                                    .startsWith(lt1)
-                                    || zipentry.getName()
-                                        .startsWith(lt2))
-                        ) ZipTexturesLoader.keys.add(zipentry.getName());
+                        ) {
+                            String name = zipentry.getName();
+                            if (name.startsWith("/")) name = name.substring(1);
+                            ZipTexturesLoader.keys.add(name);
+                            if (name.startsWith("assets/minecraft/")) {
+                                ZipTexturesLoader.keys.add(name.substring("assets/minecraft/".length()));
+                            }
+                        }
                     }
                 }
             } while (true);
@@ -625,9 +644,18 @@ public class ModelManager {
                             .replace('\\', '/');
                         int i = s.indexOf(pSearch[1]);
                         if (i > -1) {
-                            // 対象はTexture Directory
                             addTextureName(s.substring(i), pSearch);
-                            // addTextureName(s.substring(i).replace('\\', '/'));
+                            if (
+                                FMLCommonHandler.instance()
+                                    .getSide() == Side.CLIENT
+                            ) {
+                                String name = s.substring(i);
+                                if (name.startsWith("/")) name = name.substring(1);
+                                ZipTexturesLoader.keys.add(name);
+                                if (name.startsWith("assets/minecraft/")) {
+                                    ZipTexturesLoader.keys.add(name.substring("assets/minecraft/".length()));
+                                }
+                            }
                         }
                     } else {
                         // サブフォルダ分のアーカイブを検索

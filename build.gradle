@@ -1,6 +1,64 @@
-
 plugins {
   id("com.gtnewhorizons.gtnhconvention")
 }
 
 apply from: "spotless.gradle"
+
+def maidPackTasks = []
+def maidPacksDir = file("maidpacks")
+
+if (maidPacksDir.isDirectory()) {
+    maidPacksDir.listFiles().findAll { it.isDirectory() && (new File(it, "java").exists() || new File(it, "assets").exists()) }.each { packDir ->
+        def packName = packDir.name
+        def safeName = packName.replaceAll("[^a-zA-Z0-9_]", "_")
+        def hasJava = new File(packDir, "java").exists()
+        def hasAssets = new File(packDir, "assets").exists()
+
+        def compileTask = null
+        if (hasJava) {
+            compileTask = tasks.register("compileMaidPack_${safeName}", JavaCompile) {
+                group = "maidpacks"
+                description = "Compiles Java sources for maid pack '${packName}'"
+                source = fileTree(dir: "${packDir}/java", include: "**/*.java")
+                destinationDirectory = layout.buildDirectory.dir("classes/maidpacks/${packName}")
+                classpath = (sourceSets.main.output + sourceSets.main.compileClasspath).filter { !it.name.contains("jabel") }
+                options.encoding = "UTF-8"
+                options.compilerArgs = ["-proc:none"]
+                sourceCompatibility = "1.8"
+                targetCompatibility = "1.8"
+                dependsOn compileJava
+            }
+        }
+
+        def packageTask = tasks.register("packageMaidPack_${safeName}", Zip) {
+            group = "maidpacks"
+            description = "Packages maid pack '${packName}' into a zip file"
+            archiveFileName = "maidpack-${packName}.zip"
+            destinationDirectory = layout.buildDirectory.dir("libs")
+
+            if (compileTask != null) {
+                dependsOn compileTask
+                from(compileTask) {
+                    exclude "**/*.bin"
+                }
+            }
+            if (hasAssets) {
+                from("${packDir}/assets") {
+                    into("assets")
+                }
+            }
+        }
+
+        maidPackTasks << packageTask
+    }
+}
+
+tasks.register("buildMaidPacks") {
+    group = "maidpacks"
+    description = "Compiles and packages all maid packs into build/libs/"
+    dependsOn maidPackTasks
+}
+
+tasks.named("assemble").configure {
+    dependsOn "buildMaidPacks"
+}

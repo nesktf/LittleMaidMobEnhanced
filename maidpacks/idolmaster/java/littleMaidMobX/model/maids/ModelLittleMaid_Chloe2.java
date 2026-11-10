@@ -11,8 +11,9 @@ import littleMaidMobX.model.caps.IModelCaps;
 import littleMaidMobX.model.caps.ModelCapsHelper;
 import littleMaidMobX.model.maid.ModelLittleMaidBase;
 import littleMaidMobX.render.model.ModelRenderer;
+import littleMaidMobX.util.helper.Helper;
 
-public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
+public class ModelLittleMaid_Chloe2 extends ModelLittleMaidBase {
 
     // added fields
     public ModelRenderer eyeR;
@@ -37,29 +38,29 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
     protected byte legPosY;
     protected Random rand = new Random();
 
-    public ModelLittleMaid_Beverly7(StringBuilder hack) {
+    public ModelLittleMaid_Chloe2(StringBuilder hack) {
         super(hack);
     }
 
-    public ModelLittleMaid_Beverly7() {
+    public ModelLittleMaid_Chloe2() {
         this(0F);
     }
 
-    public ModelLittleMaid_Beverly7(float psize) {
+    public ModelLittleMaid_Chloe2(float psize) {
         this(psize, 0F, 128, 64);
     }
 
-    public ModelLittleMaid_Beverly7(float psize, float pyoffset, int pTextureWidth, int pTextureHeight) {
+    public ModelLittleMaid_Chloe2(float psize, float pyoffset, int pTextureWidth, int pTextureHeight) {
         super(psize, pyoffset, pTextureWidth, pTextureHeight);
     }
 
     @Override
     public void initModel(float psize, float pyoffset) {
-        offsetY = (byte) (pyoffset + 5); // Global to Local
+        offsetY = (byte) (pyoffset + 8); // Global to Local
 
         bodyPosY = 0; // Local waist height = always 0 (ORIGIN)
-        headPosY = -9; // Local neck height = 0 - upper bodyLength
-        legPosY = 4; // Lcal hip joint height = 0 + lower bodyLength
+        headPosY = -8; // Local neck height = 0 - upper bodyLength
+        legPosY = 3; // Lcal hip joint height = 0 + lower bodyLength
 
         /* HEAD */
         eyeR = new ModelRenderer(this, 0, 0);
@@ -122,40 +123,40 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
         Arms[5].setRotateAngle(3.1415926535897932384626433832795F, 0F, 0F);
 
         bipedRightArm = new ModelRenderer(this, 0, 25); // ForeArm
-        bipedRightArm.addBox(-1F, -0F, -1.5F, 2, 8, 3, psize);
+        bipedRightArm.addBox(-1F, -0F, -1.5F, 2, 7, 3, psize);
         bipedRightArm.addChild(Arms[0]);
         bipedRightArm.addChild(Arms[2]);
 
         bipedLeftArm = new ModelRenderer(this, 10, 25);
         bipedLeftArm.mirror = true;
-        bipedLeftArm.addBox(-1F, -0F, -1.5F, 2, 8, 3, psize);
+        bipedLeftArm.addBox(-1F, -0F, -1.5F, 2, 7, 3, psize);
         bipedLeftArm.addChild(Arms[1]);
         bipedLeftArm.addChild(Arms[3]);
 
         upperRightArm = new ModelRenderer(this, 0, 16); // UpperArm
-        upperRightArm.addBox(-1F, -1F, -1F, 2, 6, 3, psize);
+        upperRightArm.addBox(-1F, -1F, -1F, 2, 5, 3, psize);
         upperRightArm.addChild(bipedRightArm);
 
         upperLeftArm = new ModelRenderer(this, 10, 16);
         upperLeftArm.mirror = true;
-        upperLeftArm.addBox(-1F, -1F, -1F, 2, 6, 3, psize);
+        upperLeftArm.addBox(-1F, -1F, -1F, 2, 5, 3, psize);
         upperLeftArm.addChild(bipedLeftArm);
 
         /* LEGS */
         bipedRightLeg = new ModelRenderer(this, 0, 47); // Below Knee
-        bipedRightLeg.addBox(-1.6F, -1F, -2F, 3, 10, 4, psize);
+        bipedRightLeg.addBox(-1.6F, -1F, -2F, 3, 9, 4, psize);
 
         bipedLeftLeg = new ModelRenderer(this, 0, 47);
         bipedLeftLeg.mirror = true;
-        bipedLeftLeg.addBox(-1.4F, -1F, -2F, 3, 10, 4, psize);
+        bipedLeftLeg.addBox(-1.4F, -1F, -2F, 3, 9, 4, psize);
 
         upperRightLeg = new ModelRenderer(this, 0, 36); // Above Knee
-        upperRightLeg.addBox(-1.5F, -1F, -1.7F, 3, 7, 4, psize + 0.2F);
+        upperRightLeg.addBox(-1.5F, -1F, -2F, 3, 6, 4, psize + 0.2F);
         upperRightLeg.addChild(bipedRightLeg);
 
         upperLeftLeg = new ModelRenderer(this, 0, 36);
         upperLeftLeg.mirror = true;
-        upperLeftLeg.addBox(-1.5F, -1F, -1.7F, 3, 7, 4, psize + 0.2F);
+        upperLeftLeg.addBox(-1.5F, -1F, -2F, 3, 6, 4, psize + 0.2F);
         upperLeftLeg.addChild(bipedLeftLeg);
 
         /* SKIRT */
@@ -176,26 +177,26 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
         hemSkirtL1.addChild(hemSkirtL2);
 
         Skirt = new ModelRenderer(this, 18, 48);
-        Skirt.addBox(-4F, 0F, -2F, 8, 3, 5, psize + 0.6F);
+        Skirt.addBox(-4F, 0F, -2F, 8, 3, 5, psize + 0.3F);
         Skirt.addChild(hemSkirtR1);
         Skirt.addChild(hemSkirtL1);
 
         /* BODY */
         breastR = new ModelRenderer(this, 20, 20);
-        breastR.addBox(-3F, 0F, -3F, 3, 3, 3, psize + 0.1F);
+        breastR.addBox(-3F, 0F, -2F, 3, 2, 3, psize + 0.1F);
 
         breastL = new ModelRenderer(this, 32, 20);
         breastL.mirror = true;
-        breastL.addBox(0F, 0F, -3F, 3, 3, 3, psize + 0.1F);
+        breastL.addBox(0F, 0F, -2F, 3, 2, 3, psize + 0.1F);
 
         hipBody = new ModelRenderer(this, 18, 39);
-        hipBody.addBox(-4F, 0F, -2.4F, 8, 4, 5, psize - 0.2F);
+        hipBody.addBox(-4F, 0F, -2.4F, 8, 3, 5, psize - 0.2F);
 
         bipedBody = new ModelRenderer(this, 0, 0);
         bipedBody.setTextureOffset(20, 26)
-            .addBox(-3F, -8.5F, -2.1F, 6, 9, 4, psize); // body
+            .addBox(-3F, -7.5F, -2.1F, 6, 8, 4, psize); // body
         bipedBody.setTextureOffset(24, 16)
-            .addBox(-1F, -9.8F, -1F, 2, 2, 2, psize + 0.5F); // neck
+            .addBox(-1F, -8.8F, -1F, 2, 2, 2, psize + 0.5F); // neck
         bipedBody.addChild(upperRightArm);
         bipedBody.addChild(upperLeftArm);
         bipedBody.addChild(Arms[4]);
@@ -216,7 +217,7 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
 
     @Override
     public float getHeight() {
-        return 1.99F;
+        return 1.8F;
     }
 
     @Override
@@ -235,27 +236,27 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
         BunchR.setRotationPoint(-4.5F, -5.5F, 1.7F);
         BunchL.setRotationPoint(4.5F, -5.5F, 1.7F);
 
-        upperRightArm.setRotationPoint(-4F, bodyPosY - 7.5F, 0F);
-        bipedRightArm.setRotationPoint(0F, 5F, 0.5F);
-        Arms[0].setRotationPoint(-0.5F, 7F, 0F);
-        upperLeftArm.setRotationPoint(4F, bodyPosY - 7.5F, 0F);
-        bipedLeftArm.setRotationPoint(0F, 5F, 0.5F);
-        Arms[1].setRotationPoint(0.5F, 7F, 0F);
+        upperRightArm.setRotationPoint(-4F, bodyPosY - 6.5F, 0F);
+        bipedRightArm.setRotationPoint(0F, 4F, 0.5F);
+        Arms[0].setRotationPoint(-0.5F, 6F, 0F);
+        upperLeftArm.setRotationPoint(4F, bodyPosY - 6.5F, 0F);
+        bipedLeftArm.setRotationPoint(0F, 4F, 0.5F);
+        Arms[1].setRotationPoint(0.5F, 6F, 0F);
 
         upperRightLeg.setRotationPoint(-2F, legPosY, 0F);
-        bipedRightLeg.setRotationPoint(0F, 6F, 0F);
+        bipedRightLeg.setRotationPoint(0F, 5F, 0F);
         upperLeftLeg.setRotationPoint(2F, legPosY, 0F);
-        bipedLeftLeg.setRotationPoint(0F, 6F, 0F);
+        bipedLeftLeg.setRotationPoint(0F, 5F, 0F);
 
-        Skirt.setRotationPoint(0F, legPosY - 3F, 0F);
-        hemSkirtR1.setRotationPoint(-2F, 3F, 2F);
-        hemSkirtL1.setRotationPoint(2F, 3F, 2F);
-        hemSkirtR2.setRotationPoint(0F, 6F, -1F);
-        hemSkirtL2.setRotationPoint(0F, 6F, -1F);
+        Skirt.setRotationPoint(0F, legPosY - 2F, 0F);
+        hemSkirtR1.setRotationPoint(-2F, 2F, 2F);
+        hemSkirtL1.setRotationPoint(2F, 2F, 2F);
+        hemSkirtR2.setRotationPoint(0F, 5F, -1F);
+        hemSkirtL2.setRotationPoint(0F, 5F, -1F);
 
         bipedBody.setRotationPoint(0F, bodyPosY, 0F);
-        breastR.setRotationPoint(-0.5F, -7.2F, -2.1F);
-        breastL.setRotationPoint(0.5F, -7.2F, -2.1F);
+        breastR.setRotationPoint(-0.5F, -6.2F, -2.1F);
+        breastL.setRotationPoint(0.5F, -6.2F, -2.1F);
         hipBody.setRotationPoint(0F, 0F, 0F);
 
         mainFrame.setRotationPoint(0F, offsetY, 0F);
@@ -351,7 +352,7 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
             eyeL.rotationPointY += fe2 * 0.05F;
         }
 
-        float blinkFreq = 0.20F;
+        float blinkFreq = 0.18F;
         blinkFreq += 1F - (float) ModelCapsHelper.getCapsValueInt(pEntityCaps, caps_health) / 20F;
         float idTicks = entityTicksExisted + pRenderPartialTicks + entityIdFactor;
         float f3 = idTicks * 0.01F;
@@ -422,7 +423,8 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
         if (isRiding) {
 
             EntityLivingBase ent = (EntityLivingBase) ModelCapsHelper.getCapsValue(pEntityCaps, caps_Entity);
-            if (ent.ridingEntity instanceof EntityPlayer || ent.ridingEntity instanceof EntityLittleMaid) {
+            Object riding = Helper.getRidingEntity(ent);
+            if (riding instanceof EntityPlayer || riding instanceof EntityLittleMaid) {
                 bipedRightArm.rotateAngleX -= 1.3F;
                 bipedLeftArm.rotateAngleX -= 1.3F;
                 upperRightLeg.rotateAngleX -= 1.1F;
@@ -431,9 +433,9 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
                 bipedLeftLeg.rotateAngleX += 0.9F;
                 upperRightLeg.rotateAngleY += 0.3F;
                 upperLeftLeg.rotateAngleY -= 0.3F;
-                mainFrame.rotationPointY += 12F;
+                mainFrame.rotationPointY += 8F;
                 mainFrame.rotationPointZ += 1F;
-            } else if (ent.ridingEntity instanceof EntityAnimal) {
+            } else if (riding instanceof EntityAnimal) {
                 bipedRightArm.rotateAngleX -= 1.3F;
                 bipedLeftArm.rotateAngleX -= 1.3F;
                 upperRightLeg.rotateAngleX -= 1.0F;
@@ -476,7 +478,7 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
                 }
             }
         } else {
-            if (isSneak || !ModelCapsHelper.getCapsValueBoolean(pEntityCaps, caps_PosBlockAir, 0D, 2D, 0D)) {
+            if (isSneak) {
                 if (isWait) {
                     upperRightLeg.rotateAngleX -= 0.1F;
                     upperLeftLeg.rotateAngleX -= 0.2F;
@@ -485,7 +487,7 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
                     mainFrame.rotationPointY += 6F;
                 } else {
                     bipedBody.rotateAngleX += 0.7F;
-                    hipBody.rotateAngleX -= 0.1F + (float) Math.sin(ticksExisted * 0.057F) * 0.03F;
+                    hipBody.rotateAngleX -= 0.1F + (float) Math.sin(ticksExisted * 0.060F) * 0.03F;
                     upperRightArm.rotateAngleX += 0.1F;
                     upperLeftArm.rotateAngleX += 0.1F;
                     upperRightLeg.rotateAngleY -= 0.07F;
@@ -497,8 +499,8 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
                     mainFrame.rotationPointY += 0.4F;
                 }
 
-                float f15 = (float) Math.sin(f * 0.6565F); // wave1
-                float f16 = (float) Math.cos(f * 0.6565F); // wave2
+                float f15 = (float) Math.sin(f * 0.6767F); // wave1
+                float f16 = (float) Math.cos(f * 0.6767F); // wave2
                 float f22 = f15 > f16 ? f15 : f16; // upper wave
                 float f35 = f15 < f16 ? f15 : f16; // lower wave
 
@@ -514,13 +516,13 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
 
                 bipedBody.rotateAngleY -= f15 * 0.1F * f1;
                 hipBody.rotateAngleY += f15 * 0.1F * f1 - bipedBody.rotateAngleY;
-                breastR.rotateAngleX -= f16 * f16 * 0.18F * f1 - (float) Math.sin(ticksExisted * 0.057F) * 0.05F;
-                breastL.rotateAngleX -= f16 * f16 * 0.18F * f1 - (float) Math.sin(ticksExisted * 0.057F) * 0.05F;
+                breastR.rotateAngleX -= f16 * f16 * 0.18F * f1 - (float) Math.sin(ticksExisted * 0.060F) * 0.05F;
+                breastL.rotateAngleX -= f16 * f16 * 0.18F * f1 - (float) Math.sin(ticksExisted * 0.060F) * 0.05F;
                 mainFrame.rotationPointY += f16 * f16 * 0.5F;
             } else {
 
-                float f15 = (float) Math.sin(f * 0.4444F); // wave1
-                float f16 = (float) Math.cos(f * 0.4444F); // wave2
+                float f15 = (float) Math.sin(f * 0.5050F); // wave1
+                float f16 = (float) Math.cos(f * 0.5050F); // wave2
                 float f22 = f15 > f16 ? f15 : f16; // upper wave
                 float f35 = f15 < f16 ? f15 : f16; // lower wave
 
@@ -536,8 +538,8 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
 
                 bipedBody.rotateAngleY -= f15 * 0.2F * f1;
                 hipBody.rotateAngleY += f15 * 0.3F * f1 - bipedBody.rotateAngleY;
-                breastR.rotateAngleX -= f16 * f16 * 0.18F * f1 - (float) Math.sin(ticksExisted * 0.057F) * 0.05F;
-                breastL.rotateAngleX -= f16 * f16 * 0.18F * f1 - (float) Math.sin(ticksExisted * 0.057F) * 0.05F;
+                breastR.rotateAngleX -= f16 * f16 * 0.18F * f1 - (float) Math.sin(ticksExisted * 0.060F) * 0.05F;
+                breastL.rotateAngleX -= f16 * f16 * 0.18F * f1 - (float) Math.sin(ticksExisted * 0.060F) * 0.05F;
                 mainFrame.rotationPointY += f16 * f16 * 0.1F;
             }
         }
@@ -586,12 +588,12 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
         }
 
         if (isWait) {
-            upperRightArm.rotateAngleX += (float) Math.sin(ticksExisted * 0.057F) * 0.05F - 0.5F;
+            upperRightArm.rotateAngleX += (float) Math.sin(ticksExisted * 0.060F) * 0.05F - 0.5F;
             upperRightArm.rotateAngleZ -= 0.3F;
             Arms[0].rotateAngleZ -= 1.5F;
             Arms[0].rotateAngleX -= 0.5F;
             Arms[0].rotateAngleY += 1.5F;
-            upperLeftArm.rotateAngleX += (float) Math.sin(ticksExisted * 0.057F) * 0.05F - 0.5F;
+            upperLeftArm.rotateAngleX += (float) Math.sin(ticksExisted * 0.060F) * 0.05F - 0.5F;
             upperLeftArm.rotateAngleZ += 0.3F;
             Arms[1].rotateAngleZ += 1.5F;
             Arms[1].rotateAngleX -= 0.5F;
@@ -612,8 +614,8 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
                 upperLeftArm.rotateAngleX -= f6 * 1.2F - f7 * 0.4F;
                 upperRightArm.rotateAngleZ += (float) Math.cos(ticksExisted * 0.08F) * 0.03F + 0.05F;
                 upperLeftArm.rotateAngleZ -= (float) Math.cos(ticksExisted * 0.08F) * 0.03F + 0.05F;
-                upperRightArm.rotateAngleX += (float) Math.sin(ticksExisted * 0.057F) * 0.05F;
-                upperLeftArm.rotateAngleX -= (float) Math.sin(ticksExisted * 0.057F) * 0.05F;
+                upperRightArm.rotateAngleX += (float) Math.sin(ticksExisted * 0.060F) * 0.05F;
+                upperLeftArm.rotateAngleX -= (float) Math.sin(ticksExisted * 0.060F) * 0.05F;
                 upperRightArm.rotateAngleX += bipedHead.rotateAngleX;
                 upperLeftArm.rotateAngleX += bipedHead.rotateAngleX;
                 upperRightArm.rotateAngleY += bipedHead.rotateAngleY;
@@ -625,8 +627,8 @@ public class ModelLittleMaid_Beverly7 extends ModelLittleMaidBase {
                 bipedLeftArm.rotateAngleZ -= 0.05F;
                 upperRightArm.rotateAngleZ += (float) Math.cos(ticksExisted * 0.08F) * 0.03F + 0.05F;
                 upperLeftArm.rotateAngleZ -= (float) Math.cos(ticksExisted * 0.08F) * 0.03F + 0.05F;
-                upperRightArm.rotateAngleX += (float) Math.sin(ticksExisted * 0.057F) * 0.05F;
-                upperLeftArm.rotateAngleX -= (float) Math.sin(ticksExisted * 0.057F) * 0.05F;
+                upperRightArm.rotateAngleX += (float) Math.sin(ticksExisted * 0.060F) * 0.05F;
+                upperLeftArm.rotateAngleX -= (float) Math.sin(ticksExisted * 0.060F) * 0.05F;
             }
         }
 

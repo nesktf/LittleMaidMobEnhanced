@@ -1,4 +1,7 @@
+entity.lmmx++.LittleMaid.name=リトルメイド
+entity.lmmx.LittleMaid.name=リトルメイド
 entity.lmmx.LittleMaidX.name=リトルメイド
+entity.LittleMaid.name=リトルメイド
 
 item.lmmx:spawn_lmmx_egg.name=リトルメイド
 

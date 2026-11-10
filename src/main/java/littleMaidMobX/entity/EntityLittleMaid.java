@@ -88,6 +88,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -2484,6 +2485,15 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
                                 return true;
                             }
                         }
+                        if (itemstack1.getItem() == Items.name_tag && itemstack1.hasDisplayName()) {
+                            if (!worldObj.isRemote) {
+                                setCustomNameTag(itemstack1.getDisplayName());
+                                setAlwaysRenderNameTag(true);
+                                Helper.decPlayerInventory(par1EntityPlayer, -1, 1);
+                            }
+                            return true;
+                        }
+
                         if (isRemainsContract()) {
 
                             if (itemstack1.getItem() == Items.sugar) {
@@ -2741,6 +2751,21 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
     @Override
     public EntityLivingBase getOwner() {
         return getMaidMasterEntity();
+    }
+
+    @Override
+    public String getCommandSenderName() {
+        if (this.hasCustomNameTag()) {
+            return this.getCustomNameTag();
+        }
+        String name = StatCollector.translateToLocal("entity.lmmx++.LittleMaid.name");
+        if (name.equals("entity.lmmx++.LittleMaid.name")) {
+            name = StatCollector.translateToLocal("entity.lmmx.LittleMaid.name");
+        }
+        if (name.equals("entity.lmmx.LittleMaid.name")) {
+            name = StatCollector.translateToLocal("entity.LittleMaid.name");
+        }
+        return name;
     }
 
     public String getMaidMaster() {

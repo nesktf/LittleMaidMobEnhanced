@@ -3,9 +3,6 @@ package littleMaidMobX.model.maids;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-
 import littleMaidMobX.model.caps.IModelCaps;
 import littleMaidMobX.model.caps.ModelCapsHelper;
 import littleMaidMobX.model.modchu.ModelModchuBaseSR2;
@@ -753,9 +750,9 @@ public class MultiModel_Yomu extends ModelModchuBaseSR2 {
 
         float f3 = (float) ticksExisted + f4 + ModelCapsHelper.getCapsValueFloat(this, entityCaps, caps_entityIdFactor);
         int IdIndex;
-        float renderYawOffset = ((EntityLivingBase) entityliving).renderYawOffset;
+        float renderYawOffset = Helper.getRenderYawOffset(entityliving);
         // Modchu_AS.getFloat(Modchu_AS.entityLivingBaseRenderYawOffset, entityliving);
-        int entityId = ((Entity) entityliving).getEntityId();
+        int entityId = Helper.getEntityId(entityliving);
         if (ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isOpenInv, entityliving)) {
             try {
                 IdIndex = IdList.indexOf(entityId);
@@ -810,7 +807,7 @@ public class MultiModel_Yomu extends ModelModchuBaseSR2 {
         Object entity = entityCaps.getCapsValue(entityCaps.caps_Entity);
         if (entity != null);
         else return;
-        int entityId = ((Entity) entity).getEntityId();
+        int entityId = Helper.getEntityId(entity);
         shiftArray(HanreiC.rotationPointX, HanreiC.rotationPointY, HanreiC.rotationPointZ);
         HeadMount.setRotationPoint(0.0F, 1.0F, 0.0F);
 

@@ -18,7 +18,7 @@ import littleMaidMobX.io.Config;
 public class LittleMaidMobGuiConfig extends GuiConfig {
 
     public LittleMaidMobGuiConfig(GuiScreen guiScreen) {
-        super(guiScreen, getConfigElements(), LittleMaidMobX.DOMAIN, false, false, "Little Maid Mob Settings");
+        super(guiScreen, getConfigElements(), LittleMaidMobX.MODID, false, false, "Little Maid Mob Settings");
     }
 
     private static List<IConfigElement> getConfigElements() {

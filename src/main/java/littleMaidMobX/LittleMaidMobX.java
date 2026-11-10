@@ -51,22 +51,24 @@ import littleMaidMobX.util.helper.Helper;
 import littleMaidMobX.util.transform.Transformer;
 
 @Mod(
-    modid = LittleMaidMobX.DOMAIN,
-    name = LittleMaidMobX.DOMAIN,
-    version = "10",
+    modid = LittleMaidMobX.MODID,
+    name = LittleMaidMobX.NAME,
+    version = Tags.VERSION,
     guiFactory = "littleMaidMobX.gui.LittleMaidMobGuiFactory")
 
 public class LittleMaidMobX {
 
     public static final String DOMAIN = "lmmx";
-    public static final String VERSION = "1.4.4";
+    public static final String MODID = "lmmx++";
+    public static final String NAME = "LittleMaidMobX++";
+    public static final String VERSION = Tags.VERSION;
 
     public static Achievement ac_Contract;
 
     @SidedProxy(clientSide = "littleMaidMobX.network.ProxyClient", serverSide = "littleMaidMobX.network.ProxyServer")
     public static ProxyCommon proxy;
 
-    @Instance(DOMAIN)
+    @Instance(MODID)
     public static LittleMaidMobX instance;
 
     public static ItemSpawnEgg spawnEgg;
@@ -287,7 +289,7 @@ public class LittleMaidMobX {
 
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-        if (eventArgs.modID.equals(LittleMaidMobX.DOMAIN)) {
+        if (eventArgs.modID.equals(LittleMaidMobX.MODID) || eventArgs.modID.equals(LittleMaidMobX.DOMAIN)) {
             Config.syncConfig();
             Config.saveConfig();
         }

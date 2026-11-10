@@ -1,7 +1,5 @@
 package littleMaidMobX.model.maids;
 
-import net.minecraft.entity.Entity;
-
 import littleMaidMobX.model.caps.IModelCaps;
 import littleMaidMobX.model.caps.ModelCapsHelper;
 import littleMaidMobX.model.modchu.ModelModchuBaseSR2;
@@ -133,7 +131,7 @@ public class MultiModel_DressYukari extends ModelModchuBaseSR2 {
         Object entityliving = entityCaps.getCapsValue(caps_Entity);
         if (entityliving != null);
         else return;
-        int entityId = ((Entity) entityliving).getEntityId();
+        int entityId = Helper.getEntityId(entityliving);
         IdOffset = entityId;
         pink.setVisible(ModelCapsHelper.getCapsValueBoolean(this, entityCaps, caps_isLookSuger));
     }
