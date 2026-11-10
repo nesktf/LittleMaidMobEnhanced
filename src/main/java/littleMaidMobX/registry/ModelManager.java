@@ -31,7 +31,6 @@ import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import littleMaidMobX.LittleMaidMobX;
-import littleMaidMobX.io.Config;
 import littleMaidMobX.io.FileManager;
 import littleMaidMobX.io.ZipTexturesLoader;
 import littleMaidMobX.model.maid.ModelMultiBase;
@@ -95,7 +94,7 @@ public class ModelManager {
     protected List<String[]> searchPrefix = new ArrayList<String[]>();
 
     public static final String[] searchFileNamePrefix = new String[] { "littleMaidMob", "mmmlibx", "ModelMulti",
-        "LittleMaidMob", "MultiModel" };
+        "LittleMaidMob", "MultiModel", "MultiModelBedrock" };
 
     public void init() {
         // 検索対象ファイル名を登録します。
@@ -110,10 +109,14 @@ public class ModelManager {
         addSearch("mmmlibx", "/assets/minecraft/textures/entity/littleMaid/", "ModelLittleMaid_");
         addSearch("mmmlibx", "/assets/minecraft/textures/entity/littleMaid/", "MultiModel_");
         addSearch("mmmlibx", "/assets/minecraft/textures/entity/ModelMulti/", "MultiModel_");
+        addSearch("mmmlibx", "/assets/minecraft/textures/entity/ModelMulti/", "MultiModelBedrock_");
+        addSearch("mmmlibx", "/assets/minecraft/textures/entity/littleMaid/", "MultiModelBedrock_");
         addSearch("mmmlibx", "/mob/ModelMulti/", "ModelMulti_");
         addSearch("mmmlibx", "/mob/littleMaid/", "ModelLittleMaid_");
         addSearch("mmmlibx", "/mob/littleMaid/", "MultiModel_");
         addSearch("mmmlibx", "/mob/ModelMulti/", "MultiModel_");
+        addSearch("mmmlibx", "/mob/ModelMulti/", "MultiModelBedrock_");
+        addSearch("mmmlibx", "/mob/littleMaid/", "MultiModelBedrock_");
     }
 
     /**
@@ -224,6 +227,16 @@ public class ModelManager {
             } else {
                 if (modelMap.containsKey(ltb.modelName)) {
                     ltb.setModels(ltb.modelName, modelMap.get(ltb.modelName), ldm);
+                } else {
+                    for (String mName : modelMap.keySet()) {
+                        if (ltb.textureName.equals(mName) || ltb.textureName.endsWith("_" + mName)) {
+                            String pkg = ltb.textureName.equals(mName) ? ""
+                                : ltb.textureName.substring(0, ltb.textureName.length() - mName.length() - 1);
+                            ltb.packageName = pkg;
+                            ltb.setModels(mName, modelMap.get(mName), ldm);
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -461,12 +474,10 @@ public class ModelManager {
                 mlm[2] = cm.newInstance(lsize[1]);
                 modelMap.put(pn, mlm);
                 Debug.model("getModelClass-%s:%s", pn, cn);
-            } catch (Exception exception) {
+            } catch (Throwable t) {
                 Debug.model("getModelClass-Exception: %s", fname);
-                if (Config.isDebugModels) exception.printStackTrace();
-            } catch (Error error) {
-                Debug.model("getModelClass-Error: %s", fname);
-                if (Config.isDebugModels) error.printStackTrace();
+                System.err.println("Failed to load model class " + fname + ": " + t);
+                t.printStackTrace();
             }
         }
     }
@@ -518,12 +529,10 @@ public class ModelManager {
                 mlm[2] = mlm[0];
                 modelMap.put(pn, mlm);
                 Debug.model("getModelClassServer-%s:%s", pn, mlm);
-            } catch (Exception exception) {
+            } catch (Throwable t) {
                 Debug.model("getModelClassServer-Exception: %s", fname);
-                if (Config.isDebugModels) exception.printStackTrace();
-            } catch (Error error) {
-                Debug.model("getModelClass-Error: %s", fname);
-                if (Config.isDebugModels) error.printStackTrace();
+                System.err.println("Failed to load model class server " + fname + ": " + t);
+                t.printStackTrace();
             }
         }
     }

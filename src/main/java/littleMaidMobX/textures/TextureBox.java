@@ -70,6 +70,15 @@ public class TextureBox extends TextureBoxBase {
     public ResourceLocation getTextureName(int pIndex) {
         if (textures.containsKey(pIndex)) {
             return textures.get(pIndex);
+        } else if (pIndex >= ModelManager.tx_wild && pIndex <= (ModelManager.tx_wild + 0x0f)) {
+            int contractIdx = pIndex - ModelManager.tx_wild;
+            if (textures.containsKey(contractIdx)) {
+                return textures.get(contractIdx);
+            } else if (textures.containsKey(0)) {
+                return textures.get(0);
+            }
+        } else if (pIndex >= 0x00 && pIndex <= 0x0f && textures.containsKey(0)) {
+            return textures.get(0);
         } else if (pIndex >= ModelManager.tx_eyecontract && pIndex < (16 + ModelManager.tx_eyecontract)) {
             return getTextureName(ModelManager.tx_oldeye);
         } else if (pIndex >= ModelManager.tx_eyewild && pIndex < (16 + ModelManager.tx_eyewild)) {
@@ -142,17 +151,29 @@ public class TextureBox extends TextureBoxBase {
                     li |= 1 << (i & 0x0f);
                 }
             }
+            if (li == 0) {
+                li = getContractColorBits();
+            }
             wildColor = li;
         }
         return wildColor;
     }
 
     public boolean hasColor(int pIndex) {
-        return textures.containsKey(pIndex);
+        return textures.containsKey(pIndex) || (textures.containsKey(0) && textures.size() == 1);
     }
 
     public boolean hasColor(int pIndex, boolean pContract) {
-        return textures.containsKey(pIndex + (pContract ? 0 : ModelManager.tx_wild));
+        if (textures.containsKey(pIndex + (pContract ? 0 : ModelManager.tx_wild))) {
+            return true;
+        }
+        if (!pContract && textures.containsKey(pIndex)) {
+            return true;
+        }
+        if (textures.containsKey(0) && textures.size() == 1) {
+            return true;
+        }
+        return false;
     }
 
     public boolean hasArmor() {
